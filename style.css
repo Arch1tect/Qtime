@@ -12,12 +12,43 @@ table {
   float: right;
   text-align: center;
 }
+#qtimeTitle {
+  font-size: 72px;
+  font-weight: bold;
+  color: deepskyblue;
+}
+#durationSliderWrapper {
+  width: 850px;
+  margin: auto;
+  margin-bottom: 100px;
+}
+#durationSlider {
+  width: 100%;
+  margin-top: 30px;
 
-#search {
-  margin-bottom: 10px;
+}
+#qtime {
+  width: 900px;
+  margin: auto;
 }
 
+#search input {
+  border: 3px solid deepskyblue;
+  margin-bottom: 10px;
+  width: 175px;
+  font-size: larger;
+  float: left;
+}
+select option{
+  color: deepskyblue;
+}
+select option:hover{
+  background-color: deepskyblue;
+  color: white;
+}
 #select-category {
+  border: 3px solid deepskyblue;
+
   font-size: 50px;
   width: 180px;
   text-align: center;

@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title>Qtime</title>
     <link rel="stylesheet" href="style.css">
-    <script src="vue.js"></script>
+    <link rel="stylesheet" href="nouislider.min.css">
+
     </head>
   <body>
-
+      
     <!-- component template -->
     <script type="text/x-template" id="grid-template">
       <table>
@@ -27,6 +28,7 @@
           <tr v-for="
             entry in data
             | filterBy filterKey in 'title'
+            | filterBy filterByDuration
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
             <td v-for="key in columns">
@@ -35,7 +37,9 @@
           </tr>
         </tbody>
       </table>
-      
+
+
+
       <select id="select-category" v-model="selectedCategory" multiple>
         <option v-for="option in options" v-bind:value="option.value">
           {{ option.text }}
@@ -48,12 +52,17 @@
 
 
 
+    
+    <center><div id="qtimeTitle">Qtime</div></center>
+    <div id="durationSliderWrapper">
+      <div id="durationSlider"></div>
+    </div>
+    
 
     <div id="qtime">
       <form id="search">
-        Search <input name="query" v-model="searchQuery">
+        <input name="query" placeholder="Search..." v-model="searchQuery">
       </form>
-
 
 
       <qtime-grid
@@ -63,6 +72,10 @@
       </qtime-grid>
     </div>
 
+
+    <script src="jquery-3.1.0.min.js"></script>
+    <script src="vue.js"></script>
+    <script src="nouislider.min.js"></script>
     <script src="grid.js"></script>
 
   </body>
