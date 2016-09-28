@@ -31,7 +31,7 @@
             | filterBy filterByDuration
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
-            <td v-for="key in columns">
+            <td contenteditable="true"  v-on:blur="cellContentChanged" v-for="key in columns" data-name="{{key}}" data-index="{{entry.index}}">
               {{entry[key]}}
             </td>
           </tr>
@@ -64,11 +64,23 @@
         <input name="query" placeholder="Search..." v-model="searchQuery">
       </form>
 
+      <table id="addEntry">
+        
+        <tbody>
+          <tr>
+            <td><input v-model="newEntryTitle" type="text"/></td>
+            <td><input v-model="newEntryDuration" type="text"/></td>
+            <td><input v-model="newEntryCategory" type="text"/></td>
+            <td><input v-model="newEntryNote" type="text"/><button v-on:click="addEntry" type="button" id="addEntryBtn">+</button></td>
+          </tr>
+        </tbody>
+      </table>
 
       <qtime-grid
         :data="gridData"
         :columns="gridColumns"
         :filter-key="searchQuery">
+
       </qtime-grid>
     </div>
 

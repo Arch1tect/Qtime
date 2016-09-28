@@ -32,6 +32,18 @@ Vue.component('qtime-grid', {
   },
   methods: {
 
+    cellContentChanged: function (event) {
+      var rowIndex = event.target.dataset.index;
+      var colName = event.target.dataset.name;
+      var val = event.target.textContent;
+      console.log('rowIndex '+rowIndex );
+      console.log('colName '+colName);
+      console.log('innerText '+event.target.innerText);
+      qtime.$data.gridData[rowIndex][colName] = val;
+
+      
+    },
+
     sortBy: function (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
@@ -66,13 +78,27 @@ var qtime = new Vue({
     gridColumns: ['title', 'duration', 'category', 'note'],
     gridData: [
 
-      { title: 'Watchmen', duration: 186, category: 'movie', note: 'Hulu'},
-      { title: 'Mob Psycho 100', duration: 25, category: 'anime', note: 'Bilibili'},
-      { title: 'Intersteller', duration: 150, category: 'movie', note: 'Hulu'},
-      { title: '东京暗响', duration: 25, category: 'anime', note: 'Hulu'},
-      { title: 'South Park', duration: 20, category: 'show', note: 'Hulu'},
-      { title: '齐神', duration: 5, category: 'anime', note: 'Bilibili'}
-    ]
+      { index:0, title: 'Watchmen', duration: 186, category: 'movie', note: 'Hulu'},
+      { index:1, title: 'Mob Psycho 100', duration: 25, category: 'anime', note: 'Bilibili'},
+      { index:2, title: 'Intersteller', duration: 150, category: 'movie', note: 'Hulu'},
+      { index:3, title: '东京暗响', duration: 25, category: 'anime', note: 'Hulu'},
+      { index:4, title: 'South Park', duration: 20, category: 'show', note: 'Hulu'},
+      { index:5, title: '齐神', duration: 5, category: 'anime', note: 'Bilibili'}
+    ],
+    newEntryTitle: 'Title',
+    newEntryDuration: '10',
+    newEntryCategory: 'movie',
+    newEntryNote: 'Hulu'
+  },
+  methods: {
+    addEntry: function (event) {
+      this.gridData.push({index:this.gridData.length, title: this.newEntryTitle,
+        duration: this.newEntryDuration, category: this.newEntryCategory, note: this.newEntryNote});
+      this.newEntryTitle = '';
+      this.newEntryDuration = '';
+      this.newEntryCategory = '';
+      this.newEntryNote = '';
+    }
   }
 })
 
@@ -110,6 +136,7 @@ durationSlider.noUiSlider.on('update', function( values, handle ) {
     qtime.$children[0].$set('durationMin',values[handle]);
   }
 });
+
 
 
 
