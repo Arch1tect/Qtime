@@ -81,73 +81,68 @@ Vue.component('qtime-grid', {
   }
 })
 
-// bootstrap the qtime
-var qtime = new Vue({
-  el: '#qtime',
-  data: {
-    searchQuery: '',
-    gridColumns: ['title', 'duration', 'category', 'note'],
-    gridData: [
+$.get("/api/data", function(jsonData, status){
 
-      { index:0, title: 'Watchmen', duration: 186, category: 'movie', note: 'Hulu'},
-      { index:1, title: 'Mob Psycho 100', duration: 25, category: 'anime', note: 'Bilibili'},
-      { index:2, title: 'Intersteller', duration: 150, category: 'movie', note: 'Hulu'},
-      { index:3, title: '东京暗响', duration: 25, category: 'anime', note: 'Hulu'},
-      { index:4, title: 'South Park', duration: 20, category: 'show', note: 'Hulu'},
-      { index:5, title: '齐神', duration: 5, category: 'anime', note: 'Bilibili'}
-    ],
-    newEntryTitle: '',
-    newEntryDuration: '',
-    newEntryCategory: '',
-    newEntryNote: ''
-  },
-  methods: {
-    addEntry: function (event) {
-      this.gridData.push({index:this.gridData.length, title: this.newEntryTitle,
-        duration: this.newEntryDuration, category: this.newEntryCategory, note: this.newEntryNote});
-      this.newEntryTitle = '';
-      this.newEntryDuration = '';
-      this.newEntryCategory = '';
-      this.newEntryNote = '';
-    }
-  }
-})
-
-// create duration slider
-var durationSlider = document.getElementById('durationSlider');
-
-noUiSlider.create(durationSlider, {
-  start: [ 0, 100 ], // Handle start position
-  step: 1, // Slider moves in increments of '10'
-  margin: 5, // Handles must be more than '20' apart
-  connect: true, // Display a colored bar between the handles
-  behaviour: 'tap-drag', // Move handle on tap, bar is draggable
-  range: { // Slider can select '0' to '100'
-    'min': DURATION_MIN,
-    'max': DURATION_MAX
-  },
-  tooltips: true,
-  format: {
-    to: function ( value ) {
-      if(value>=DURATION_MAX)
-        return 'INF';
-    return value;
+  // bootstrap the qtime
+  var qtime = new Vue({
+    el: '#qtime',
+    data: {
+      searchQuery: '',
+      gridColumns: ['title', 'duration', 'category', 'note'],
+      gridData: jsonData.array,
+      newEntryTitle: '',
+      newEntryDuration: '',
+      newEntryCategory: '',
+      newEntryNote: ''
     },
-    from: function ( value ) {
-      return value;
+    methods: {
+      addEntry: function (event) {
+        this.gridData.push({index:this.gridData.length, title: this.newEntryTitle,
+          duration: this.newEntryDuration, category: this.newEntryCategory, note: this.newEntryNote});
+        this.newEntryTitle = '';
+        this.newEntryDuration = '';
+        this.newEntryCategory = '';
+        this.newEntryNote = '';
+      }
     }
-  }
+  })
 
-});
-// When the slider value changes, update the input and span
-durationSlider.noUiSlider.on('update', function( values, handle ) {
-  if ( handle ) {
-    qtime.$children[0].$set('durationMax',values[handle]);
-  } else {
-    qtime.$children[0].$set('durationMin',values[handle]);
-  }
-});
+  // create duration slider
+  var durationSlider = document.getElementById('durationSlider');
 
+  noUiSlider.create(durationSlider, {
+    start: [ 0, 100 ], // Handle start position
+    step: 1, // Slider moves in increments of '10'
+    margin: 5, // Handles must be more than '20' apart
+    connect: true, // Display a colored bar between the handles
+    behaviour: 'tap-drag', // Move handle on tap, bar is draggable
+    range: { // Slider can select '0' to '100'
+      'min': DURATION_MIN,
+      'max': DURATION_MAX
+    },
+    tooltips: true,
+    format: {
+      to: function ( value ) {
+        if(value>=DURATION_MAX)
+          return 'INF';
+      return value;
+      },
+      from: function ( value ) {
+        return value;
+      }
+    }
+
+  });
+  // When the slider value changes, update the input and span
+  durationSlider.noUiSlider.on('update', function( values, handle ) {
+    if ( handle ) {
+      qtime.$children[0].$set('durationMax',values[handle]);
+    } else {
+      qtime.$children[0].$set('durationMin',values[handle]);
+    }
+  });
+    
+});
 
 
 
