@@ -32,14 +32,23 @@ Vue.component('qtime-grid', {
   },
   methods: {
 
+    startEdit: function(event) {
+      $(event.target).addClass('yellowBackground');
+    },
+
     cellContentChanged: function (event) {
       var rowIndex = event.target.dataset.index;
       var colName = event.target.dataset.name;
-      var val = event.target.textContent;
-      console.log('rowIndex '+rowIndex );
-      console.log('colName '+colName);
-      console.log('innerText '+event.target.innerText);
+      var val = $(event.target).text();
+      // console.log('rowIndex '+rowIndex );
+      // console.log('colName '+colName);
+      // console.log('innerText '+event.target.innerText);
       qtime.$data.gridData[rowIndex][colName] = val;
+      $(event.target).text(val); //added this line because of a bug
+      // The bug is when adding a cell that's empty then edit that cell
+      // the value can be saved correctly to gridData, but rendered twice,
+      // so entering 'a' will show 'aa'
+      $(event.target).removeClass('yellowBackground');
 
       
     },
@@ -50,6 +59,8 @@ Vue.component('qtime-grid', {
     },
 
     filterByDuration: function (entry) {
+      if (isNaN(entry.duration))
+        return true;
       var durMax = this.durationMax === 'INF' ? 99999 : this.durationMax;
       return entry.duration >= this.durationMin && entry.duration <= durMax;
     },
@@ -85,10 +96,10 @@ var qtime = new Vue({
       { index:4, title: 'South Park', duration: 20, category: 'show', note: 'Hulu'},
       { index:5, title: '齐神', duration: 5, category: 'anime', note: 'Bilibili'}
     ],
-    newEntryTitle: 'Title',
-    newEntryDuration: '10',
-    newEntryCategory: 'movie',
-    newEntryNote: 'Hulu'
+    newEntryTitle: '',
+    newEntryDuration: '',
+    newEntryCategory: '',
+    newEntryNote: ''
   },
   methods: {
     addEntry: function (event) {
