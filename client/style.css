@@ -12,6 +12,9 @@ table {
   float: right;
   text-align: center;
 }
+#entryGrid {
+  margin-bottom: 100px;
+}
 #qtimeTitle {
   font-size: 72px;
   font-weight: bold;
