@@ -33,7 +33,7 @@ Vue.component('qtime-grid', {
   methods: {
 
     startEdit: function(event) {
-      $(event.target).addClass('yellowBackground');
+      $(event.target).addClass('editingBackground');
     },
 
     cellContentChanged: function (event) {
@@ -48,7 +48,7 @@ Vue.component('qtime-grid', {
       // The bug is when adding a cell that's empty then edit that cell
       // the value can be saved correctly to gridData, but rendered twice,
       // so entering 'a' will show 'aa'
-      $(event.target).removeClass('yellowBackground');
+      $(event.target).removeClass('editingBackground');
 
       
     },

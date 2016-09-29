@@ -33,7 +33,7 @@ table {
 }
 
 #search input {
-  border: 3px solid deepskyblue;
+  /*border: 3px solid deepskyblue;*/
   margin-bottom: 10px;
   width: 175px;
   font-size: larger;
@@ -48,7 +48,6 @@ select option:hover{
 }
 #select-category {
   border: 3px solid deepskyblue;
-
   font-size: 50px;
   width: 180px;
   text-align: center;
@@ -68,13 +67,10 @@ tr {
 tr:nth-child(even) {
   background: #f1f1f1;
 }
-table input {
-  width: 100%;
-  border: none;
-  font-size: larger;
-}
+
 th, td {  
   width: 120px;
+  max-width: 120px;
   padding: 10px 20px;
 }
 
@@ -82,24 +78,29 @@ td:focus {
   outline:0;
 }
 
-.yellowBackground {
-  background-color: yellow;
+.editingBackground {
+  background-color: #faffbd;;
 }
 #addEntry {
   border: none;
 }
 #addEntry td {
   padding: 0px;
-  width: 158px;
+  max-width: 150px;
+  width: 150px;
   border: 3px dashed #e9e9e9;
 }
 #addEntry input {
   height: 100%;
+  width: 100%;
+  border: none;
+  font-size: larger;
   text-align: center;
 }
 #addEntryBtn {
   float: right;
   height: 45px;
+  margin: 1px; 
   color: deepskyblue;
   cursor: pointer;
   font-size: large;
