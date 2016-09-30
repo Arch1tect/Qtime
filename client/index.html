@@ -31,7 +31,7 @@
             | filterBy filterByDuration
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
-            <td contenteditable="true"  v-on:click="startEdit"  v-on:blur="cellContentChanged" v-for="key in columns" data-name="{{key}}" data-index="{{entry.index}}">
+            <td contenteditable="true"  v-on:click="startEdit"  v-on:blur="cellContentChanged($event, entry)" v-for="key in columns" data-name="{{key}}">
               {{entry[key]}}
             </td>
           </tr>

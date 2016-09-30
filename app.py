@@ -1,4 +1,5 @@
 from bottle import route, run, template, static_file
+import json
 
 
 # static routing
@@ -19,8 +20,12 @@ def index(name):
 @route('/api/data')
 def getData():
 
+	data = {}
+
+	with open("data.txt", "r") as dataFile:
+		data["array"] = json.load(dataFile)
 	# response.content_type = 'application/json'
-	data = { 'array': [{ 'index':0, 'title': 'Watchmen', 'duration': 186, 'category': 'movie', 'note': 'Hulu'},{ 'index':1, 'title': 'Mob Psycho 100', 'duration': 25, 'category': 'anime', 'note': 'Bilibili'},{ 'index':2, 'title': 'Intersteller', 'duration': 150, 'category': 'movie', 'note': 'Hulu'},{'index':3, 'title': 'toto sound', 'duration': 25, 'category': 'anime', 'note': 'Hulu'},{ 'index':4, 'title': 'South Park', 'duration': 20, 'category': 'show', 'note': 'Hulu'},{ 'index':5, 'title': 'ha', 'duration': 5, 'category': 'anime', 'note': 'Bilibili'}]}
+
 	return data
 
 run(host='localhost', port=8080)

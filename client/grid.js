@@ -1,12 +1,7 @@
 var DURATION_MIN = 0;
 var DURATION_MAX = 200;
 
-
-
 $.get("/api/data", function(jsonData, status){
-
-
-
 
   // register the grid component
   Vue.component('qtime-grid', {
@@ -24,6 +19,7 @@ $.get("/api/data", function(jsonData, status){
       })
       return {
         sortKey: '',
+        previousVal: '',
         sortOrders: sortOrders,
         durationMin: 0,
         durationMax: 99,
@@ -38,25 +34,48 @@ $.get("/api/data", function(jsonData, status){
     },
     methods: {
 
+
       startEdit: function(event) {
         $(event.target).addClass('editingBackground');
+        previousVal = $.trim($(event.target).text());
       },
 
-      cellContentChanged: function (event) {
-        var rowIndex = event.target.dataset.index;
-        var colName = event.target.dataset.name;
-        var val = $(event.target).text();
-        // console.log('rowIndex '+rowIndex );
-        // console.log('colName '+colName);
-        // console.log('innerText '+event.target.innerText);
-        qtime.$data.gridData[rowIndex][colName] = val;
-        $(event.target).text(val); //added this line because of a bug
-        // The bug is when adding a cell that's empty then edit that cell
-        // the value can be saved correctly to gridData, but rendered twice,
-        // so entering 'a' will show 'aa'
+      cellContentChanged: function (event, entry) {
+                
         $(event.target).removeClass('editingBackground');
+        var val = $.trim($(event.target).text());
+        if (val === previousVal)
+          return;
 
+        var colName = event.target.dataset.name;
+        var rowIndex = qtime.$data.gridData.indexOf(entry);
+        if(rowIndex<0){
+          return; // user clicks deleted cell
+        }
+
+        // search to find real index back in gridData[], is there better way?
+
+        // console.log('row '+rowIndex);
+        // console.log('val '+val);
         
+        
+        //del row
+        if (val==='xxx') {
+          // delete qtimeData
+          // console.log('deleting');
+          qtime.$data.gridData.splice(rowIndex, 1);
+
+        }else{
+          
+          // console.log('assigning');
+          qtime.$data.gridData[rowIndex][colName] = val;
+          $(event.target).text(val); //added this line because of a bug
+          // The bug is when adding a cell that's empty then edit that cell
+          // the value can be saved correctly to gridData, but rendered twice,
+          // so entering 'a' will show 'aa'
+
+        }
+
       },
 
       sortBy: function (key) {
@@ -111,6 +130,8 @@ $.get("/api/data", function(jsonData, status){
       }
     }
   })
+
+  window.myQtime = qtime;
 
   // create duration slider
   var durationSlider = document.getElementById('durationSlider');
