@@ -74,6 +74,16 @@ $.get("/api/data", function(jsonData, status){
           // the value can be saved correctly to gridData, but rendered twice,
           // so entering 'a' will show 'aa'
 
+          //request server to update change
+          $.ajax({
+            type: "POST",
+            contentType : 'application/json',
+            url: 'api/data',
+            dataType: 'json',
+            data: JSON.stringify({ "id": entry.id, "colName" :colName, "val": val }),
+            success: function () {}
+          })
+
         }
 
       },
