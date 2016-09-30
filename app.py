@@ -38,10 +38,10 @@ def changeData():
 		entryArray = json.load(dataFile)
 		for entry in entryArray:
 			if(entry['id'] == jsonObj['id']):
-				entry['colName'] = jsonObj['val']
+				entry[jsonObj['colName']] = jsonObj['val']
 		dataFile.seek(0)
 		json.dump(entryArray, dataFile)
-		f.truncate()
+		dataFile.truncate()
 	return "success"
 
 
