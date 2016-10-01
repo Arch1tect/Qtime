@@ -1,5 +1,6 @@
 var DURATION_MIN = 0;
 var DURATION_MAX = 200;
+// var DURATION_INF = 'INF';
 
 $.get("/api/data", function(jsonData, status){
 
@@ -21,8 +22,8 @@ $.get("/api/data", function(jsonData, status){
         sortKey: '',
         previousVal: '',
         sortOrders: sortOrders,
-        durationMin: 0,
-        durationMax: 99,
+        durationMin: DURATION_MIN,
+        durationMax: DURATION_MAX,
         selectedCategory: [],
         options: [
           { text: 'None', value: '' },
@@ -64,6 +65,14 @@ $.get("/api/data", function(jsonData, status){
           // delete qtimeData
           // console.log('deleting');
           qtime.$data.gridData.splice(rowIndex, 1);
+          $.ajax({
+            type: "DELETE",
+            contentType : 'application/json',
+            url: 'api/data',
+            dataType: 'json',
+            data: JSON.stringify({ "id": entry.id}),
+            success: function () {}
+          });
 
         }else{
           
@@ -76,13 +85,13 @@ $.get("/api/data", function(jsonData, status){
 
           //request server to update change
           $.ajax({
-            type: "POST",
+            type: "PUT",
             contentType : 'application/json',
             url: 'api/data',
             dataType: 'json',
             data: JSON.stringify({ "id": entry.id, "colName" :colName, "val": val }),
             success: function () {}
-          })
+          });
 
         }
 
@@ -96,8 +105,7 @@ $.get("/api/data", function(jsonData, status){
       filterByDuration: function (entry) {
         if (isNaN(entry.duration))
           return true;
-        var durMax = this.durationMax === 'INF' ? 99999 : this.durationMax;
-        return entry.duration >= this.durationMin && entry.duration <= durMax;
+        return entry.duration >= this.durationMin && ( this.durationMax === DURATION_MAX || entry.duration <= this.durationMax );
       },
 
       filterByCategory: function (entry) {
@@ -131,8 +139,19 @@ $.get("/api/data", function(jsonData, status){
     },
     methods: {
       addEntry: function (event) {
-        this.gridData.push({index:this.gridData.length, title: this.newEntryTitle,
+        
+        this.gridData.push({id:this.gridData.length, title: this.newEntryTitle,
           duration: this.newEntryDuration, category: this.newEntryCategory, note: this.newEntryNote});
+        
+        $.ajax({
+            type: "POST",
+            contentType : 'application/json',
+            url: 'api/data',
+            dataType: 'json',
+            data: JSON.stringify({ "id": entry.id, "colName" :colName, "val": val }),
+            success: function () {}
+          });
+        
         this.newEntryTitle = '';
         this.newEntryDuration = '';
         this.newEntryCategory = '';
@@ -147,7 +166,7 @@ $.get("/api/data", function(jsonData, status){
   var durationSlider = document.getElementById('durationSlider');
 
   noUiSlider.create(durationSlider, {
-    start: [ 0, 100 ], // Handle start position
+    start: [ DURATION_MIN, DURATION_MAX ], // Handle start position
     step: 1, // Slider moves in increments of '10'
     margin: 5, // Handles must be more than '20' apart
     connect: true, // Display a colored bar between the handles
@@ -159,9 +178,7 @@ $.get("/api/data", function(jsonData, status){
     tooltips: true,
     format: {
       to: function ( value ) {
-        if(value>=DURATION_MAX)
-          return 'INF';
-      return value;
+        return value;
       },
       from: function ( value ) {
         return value;

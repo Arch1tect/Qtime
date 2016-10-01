@@ -1,4 +1,4 @@
-from bottle import get, post, route, request, run, template, static_file
+from bottle import get, post, put, delete, route, request, run, template, static_file
 import json
 
 
@@ -28,9 +28,8 @@ def getData():
 
 	return data
 
-
 @post('/api/data')
-def changeData():
+def addEntry():
 
 	jsonObj = request.json
 
@@ -44,7 +43,40 @@ def changeData():
 		dataFile.truncate()
 	return "success"
 
+@put('/api/data')
+def changeEntry():
 
+	jsonObj = request.json
+
+	with open("data.txt", "r+") as dataFile:
+		entryArray = json.load(dataFile)
+		for entry in entryArray:
+			if(entry['id'] == jsonObj['id']):
+				entry[jsonObj['colName']] = jsonObj['val']
+		dataFile.seek(0)
+		json.dump(entryArray, dataFile)
+		dataFile.truncate()
+	return "success"
+
+@delete('/api/data')
+def deleteEntry():
+
+	jsonObj = request.json
+
+	with open("data.txt", "r+") as dataFile:
+		entryArray = json.load(dataFile)
+		entryToRemove
+		for entry in entryArray:
+			if(entry['id'] == jsonObj['id']):
+				entryArray.remove(entry)
+				entryToRemove = entry
+				break
+		dataFile.seek(0)
+		json.dump(entryArray, dataFile)
+		dataFile.truncate()
+
+
+	return "success"
 
 
 run(host='localhost', port=8080)
