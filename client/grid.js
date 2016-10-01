@@ -139,24 +139,26 @@ $.get("/api/data", function(jsonData, status){
     },
     methods: {
       addEntry: function (event) {
-        
+
         var newEntry = {
-          id:this.gridData.length, 
           title: this.newEntryTitle,
           duration: this.newEntryDuration, 
           category: this.newEntryCategory, 
           note: this.newEntryNote
         };
 
-        this.gridData.push(newEntry);
-        
+        var that = this;
         $.ajax({
             type: "POST",
             contentType : 'application/json',
             url: 'api/data',
             dataType: 'json',
             data: JSON.stringify(newEntry),
-            success: function () {}
+            success: function (data) {
+              console.log('Add entry success, id: '+ data.id);
+              newEntry.id = data.id;
+              that.gridData.push(newEntry);
+            }
           });
         
         this.newEntryTitle = '';

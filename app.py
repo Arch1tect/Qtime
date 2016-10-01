@@ -41,13 +41,21 @@ def addEntry():
 
 	with open("data.txt", "r+") as dataFile:
 		entryArray = json.load(dataFile)
+
+		lastID = -1
+		if len(entryArray):
+			lastID = entryArray[-1]['id']
+
+		newID = lastID + 1
+		jsonObj['id'] = newID
+
 		entryArray.append(jsonObj)
 		dataFile.seek(0)
 		json.dump(entryArray, dataFile, indent=4)
 		dataFile.truncate()
 
 
-	return "success"
+	return {"id": newID}
 
 
 
