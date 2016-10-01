@@ -140,15 +140,22 @@ $.get("/api/data", function(jsonData, status){
     methods: {
       addEntry: function (event) {
         
-        this.gridData.push({id:this.gridData.length, title: this.newEntryTitle,
-          duration: this.newEntryDuration, category: this.newEntryCategory, note: this.newEntryNote});
+        var newEntry = {
+          id:this.gridData.length, 
+          title: this.newEntryTitle,
+          duration: this.newEntryDuration, 
+          category: this.newEntryCategory, 
+          note: this.newEntryNote
+        };
+
+        this.gridData.push(newEntry);
         
         $.ajax({
             type: "POST",
             contentType : 'application/json',
             url: 'api/data',
             dataType: 'json',
-            data: JSON.stringify({ "id": entry.id, "colName" :colName, "val": val }),
+            data: JSON.stringify(newEntry),
             success: function () {}
           });
         

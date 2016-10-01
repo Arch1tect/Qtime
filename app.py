@@ -21,12 +21,18 @@ def index(name):
 def getData():
 
 	data = {}
-
+	arrayToReturn = []
 	with open("data.txt", "r") as dataFile:
-		data["array"] = json.load(dataFile)
+		entryArray = json.load(dataFile)
+		for entry in entryArray:
+			if not 'deleted' in entry or not entry['deleted']:
+				arrayToReturn.append(entry)
+		
+		data["array"] = arrayToReturn
 	# response.content_type = 'application/json'
 
 	return data
+
 
 @post('/api/data')
 def addEntry():
@@ -35,13 +41,15 @@ def addEntry():
 
 	with open("data.txt", "r+") as dataFile:
 		entryArray = json.load(dataFile)
-		for entry in entryArray:
-			if(entry['id'] == jsonObj['id']):
-				entry[jsonObj['colName']] = jsonObj['val']
+		entryArray.append(jsonObj)
 		dataFile.seek(0)
-		json.dump(entryArray, dataFile)
+		json.dump(entryArray, dataFile, indent=4)
 		dataFile.truncate()
+
+
 	return "success"
+
+
 
 @put('/api/data')
 def changeEntry():
@@ -51,12 +59,16 @@ def changeEntry():
 	with open("data.txt", "r+") as dataFile:
 		entryArray = json.load(dataFile)
 		for entry in entryArray:
-			if(entry['id'] == jsonObj['id']):
+			if entry['id'] == jsonObj['id']:
 				entry[jsonObj['colName']] = jsonObj['val']
 		dataFile.seek(0)
-		json.dump(entryArray, dataFile)
+		json.dump(entryArray, dataFile, indent=4)
 		dataFile.truncate()
+
+
 	return "success"
+
+
 
 @delete('/api/data')
 def deleteEntry():
@@ -65,14 +77,13 @@ def deleteEntry():
 
 	with open("data.txt", "r+") as dataFile:
 		entryArray = json.load(dataFile)
-		entryToRemove
 		for entry in entryArray:
-			if(entry['id'] == jsonObj['id']):
-				entryArray.remove(entry)
-				entryToRemove = entry
+			if entry['id'] == jsonObj['id']:
+				# entryArray.remove(entry)
+				entry['deleted'] = True
 				break
 		dataFile.seek(0)
-		json.dump(entryArray, dataFile)
+		json.dump(entryArray, dataFile, indent=4)
 		dataFile.truncate()
 
 
