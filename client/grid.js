@@ -4,6 +4,18 @@ var DURATION_MAX = 200;
 
 $.get("/api/data", function(jsonData, status){
 
+  var options = {};
+  var optionsArray = [{'text': 'all', 'value':''}];
+  for (var i=0; i<jsonData.array.length; i++) {
+    var entry = jsonData.array[i];
+    if (! (entry.category in options))
+      options[entry.category] = true;
+  }
+
+  for (var key in options) {
+    optionsArray.push({'text':key, 'value': key});
+  }
+  
   // register the grid component
   Vue.component('qtime-grid', {
     template: '#grid-template',
@@ -25,12 +37,13 @@ $.get("/api/data", function(jsonData, status){
         durationMin: DURATION_MIN,
         durationMax: DURATION_MAX,
         selectedCategory: [],
-        options: [
-          { text: 'None', value: '' },
-          { text: 'Movie', value: 'movie' },
-          { text: 'Anime', value: 'anime' },
-          { text: 'Show', value: 'show' }
-        ],
+        options: optionsArray
+        // [
+        //   { text: 'None', value: '' },
+        //   { text: 'Movie', value: 'movie' },
+        //   { text: 'Anime', value: 'anime' },
+        //   { text: 'Show', value: 'show' }
+        // ],
       }
     },
     methods: {

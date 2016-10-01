@@ -40,7 +40,7 @@
 
 
 
-      <select id="select-category" v-model="selectedCategory" multiple>
+      <select id="select-category" v-model="selectedCategory" multiple v-bind:size="options.length">
         <option v-for="option in options" v-bind:value="option.value">
           {{ option.text }}
         </option>

@@ -1,5 +1,6 @@
 body {
-  font-family: Helvetica Neue, Arial, sans-serif;
+  /*font-family: Helvetica Neue, Arial, sans-serif;*/
+  font-family: "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
   font-size: 14px;
   color: #444;
 }
@@ -50,10 +51,11 @@ select option:hover{
   color: white;
 }
 #select-category {
-  border: 3px solid deepskyblue;
-  font-size: 50px;
+  /*border: 3px solid deepskyblue;*/
+  border: none;
+  font-size: x-large;
   width: 180px;
-  text-align: center;
+  /*text-align: center;*/
 }
 
 th {
@@ -77,8 +79,13 @@ th, td {
   padding: 10px 20px;
 }
 
-td:focus {
-  outline:0;
+
+input:focus,
+select:focus,
+td:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 .editingBackground {
