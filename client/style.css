@@ -4,7 +4,9 @@ body {
   font-size: 14px;
   color: #444;
 }
-
+[v-cloak] {
+  display: none;
+}
 #entryGrid {
   border: 3px solid deepskyblue;
   border-collapse: collapse;
@@ -101,22 +103,6 @@ tr:nth-child(even) {
   background: #f1f1f1;
 }
 
-/*th, td {  
-  width: 120px;
-  max-width: 120px;
-  padding: 10px 20px;
-  overflow: scroll;
-  white-space: nowrap;
-}*/
-
-table {
-/*  table-layout: fixed;
-  border: 3px solid deepskyblue;
-  border-collapse: collapse;
-  border-radius: 3px;
-  background-color: #fff;
-  text-align: center;*/
-}
 
 #qtimeTitle {
   font-size: 72px;
@@ -142,10 +128,7 @@ table {
 
 #search {
   display: inline;
-  /* margin-bottom: 10px; */
-  /* border: none; */
   border: 2px solid deepskyblue;
-  /*width: 175px;*/
   font-size: larger;
 }
 #leftWrapper {
@@ -169,7 +152,6 @@ select option:hover{
   border: none;
   font-size: x-large;
   width: 100%;
-  display: none;
   /*text-align: center;*/
 }
 
@@ -186,16 +168,31 @@ textarea:focus
 .editingBackground {
   background-color: #faffbd;;
 }
-/*input {
-  background-color: #faffbd;;
-}*/
 
 table tr th:nth-child(2) {
   /*width: 100%;*/
 }
 
 
-
+#addEntryCandidate {
+    position: absolute;
+    width: 614px;
+    margin-top: 52px;
+    display: none;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: rgba(0,0,0,0.8) 0 7px 20px 0;
+    z-index: 99999;
+    border-radius: 0 0 7px 7px;
+}
+#addEntryCandidate p {
+  padding: 10px;
+  margin:0px;
+}
+#addEntryCandidate p:hover {
+  background-color: yellow;
+  cursor: pointer;
+}
 .arrow {
   display: inline-block;
   vertical-align: middle;

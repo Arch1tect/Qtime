@@ -65,7 +65,7 @@
         <div id="durationSliderWrapper">
           <div id="durationSlider"></div>
         </div>
-        <select id="select-category" v-model="selectedCategory" multiple v-bind:size="options.length">
+        <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
           <option v-for="option in options" v-bind:value="option.value">
             {{ option.text }}
           </option>
@@ -76,7 +76,8 @@
           <table id="addEntry">
             <tbody>
               <tr>
-                <td><input v-model="newEntryName" type="text" placeholder="New Entry" /></td>
+                <td><input v-model="newEntryName"  v-on:keyup="newEntryNameChanged" type="text" placeholder="New Entry" />
+                </td>
                 <td><input v-model="newEntryDuration" type="text"/></td>
                 <td><input v-model="newEntryCategory" type="text"/></td>
                 <td><input v-model="newEntryLink" type="text"/></td>
@@ -86,7 +87,11 @@
             </tbody>
           </table>                
           <button v-on:click="addEntry" type="button" id="addEntryBtn">+</button>
-
+        </div>
+        <div id="addEntryCandidate">
+          <p v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
+            {{ candidate.Title }} ({{ candidate.Type}}&nbsp;{{ candidate.Year }})
+          </p>
         </div>
         <qtime-grid
           :data="gridData"

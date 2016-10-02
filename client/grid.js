@@ -146,6 +146,7 @@ $.get("/api/data", function(jsonData, status){
       newEntryCategory: '',
       newEntryLink: '',
       newEntryNote: '',
+      newEntryCandidates: [], // parse from imdb
       options: optionsArray,
         // [
         //   { text: 'None', value: '' },
@@ -156,7 +157,36 @@ $.get("/api/data", function(jsonData, status){
       selectedCategory: []
 
     },
+    watch: {
+
+    },
     methods: {
+
+      newEntryNameChanged: function(event){
+        // only fired when user input, on keyup
+        var query = this.newEntryName.replace(/\s+/g, '+').toLowerCase();
+        if (!query)
+          return;
+        var that = this;
+        $.get("http://www.omdbapi.com/?s="+query, 
+          function(jsonData, status){
+            if (jsonData.Search){
+              that.newEntryCandidates = jsonData.Search;
+              $('#addEntryCandidate').show();
+            }
+            console.log("omdb: "+status);
+        })
+
+      },
+      pickCandidate: function (candidate) {
+        this.newEntryName = candidate.Title;
+        this.newEntryCategory = candidate.Type;
+        this.newEntryLink = "http://www.imdb.com/title/"+candidate.imdbID;
+        if (candidate.Year)
+          this.newEntryNote = "Made in " + candidate.Year;
+        this.newEntryCandidates = [];
+        $('#addEntryCandidate').hide();
+      },
       addEntry: function (event) {
 
         var newEntry = {
@@ -190,7 +220,7 @@ $.get("/api/data", function(jsonData, status){
     }
   })
   
-  $('#select-category').show();
+  // $('#select-category').show();
   window.myQtime = qtime;
 
   // create duration slider
