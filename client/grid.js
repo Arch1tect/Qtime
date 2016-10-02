@@ -5,7 +5,7 @@ var DURATION_MAX = 200;
 $.get("/api/data", function(jsonData, status){
 
   var options = {};
-  var optionsArray = [{'text': 'all', 'value':''}];
+  var optionsArray = [{'text': 'all category', 'value':''}];
   for (var i=0; i<jsonData.array.length; i++) {
     var entry = jsonData.array[i];
     if (! (entry.category in options))
@@ -26,24 +26,16 @@ $.get("/api/data", function(jsonData, status){
 
     },
     data: function () {
-      var sortOrders = {}
+      var sortOrders = {};
       this.columns.forEach(function (key) {
-        sortOrders[key] = 1
+        sortOrders[key] = 1;
       })
       return {
         sortKey: '',
         previousVal: '',
         sortOrders: sortOrders,
         durationMin: DURATION_MIN,
-        durationMax: DURATION_MAX,
-        selectedCategory: [],
-        options: optionsArray
-        // [
-        //   { text: 'None', value: '' },
-        //   { text: 'Movie', value: 'movie' },
-        //   { text: 'Anime', value: 'anime' },
-        //   { text: 'Show', value: 'show' }
-        // ],
+        durationMax: DURATION_MAX
       }
     },
     methods: {
@@ -51,18 +43,21 @@ $.get("/api/data", function(jsonData, status){
 
       startEdit: function(event) {
         $(event.target).addClass('editingBackground');
-        previousVal = $.trim($(event.target).text());
+        this.previousVal = $.trim($(event.target).text());
       },
 
       cellContentChanged: function (event, entry) {
                 
         $(event.target).removeClass('editingBackground');
         var val = $.trim($(event.target).text());
-        if (val === previousVal)
+        if (val === this.previousVal)
           return;
 
         var colName = event.target.dataset.name;
         var rowIndex = qtime.$data.gridData.indexOf(entry);
+
+        if (colName === 'duration')
+          val = parseInt(val);
         if(rowIndex<0){
           return; // user clicks deleted cell
         }
@@ -91,6 +86,7 @@ $.get("/api/data", function(jsonData, status){
           
           // console.log('assigning');
           qtime.$data.gridData[rowIndex][colName] = val;
+          console.log(val);
           $(event.target).text(val); //added this line because of a bug
           // The bug is when adding a cell that's empty then edit that cell
           // the value can be saved correctly to gridData, but rendered twice,
@@ -124,9 +120,9 @@ $.get("/api/data", function(jsonData, status){
       filterByCategory: function (entry) {
         // If the entry's category is in the selected categories array, keep the entry
         var i=0;
-        for (; i<this.selectedCategory.length; i++) {
+        for (; i<this.$parent.selectedCategory.length; i++) {
 
-          if (entry.category === this.selectedCategory[i]||this.selectedCategory[i]==='')
+          if (entry.category === this.$parent.selectedCategory[i]||this.$parent.selectedCategory[i]==='')
             return true;
         }
 
@@ -143,20 +139,31 @@ $.get("/api/data", function(jsonData, status){
     el: '#qtime',
     data: {
       searchQuery: '',
-      gridColumns: ['title', 'duration', 'category', 'note'],
+      gridColumns: ['name', 'duration', 'category', 'link', 'note'],
       gridData: jsonData.array,
-      newEntryTitle: '',
+      newEntryName: '',
       newEntryDuration: '',
       newEntryCategory: '',
-      newEntryNote: ''
+      newEntryLink: '',
+      newEntryNote: '',
+      options: optionsArray,
+        // [
+        //   { text: 'None', value: '' },
+        //   { text: 'Movie', value: 'movie' },
+        //   { text: 'Anime', value: 'anime' },
+        //   { text: 'Show', value: 'show' }
+        // ],
+      selectedCategory: []
+
     },
     methods: {
       addEntry: function (event) {
 
         var newEntry = {
-          title: this.newEntryTitle,
-          duration: this.newEntryDuration, 
+          name: this.newEntryName,
+          duration: parseInt(this.newEntryDuration), 
           category: this.newEntryCategory, 
+          link: this.newEntryLink,
           note: this.newEntryNote
         };
 
@@ -174,14 +181,16 @@ $.get("/api/data", function(jsonData, status){
             }
           });
         
-        this.newEntryTitle = '';
+        this.newEntryName = '';
         this.newEntryDuration = '';
+        this.newEntryNote = '';
         this.newEntryCategory = '';
         this.newEntryNote = '';
       }
     }
   })
-
+  
+  $('#select-category').show();
   window.myQtime = qtime;
 
   // create duration slider

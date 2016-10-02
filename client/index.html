@@ -12,6 +12,7 @@
     <!-- component template -->
     <script type="text/x-template" id="grid-template">
       <table id="entryGrid">
+
         <thead>
           <tr>
             <th v-for="key in columns"
@@ -27,62 +28,73 @@
         <tbody>
           <tr v-for="
             entry in data
-            | filterBy filterKey in 'title'
+            | filterBy filterKey in 'name'
             | filterBy filterByDuration
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
-            <td contenteditable="true"  v-on:click="startEdit"  v-on:blur="cellContentChanged($event, entry)" v-for="key in columns" data-name="{{key}}">
+            <td contenteditable="true"  v-on:focus="startEdit"  v-on:blur="cellContentChanged($event, entry)" v-for="key in columns" data-name="{{key}}">
               {{entry[key]}}
             </td>
           </tr>
         </tbody>
       </table>
 
-
-
-      <select id="select-category" v-model="selectedCategory" multiple v-bind:size="options.length">
-        <option v-for="option in options" v-bind:value="option.value">
-          {{ option.text }}
-        </option>
-      </select>
-<!--       <span>Selected: {{ selectedCategory | json }}</span>
- -->
     </script>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
     
     <center><div id="qtimeTitle">Qtime</div></center>
-    <div id="durationSliderWrapper">
-      <div id="durationSlider"></div>
-    </div>
-    
 
     <div id="qtime">
-      <form id="search">
-        <input name="query" placeholder="Search..." v-model="searchQuery">
-      </form>
+      
+      <div id="leftWrapper">
+        <input id="search" name="query" placeholder="Search..." v-model="searchQuery">
+        <div id="durationSliderWrapper">
+          <div id="durationSlider"></div>
+        </div>
+        <select id="select-category" v-model="selectedCategory" multiple v-bind:size="options.length">
+          <option v-for="option in options" v-bind:value="option.value">
+            {{ option.text }}
+          </option>
+        </select>
+      </div>
+      <div id="rightWrapper">
+        <div id="addEntryWrapper">
+          <table id="addEntry">
+            <tbody>
+              <tr>
+                <td><input v-model="newEntryName" type="text" placeholder="New Entry" /></td>
+                <td><input v-model="newEntryDuration" type="text"/></td>
+                <td><input v-model="newEntryCategory" type="text"/></td>
+                <td><input v-model="newEntryLink" type="text"/></td>
+                <td><input v-model="newEntryNote" type="text"/></td>
 
+              </tr>
+            </tbody>
+          </table>                
+          <button v-on:click="addEntry" type="button" id="addEntryBtn">+</button>
 
-      <button v-on:click="addEntry" type="button" id="addEntryBtn">+</button>
-      <table id="addEntry">
-        
-        <tbody>
-          <tr>
-            <td><input v-model="newEntryTitle" type="text"/></td>
-            <td><input v-model="newEntryDuration" type="text"/></td>
-            <td><input v-model="newEntryCategory" type="text"/></td>
-            <td><input v-model="newEntryNote" type="text"/></td>
-          </tr>
-        </tbody>
-      </table>
-      <qtime-grid
-        :data="gridData"
-        :columns="gridColumns"
-        :filter-key="searchQuery">
+        </div>
+        <qtime-grid
+          :data="gridData"
+          :columns="gridColumns"
+          :filter-key="searchQuery">
 
-      </qtime-grid>
+        </qtime-grid>
+      </div>
       <br/><br/><br/><br/><br/>
 
     </div>

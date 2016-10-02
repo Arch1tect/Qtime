@@ -5,59 +5,87 @@ body {
   color: #444;
 }
 
-table {
+#entryGrid {
   border: 3px solid deepskyblue;
   border-collapse: collapse;
   border-radius: 3px;
-  background-color: #fff;
-  float: right;
+  table-layout: fixed;
+  width: 200px;
   text-align: center;
-}
-#entryGrid {
   margin-bottom: 100px;
-}
-#qtimeTitle {
-  font-size: 72px;
-  font-weight: bold;
-  color: deepskyblue;
-}
-#durationSliderWrapper {
-  width: 850px;
-  margin: auto;
-  margin-bottom: 100px;
-}
-#durationSlider {
-  width: 100%;
-  margin-top: 30px;
 
 }
-#qtime {
-  width: 900px;
-  margin: auto;
-}
 
-#search input {
-  /*border: 3px solid deepskyblue;*/
-  margin-bottom: 20px;
-  width: 175px;
-  font-size: larger;
-  float: left;
-}
-select option{
-  color: deepskyblue;
-}
-select option:hover{
+#entryGrid th {
   background-color: deepskyblue;
   color: white;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100px;
+
 }
-#select-category {
-  /*border: 3px solid deepskyblue;*/
-  border: none;
-  font-size: x-large;
-  width: 180px;
-  /*text-align: center;*/
+#entryGrid tr {
+  height: 50px;
+}
+#addEntry tr {
+  height: 50px;
+}
+#entryGrid th:last-child {
+  width: 200px;
+}
+#addEntry td:last-child {
+  width: 200px;
+}
+#entryGrid td {
+
+  padding: 10px 10px;
+  white-space: nowrap;
+  overflow: auto;
 }
 
+#entryGrid th.active {
+  font-size: larger;
+  color: yellow;
+}
+
+#addEntry {
+  border: none;
+  table-layout: fixed;
+  width: 200px;
+  float: left;
+  border-collapse: collapse;
+
+  /*display: inline;*/
+}
+#addEntry td {
+  /*padding: 0px;*/
+  /*max-width: 150px;*/
+  width: 98px;
+  border: 2px dashed #e9e9e9;
+}
+#addEntry input {
+  height: 100%;
+  width: 100%;
+  border: none;
+  font-size: larger;
+  text-align: center;
+}
+#addEntryBtn {
+  /*float: right;*/
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  margin: 1px; 
+  color: deepskyblue;
+  cursor: pointer;
+  font-size: 30px;
+  /*border: 2px solid deepskyblue;*/
+  border: none;
+  background-color: white;
+  border-radius: 1px;
+}
+
+/*
 th {
   background-color: deepskyblue;
   color: white;
@@ -68,64 +96,104 @@ th {
 }
 tr {
   height: 45px;
-}
+}*/
 tr:nth-child(even) {
   background: #f1f1f1;
 }
 
-th, td {  
+/*th, td {  
   width: 120px;
   max-width: 120px;
   padding: 10px 20px;
+  overflow: scroll;
+  white-space: nowrap;
+}*/
+
+table {
+/*  table-layout: fixed;
+  border: 3px solid deepskyblue;
+  border-collapse: collapse;
+  border-radius: 3px;
+  background-color: #fff;
+  text-align: center;*/
+}
+
+#qtimeTitle {
+  font-size: 72px;
+  font-weight: bold;
+  color: deepskyblue;
+  margin: 50px;
+}
+#durationSliderWrapper {
+  width: 165px;
+  /* width: 100%; */
+  padding: 15px;
+  /*margin: auto;*/
+  margin-bottom: 50px;
+}
+#durationSlider {
+  /* width: 100%; */
+  margin-top: 20px;
+}
+#qtime {
+  width: 900px;
+  margin: auto;
+}
+
+#search {
+  display: inline;
+  /* margin-bottom: 10px; */
+  /* border: none; */
+  border: 2px solid deepskyblue;
+  /*width: 175px;*/
+  font-size: larger;
+}
+#leftWrapper {
+  width: 200px;
+  position: absolute;
+}
+#rightWrapper {
+  float: right;
+  max-width: 650px;
+}
+select option{
+  color: deepskyblue;
+}
+select option:hover{
+  background-color: deepskyblue;
+  color: white;
+}
+#select-category {
+  /*border: 3px solid deepskyblue;*/
+  cursor: pointer;
+  border: none;
+  font-size: x-large;
+  width: 100%;
+  display: none;
+  /*text-align: center;*/
 }
 
 
 input:focus,
 select:focus,
 td:focus,
-textarea:focus,
-button:focus {
+/*button:focus, */
+textarea:focus
+{
     outline: none;
 }
 
 .editingBackground {
   background-color: #faffbd;;
 }
-#addEntry {
-  border: none;
-}
-#addEntry td {
-  padding: 0px;
-  max-width: 150px;
-  width: 150px;
-  border: 3px dashed #e9e9e9;
-}
-#addEntry input {
-  height: 100%;
-  width: 100%;
-  border: none;
-  font-size: larger;
-  text-align: center;
-}
-#addEntryBtn {
-  float: right;
-  height: 45px;
-  margin: 1px; 
-  color: deepskyblue;
-  cursor: pointer;
-  font-size: large;
-  border: 2px solid deepskyblue;
-  background-color: white;
-  border-radius: 3px;
-}
-td {
-  /*border: 2px solid #e9e9e9;*/
+/*input {
+  background-color: #faffbd;;
+}*/
+
+table tr th:nth-child(2) {
+  /*width: 100%;*/
 }
 
-th.active {
-  font-size: larger;
-  color: yellow;
-}
 
 
 .arrow {
