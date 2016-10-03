@@ -255,6 +255,14 @@ $.get("/api/data", function(jsonData, status){
       qtime.$children[0].$set('durationMin',values[handle]);
     }
   });
+
+  $("td").mouseover(function() {
+    // only show tooltip for long content
+    if ($(this)[0].scrollWidth > $(this).innerWidth()) 
+      $(this).children(".contentTooltip").show();
+  }).mouseout(function() {
+      $(this).children(".contentTooltip").hide();
+  });
     
 });
 
