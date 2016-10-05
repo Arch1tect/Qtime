@@ -173,10 +173,11 @@
     }, 
     {
         "category": "Qtime", 
-        "name": "Double click to edit", 
+        "name": "Double click to edit (completed)", 
+        "deleted": true, 
         "note": "Double click to enable edit, use input inside cell, not contenteditable", 
         "link": "http://stackoverflow.com/questions/11320692/javascript-enable-input-on-double-click", 
-        "duration": 30, 
+        "duration": 300, 
         "id": 21
     }, 
     {
@@ -220,7 +221,7 @@
         "name": "The Lord of the Rings: The Return of the King", 
         "note": "Made in 2003", 
         "link": "http://www.imdb.com/title/tt0167260", 
-        "duration": null, 
+        "duration": 120, 
         "id": 26
     }, 
     {
@@ -228,7 +229,7 @@
         "name": "The Matrix", 
         "note": "Made in 1999", 
         "link": "http://www.imdb.com/title/tt0133093", 
-        "duration": null, 
+        "duration": 120, 
         "id": 27
     }, 
     {
@@ -236,7 +237,7 @@
         "name": "Miss Peregrine's Home for Peculiar Children", 
         "note": "Made in 2016", 
         "link": "http://www.imdb.com/title/tt1935859", 
-        "duration": null, 
+        "duration": 120, 
         "id": 28
     }, 
     {
@@ -244,7 +245,7 @@
         "name": "Convert link", 
         "note": "Make link clickable, jump to website", 
         "link": "", 
-        "duration": null, 
+        "duration": 10, 
         "id": 29
     }
 ]
