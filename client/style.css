@@ -37,19 +37,11 @@ body {
 #addEntry tr {
   height: 50px;
 }
-#entryGrid th:last-child {
-  width: 200px;
-}
+
 #entryGrid th:first-child {
   width: 200px;
 }
-#entryGrid th:nth-child(2) {
-  width: 75px;
-}
-#addEntry td:nth-child(2) {
-  width: 75px;
-}
-#addEntry td:first-child {
+#entryGrid th:last-child {
   width: 200px;
 }
 #entryGrid td:first-child {
@@ -58,6 +50,12 @@ body {
   font-weight: 500;
   white-space: normal;
 
+}
+#entryGrid td:last-child {
+  font-size: smaller;
+}
+#addEntry td:first-child {
+  width: 200px;
 }
 #addEntry td:last-child {
   width: 200px;
@@ -72,7 +70,7 @@ body {
 }
 
 #entryGrid th.active {
-  /*font-size: larger;*/
+  font-size: larger;
   color: yellow;
 }
 
