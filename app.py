@@ -74,7 +74,7 @@ def changeEntry():
 		dataFile.truncate()
 
 
-	return "success"
+	return {"success":True}
 
 
 
@@ -95,7 +95,7 @@ def deleteEntry():
 		dataFile.truncate()
 
 
-	return "success"
+	return {"success":True}
 
 
 run(host='localhost', port=8080)

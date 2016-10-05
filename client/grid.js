@@ -1,268 +1,298 @@
 var DURATION_MIN = 0;
 var DURATION_MAX = 200;
-// var DURATION_INF = 'INF';
 
+// var Events = new Vue({}); //for components communicaion, or just use root vue
+
+
+var optionsArray = [{'text': 'all category', 'value':''}];
+
+// register the grid component
+Vue.component('qtime-grid', {
+  template: '#grid-template',
+  props: {
+    data: Array,
+    columns: Array,
+    filterKey: String
+
+  },
+  data: function () {
+    var sortOrders = {};
+    this.columns.forEach(function (key) {
+      sortOrders[key] = 1;
+    })
+    return {
+      sortKey: '',
+      previousVal: '',
+      sortOrders: sortOrders,
+      durationMin: DURATION_MIN,
+      durationMax: DURATION_MAX
+    }
+  },
+  methods: {
+
+
+
+    // mouseoverCell: function (event) {
+    //   var elm = event.target;
+    //   if (elm.scrollWidth > $(elm).innerWidth()) 
+    //     $(elm).children(".contentTooltip").show();
+
+    // },
+
+    // mouseoutCell: function (event) {
+    //   var elm = event.target;
+    //     $(elm).children(".contentTooltip").hide();
+
+    // },
+
+    sortBy: function (key) {
+      this.sortKey = key
+      this.sortOrders[key] = this.sortOrders[key] * -1
+    },
+
+    filterByDuration: function (entry) {
+      if (isNaN(entry.duration))
+        return true;
+      return entry.duration >= this.durationMin && ( this.durationMax === DURATION_MAX || entry.duration <= this.durationMax );
+    },
+
+    filterByCategory: function (entry) {
+      // If the entry's category is in the selected categories array, keep the entry
+      var i=0;
+      for (; i<this.$parent.selectedCategory.length; i++) {
+
+        if (entry.category === this.$parent.selectedCategory[i]||this.$parent.selectedCategory[i]==='')
+          return true;
+      }
+
+      if (!i) return true;
+
+      return false;
+    }
+  }
+})
+
+
+Vue.component('modal', {
+  template: '#modal-template',
+  props: {
+    header: String,
+    cellval: {twoWay: true} // wonder if this is discouraged by vue.js
+  }
+})
+
+// bootstrap the qtime
+var qtime = new Vue({
+  el: '#qtime',
+  data: {
+    showModal: false,
+    editCellName: '',
+    editCellVal: '',
+    editEntry: '',
+
+    searchQuery: '',
+    gridColumns: ['name', 'duration', 'category', 'link', 'note'],
+    gridData: [],
+
+
+    newEntryName: '',
+    newEntryDuration: '',
+    newEntryCategory: '',
+    newEntryLink: '',
+    newEntryNote: '',
+
+    newEntryCandidates: [], // parse from imdb
+    options: optionsArray,
+    selectedCategory: []
+
+  },
+  watch: {
+
+  },
+  methods: {
+
+
+    newEntryNameChanged: function(event){
+      // only fired when user input, on keyup
+      var query = this.newEntryName.replace(/\s+/g, '+').toLowerCase();
+      if (!query)
+        return;
+      var that = this;
+      $.get("http://www.omdbapi.com/?s="+query, 
+        function(jsonData, status){
+          if (jsonData.Search){
+            that.newEntryCandidates = jsonData.Search;
+            $('#addEntryCandidate').show();
+          }
+          console.log("omdb: "+status);
+      })
+
+    },
+    pickCandidate: function (candidate) {
+      this.newEntryName = candidate.Title;
+      this.newEntryCategory = candidate.Type;
+      this.newEntryLink = "http://www.imdb.com/title/"+candidate.imdbID;
+      if (candidate.Year)
+        this.newEntryNote = "Made in " + candidate.Year;
+      this.newEntryCandidates = [];
+      $('#addEntryCandidate').hide();
+    },
+    addEntry: function (event) {
+
+      var newEntry = {
+        name: this.newEntryName,
+        duration: parseInt(this.newEntryDuration), 
+        category: this.newEntryCategory, 
+        link: this.newEntryLink,
+        note: this.newEntryNote
+      };
+
+      var that = this;
+      $.ajax({
+          type: "POST",
+          contentType : 'application/json',
+          url: 'api/data',
+          dataType: 'json',
+          data: JSON.stringify(newEntry),
+          success: function (data) {
+            console.log('Add entry success, id: '+ data.id);
+            newEntry.id = data.id;
+            that.gridData.push(newEntry);
+          }
+        });
+      
+      this.newEntryName = '';
+      this.newEntryDuration = '';
+      this.newEntryNote = '';
+      this.newEntryCategory = '';
+      this.newEntryNote = '';
+    }
+  }
+})
+
+qtime.$on('edit', function (entry, key) {
+  this.editEntry = entry;
+  this.editCellName = key;
+  this.editCellVal = entry[key];
+  this.showModal = true;
+});
+
+qtime.$on('save', function () {
+
+  var entry = this.editEntry;
+  var key = this.editCellName;
+  var val = this.editCellVal;
+
+
+  if (key === 'duration')
+    val = parseInt(val);
+
+  //del whole
+  if (val==='xxx') {
+    
+    console.log('deleting entry');
+
+    $.ajax({
+      type: "DELETE",
+      contentType : 'application/json',
+      url: 'api/data',
+      dataType: 'json',
+      data: JSON.stringify({ "id": entry.id}),
+      success: function () {
+        qtime.$data.gridData.$remove(entry); //TODO: better way to access?
+      },
+      error: function () {
+        alert('error');
+      }
+    });
+
+  }else{
+    
+    console.log('changing entry value');
+    
+    //request server to update change
+    $.ajax({
+      type: "PUT",
+      contentType : 'application/json',
+      url: 'api/data',
+      dataType: 'json',
+      data: JSON.stringify({ "id": entry.id, "colName" :key, "val": val }),
+      success: function () {
+        entry[key] = val;
+      },
+      error: function () {
+        alert('error');
+      }
+    });
+
+  }
+
+  this.showModal = false;
+
+});
+
+// create duration slider
+var durationSlider = document.getElementById('durationSlider');
+
+noUiSlider.create(durationSlider, {
+  start: [ DURATION_MIN, DURATION_MAX ], // Handle start position
+  step: 1, // Slider moves in increments of '10'
+  margin: 5, // Handles must be more than '20' apart
+  connect: true, // Display a colored bar between the handles
+  behaviour: 'tap-drag', // Move handle on tap, bar is draggable
+  range: { // Slider can select '0' to '100'
+    'min': DURATION_MIN,
+    'max': DURATION_MAX
+  },
+  tooltips: true,
+  format: {
+    to: function ( value ) {
+      return value;
+    },
+    from: function ( value ) {
+      return value;
+    }
+  }
+
+});
+// When the slider value changes, update the input and span
+durationSlider.noUiSlider.on('update', function( values, handle ) {
+  if ( handle ) {
+    // change this code asap, very bad to assume grid component is the first child component
+    qtime.$children[0].$set('durationMax',values[handle]);
+  } else {
+    qtime.$children[0].$set('durationMin',values[handle]);
+  }
+});
+
+$(document).on("mouseover","td",function() {
+   // only show tooltip for long content
+  if ($(this)[0].scrollWidth > $(this).innerWidth()) 
+    $(this).children(".contentTooltip").show();
+   
+});
+$(document).on("mouseout","td",function() {
+ 
+  $(this).children(".contentTooltip").hide();
+  
+});
+// Go fetch the data
 $.get("/api/data", function(jsonData, status){
-
-  var options = {};
-  var optionsArray = [{'text': 'all category', 'value':''}];
+  
+  var optionsSet = {};
+  // load categories into optionsArray
   for (var i=0; i<jsonData.array.length; i++) {
     var entry = jsonData.array[i];
-    if (! (entry.category in options))
-      options[entry.category] = true;
+    if (! (entry.category in optionsSet))
+      optionsSet[entry.category] = true;
   }
 
-  for (var key in options) {
+  for (var key in optionsSet) {
     optionsArray.push({'text':key, 'value': key});
   }
-  
-  // register the grid component
-  Vue.component('qtime-grid', {
-    template: '#grid-template',
-    props: {
-      data: Array,
-      columns: Array,
-      filterKey: String
 
-    },
-    data: function () {
-      var sortOrders = {};
-      this.columns.forEach(function (key) {
-        sortOrders[key] = 1;
-      })
-      return {
-        sortKey: '',
-        previousVal: '',
-        sortOrders: sortOrders,
-        durationMin: DURATION_MIN,
-        durationMax: DURATION_MAX
-      }
-    },
-    methods: {
+  qtime.$set('gridData', jsonData['array']);
 
-
-      startEdit: function(event) {
-        $(event.target).addClass('editingBackground');
-        this.previousVal = $.trim($(event.target).text());
-      },
-
-      cellContentChanged: function (event, entry) {
-                
-        $(event.target).removeClass('editingBackground');
-        var val = $.trim($(event.target).text());
-        if (val === this.previousVal)
-          return;
-
-        var colName = event.target.dataset.name;
-        var rowIndex = qtime.$data.gridData.indexOf(entry);
-
-        if (colName === 'duration')
-          val = parseInt(val);
-        if(rowIndex<0){
-          return; // user clicks deleted cell
-        }
-
-        // search to find real index back in gridData[], is there better way?
-
-        // console.log('row '+rowIndex);
-        // console.log('val '+val);
-        
-        
-        //del row
-        if (val==='xxx') {
-          // delete qtimeData
-          // console.log('deleting');
-          qtime.$data.gridData.splice(rowIndex, 1);
-          $.ajax({
-            type: "DELETE",
-            contentType : 'application/json',
-            url: 'api/data',
-            dataType: 'json',
-            data: JSON.stringify({ "id": entry.id}),
-            success: function () {}
-          });
-
-        }else{
-          
-          // console.log('assigning');
-          qtime.$data.gridData[rowIndex][colName] = val;
-          console.log(val);
-          $(event.target).text(val); //added this line because of a bug
-          // The bug is when adding a cell that's empty then edit that cell
-          // the value can be saved correctly to gridData, but rendered twice,
-          // so entering 'a' will show 'aa'
-
-          //request server to update change
-          $.ajax({
-            type: "PUT",
-            contentType : 'application/json',
-            url: 'api/data',
-            dataType: 'json',
-            data: JSON.stringify({ "id": entry.id, "colName" :colName, "val": val }),
-            success: function () {}
-          });
-
-        }
-
-      },
-
-      sortBy: function (key) {
-        this.sortKey = key
-        this.sortOrders[key] = this.sortOrders[key] * -1
-      },
-
-      filterByDuration: function (entry) {
-        if (isNaN(entry.duration))
-          return true;
-        return entry.duration >= this.durationMin && ( this.durationMax === DURATION_MAX || entry.duration <= this.durationMax );
-      },
-
-      filterByCategory: function (entry) {
-        // If the entry's category is in the selected categories array, keep the entry
-        var i=0;
-        for (; i<this.$parent.selectedCategory.length; i++) {
-
-          if (entry.category === this.$parent.selectedCategory[i]||this.$parent.selectedCategory[i]==='')
-            return true;
-        }
-
-        if (!i) return true;
-
-        return false;
-      }
-    }
-  })
-
-
-  // bootstrap the qtime
-  var qtime = new Vue({
-    el: '#qtime',
-    data: {
-      searchQuery: '',
-      gridColumns: ['name', 'duration', 'category', 'link', 'note'],
-      gridData: jsonData.array,
-      newEntryName: '',
-      newEntryDuration: '',
-      newEntryCategory: '',
-      newEntryLink: '',
-      newEntryNote: '',
-      newEntryCandidates: [], // parse from imdb
-      options: optionsArray,
-        // [
-        //   { text: 'None', value: '' },
-        //   { text: 'Movie', value: 'movie' },
-        //   { text: 'Anime', value: 'anime' },
-        //   { text: 'Show', value: 'show' }
-        // ],
-      selectedCategory: []
-
-    },
-    watch: {
-
-    },
-    methods: {
-
-      newEntryNameChanged: function(event){
-        // only fired when user input, on keyup
-        var query = this.newEntryName.replace(/\s+/g, '+').toLowerCase();
-        if (!query)
-          return;
-        var that = this;
-        $.get("http://www.omdbapi.com/?s="+query, 
-          function(jsonData, status){
-            if (jsonData.Search){
-              that.newEntryCandidates = jsonData.Search;
-              $('#addEntryCandidate').show();
-            }
-            console.log("omdb: "+status);
-        })
-
-      },
-      pickCandidate: function (candidate) {
-        this.newEntryName = candidate.Title;
-        this.newEntryCategory = candidate.Type;
-        this.newEntryLink = "http://www.imdb.com/title/"+candidate.imdbID;
-        if (candidate.Year)
-          this.newEntryNote = "Made in " + candidate.Year;
-        this.newEntryCandidates = [];
-        $('#addEntryCandidate').hide();
-      },
-      addEntry: function (event) {
-
-        var newEntry = {
-          name: this.newEntryName,
-          duration: parseInt(this.newEntryDuration), 
-          category: this.newEntryCategory, 
-          link: this.newEntryLink,
-          note: this.newEntryNote
-        };
-
-        var that = this;
-        $.ajax({
-            type: "POST",
-            contentType : 'application/json',
-            url: 'api/data',
-            dataType: 'json',
-            data: JSON.stringify(newEntry),
-            success: function (data) {
-              console.log('Add entry success, id: '+ data.id);
-              newEntry.id = data.id;
-              that.gridData.push(newEntry);
-            }
-          });
-        
-        this.newEntryName = '';
-        this.newEntryDuration = '';
-        this.newEntryNote = '';
-        this.newEntryCategory = '';
-        this.newEntryNote = '';
-      }
-    }
-  })
-  
-  // $('#select-category').show();
-  window.myQtime = qtime;
-
-  // create duration slider
-  var durationSlider = document.getElementById('durationSlider');
-
-  noUiSlider.create(durationSlider, {
-    start: [ DURATION_MIN, DURATION_MAX ], // Handle start position
-    step: 1, // Slider moves in increments of '10'
-    margin: 5, // Handles must be more than '20' apart
-    connect: true, // Display a colored bar between the handles
-    behaviour: 'tap-drag', // Move handle on tap, bar is draggable
-    range: { // Slider can select '0' to '100'
-      'min': DURATION_MIN,
-      'max': DURATION_MAX
-    },
-    tooltips: true,
-    format: {
-      to: function ( value ) {
-        return value;
-      },
-      from: function ( value ) {
-        return value;
-      }
-    }
-
-  });
-  // When the slider value changes, update the input and span
-  durationSlider.noUiSlider.on('update', function( values, handle ) {
-    if ( handle ) {
-      qtime.$children[0].$set('durationMax',values[handle]);
-    } else {
-      qtime.$children[0].$set('durationMin',values[handle]);
-    }
-  });
-
-  $("td").mouseover(function() {
-    // only show tooltip for long content
-    if ($(this)[0].scrollWidth > $(this).innerWidth()) 
-      $(this).children(".contentTooltip").show();
-  }).mouseout(function() {
-      $(this).children(".contentTooltip").hide();
-  });
     
 });
 

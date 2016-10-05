@@ -6,9 +6,43 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="nouislider.min.css">
 
-    </head>
+  </head>
   <body>
-      
+
+    <!-- template for the modal component -->
+    <script type="text/x-template" id="modal-template">
+      <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-container">
+
+              <div class="modal-header">
+                <slot name="header">
+                  {{header}}
+                </slot>
+              </div>
+
+              <div class="modal-body">
+                <textarea rows="5" name="body" v-model="cellval"></textarea>
+                
+              </div>
+
+              <div class="modal-footer">
+                <slot name="footer">
+                  <button class="modal-button" @click="$root.$emit('save')">
+                    Save
+                  </button>                  
+                  <button class="modal-button" @click="$emit('close')">
+                    Cancel
+                  </button>
+                </slot>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </script>
+
     <!-- component template -->
     <script type="text/x-template" id="grid-template">
       <table id="entryGrid">
@@ -32,7 +66,7 @@
             | filterBy filterByDuration
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
-            <td contenteditable="true" v-on:focus="startEdit"  v-on:blur="cellContentChanged($event, entry)" v-for="key in columns" data-name="{{key}}">
+            <td v-for="key in columns" data-name="{{key}}" @dblclick="$root.$emit('edit',entry, key)"   >
               {{entry[key]}}<div class="contentTooltip">{{entry[key]}}</div>
             </td>
           </tr>
@@ -52,14 +86,23 @@
 
 
 
-
-
-
     
     <center><div id="qtimeTitle">Qtime</div></center>
 
     <div id="qtime">
-      
+
+      <!-- use the modal component, pass in the prop -->
+      <modal
+        :header="editCellName"
+        :cellval.sync="editCellVal"
+        v-if="showModal" @close="showModal = false">
+        <!--
+          you can use custom content here to overwrite
+          default content
+        -->
+      </modal>
+
+
       <div id="leftWrapper">
         <input id="search" name="query" placeholder="Search..." v-model="searchQuery">
         <div id="durationSliderWrapper">
