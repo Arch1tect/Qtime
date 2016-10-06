@@ -18,7 +18,7 @@ button {
 button {
     border: none;
     font-family: inherit;
-    font-size: inherit;
+    font-size: smaller;
     color: inherit;
     border-radius: 3px;
     background: none;

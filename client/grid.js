@@ -170,6 +170,12 @@ qtime.$on('edit', function (entry, key) {
   this.editCellName = key;
   this.editCellVal = entry[key];
   this.showModal = true;
+
+  Vue.nextTick(function () {
+    $('textarea').focus();
+    $('textarea').select();
+  });
+
 });
 
 qtime.$on('save', function () {

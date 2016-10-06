@@ -243,6 +243,7 @@
     {
         "category": "Qtime", 
         "name": "Convert link", 
+        "deleted": true, 
         "note": "A study suggests that humans \u201cwill never get older than 115.\u201d It\u2019s the latest volley in a long-running debate among scientists about whether there\u2019s a natural barrier to the human life span.", 
         "link": "", 
         "duration": 10, 
