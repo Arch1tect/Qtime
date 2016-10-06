@@ -158,7 +158,7 @@ var qtime = new Vue({
       
       this.newEntryName = '';
       this.newEntryDuration = '';
-      this.newEntryNote = '';
+      this.newEntryLink = '';
       this.newEntryCategory = '';
       this.newEntryNote = '';
     }

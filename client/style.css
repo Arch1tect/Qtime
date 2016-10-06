@@ -7,7 +7,35 @@ body {
 /*td:hover .contentTooltip {
   display: block;
 }*/
- 
+button:hover, button:active {
+    color: deepskyblue;
+    background: #fff;
+}
+button {
+    border: 3px solid #fff;
+    color: #fff;
+}
+button {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    border-radius: 3px;
+    background: none;
+    cursor: pointer;
+    /*padding: 25px 80px;*/
+    display: inline-block;
+    /*margin: 15px 30px;*/
+    /* margin-bottom: 36px; */
+    /* text-transform: uppercase; */
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
 
 [v-cloak] {
   display: none;
@@ -45,10 +73,11 @@ body {
   width: 200px;
 }
 #entryGrid td:first-child {
-  /*font-size: 14px;*/
+  font-size: 15px;
   /*font-weight: bold;*/
-  font-weight: 500;
+  /*font-weight: 500;*/
   white-space: normal;
+  line-height: 150%;
 
 }
 #entryGrid td:last-child {
@@ -154,6 +183,7 @@ tr:nth-child(even) {
 }
 select option{
   color: deepskyblue;
+  padding-left: 20px;
 }
 select option:hover{
   background-color: deepskyblue;
@@ -163,6 +193,7 @@ select option:hover{
   /*border: 3px solid deepskyblue;*/
   cursor: pointer;
   border: none;
+  /* margin: 0px; */
   font-size: x-large;
   width: 100%;
   /*text-align: center;*/
@@ -270,32 +301,35 @@ table tr th:nth-child(2) {
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
+  background-color: deepskyblue;
+  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-size: 20px;
-
+  font-weight: 700;
+  color: white;
 }
 
-.modal-header h3 {
+.modal-header {
   margin-top: 0;
-  color: #42b983;
+  color: white;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 15px 0;
 }
 .modal-footer {
-  height: 15px;
+  height: 20px;
 }
 
 .modal-body textarea {
-  width: 100%;
-  max-width: 100%;
-  padding: 0px;
+  width: 280px;
+  max-width: 280px;
+  padding: 10px;
   font-size: 15px;
-
+  border-radius: 5px;
 }
 
 .modal-button {
