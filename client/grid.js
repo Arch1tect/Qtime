@@ -30,20 +30,15 @@ Vue.component('qtime-grid', {
   },
   methods: {
 
+    renderCellHTML: function (entry, key) {
 
+      var val = entry[key];
+      if (key === 'link') {
+        val = "<a src='"+val+"'>url</a>";
+      }
 
-    // mouseoverCell: function (event) {
-    //   var elm = event.target;
-    //   if (elm.scrollWidth > $(elm).innerWidth()) 
-    //     $(elm).children(".contentTooltip").show();
-
-    // },
-
-    // mouseoutCell: function (event) {
-    //   var elm = event.target;
-    //     $(elm).children(".contentTooltip").hide();
-
-    // },
+      return val;
+    },
 
     sortBy: function (key) {
       this.sortKey = key

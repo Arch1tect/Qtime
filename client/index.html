@@ -66,12 +66,18 @@
             | filterBy filterByDuration
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
-            <td v-for="key in columns" data-name="{{key}}" @dblclick="$root.$emit('edit',entry, key)"   >
-              {{entry[key]}}<div class="contentTooltip">{{entry[key]}}</div>
+            <td v-for="key in columns" data-name="{{key}}" @dblclick="$root.$emit('edit', entry, key)">
+              <a v-if="key=='link'&&entry[key]" target="_blank" href={{entry[key]}}>url</a>
+              <span v-else>
+                {{entry[key]}} 
+              </span>
+              <div class="contentTooltip">{{entry[key]}}</div>
+
             </td>
           </tr>
         </tbody>
       </table>
+      <br/><br/><br/><br/><br/>
 
     </script>
 
@@ -143,7 +149,7 @@
 
         </qtime-grid>
       </div>
-      <br/><br/><br/><br/><br/>
+
 
     </div>
 
