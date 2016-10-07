@@ -74,7 +74,7 @@
     {
         "duration": 150, 
         "category": "movie", 
-        "note": "Youtube", 
+        "note": "Bought on Youtube", 
         "id": 9, 
         "name": "V for Vendetta"
     }, 
@@ -299,5 +299,14 @@
         "link": "http://www.imdb.com/title/tt0190332", 
         "duration": null, 
         "id": 35
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 36
     }
 ]

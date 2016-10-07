@@ -12,9 +12,9 @@
     <!-- template for the modal component -->
     <script type="text/x-template" id="modal-template">
       <transition name="modal">
-        <div class="modal-mask">
+        <div class="modal-mask" @click="$emit('close')">
           <div class="modal-wrapper">
-            <div class="modal-container">
+            <div class="modal-container" @click.stop>
 
               <div class="modal-header">
                 <slot name="header">
@@ -125,7 +125,7 @@
           <table id="addEntry">
             <tbody>
               <tr>
-                <td><input v-model="newEntryName"  v-on:keyup="newEntryNameChanged" type="text" placeholder="New Entry" />
+                <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="New Entry" />
                 </td>
                 <td><input v-model="newEntryDuration" type="text"/></td>
                 <td><input v-model="newEntryCategory" type="text"/></td>
@@ -138,9 +138,11 @@
           <button v-on:click="addEntry" type="button" id="addEntryBtn">+</button>
         </div>
         <div id="addEntryCandidate">
-          <p v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
-            {{ candidate.Title }} ({{ candidate.Type}}&nbsp;{{ candidate.Year }})
+
+          <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
+            {{ candidate.Title }} &nbsp;&nbsp;({{ candidate.Type}}&nbsp;{{ candidate.Year }})
           </p>
+          <p v-if= "newEntryCandidates.length==0">Not found.</p>
         </div>
         <qtime-grid
           :data="gridData"

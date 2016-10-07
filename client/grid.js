@@ -30,16 +30,6 @@ Vue.component('qtime-grid', {
   },
   methods: {
 
-    renderCellHTML: function (entry, key) {
-
-      var val = entry[key];
-      if (key === 'link') {
-        val = "<a src='"+val+"'>url</a>";
-      }
-
-      return val;
-    },
-
     sortBy: function (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
@@ -103,18 +93,39 @@ var qtime = new Vue({
   },
   watch: {
 
+  },  
+  ready: function () {
+    document.addEventListener("keydown", (e) => {
+
+      if (e.keyCode == 27) {
+
+        // close cadidates drop down
+        this.closeCandidateDropdown();
+
+        // close edit cell modal
+        this.showModal = false;
+      }
+    })
+
+
   },
   methods: {
 
 
     newEntryNameChanged: function(event){
       // only fired when user input, on keyup
+
+      if (event.keyCode == 27 || event.keyCode == 32) //except esc and space button
+        return;
+
       var query = this.newEntryName.replace(/\s+/g, '+').toLowerCase();
       if (!query)
         return;
+
       var that = this;
       $.get("http://www.omdbapi.com/?s="+query, 
         function(jsonData, status){
+          that.newEntryCandidates = [];
           if (jsonData.Search){
             that.newEntryCandidates = jsonData.Search;
             $('#addEntryCandidate').show();
@@ -123,14 +134,25 @@ var qtime = new Vue({
       })
 
     },
+    closeCandidateDropdown: function () {
+
+      // here we have to use setTimeout because when click on a candidate
+      // blur event is fired before click event, so click event won't really be fired
+      setTimeout(function() {
+        this.newEntryCandidates = [];
+        $('#addEntryCandidate').hide();
+      },200);
+
+    },
     pickCandidate: function (candidate) {
+      console.log('click candidate');
+      console.log(candidate);
       this.newEntryName = candidate.Title;
       this.newEntryCategory = candidate.Type;
       this.newEntryLink = "http://www.imdb.com/title/"+candidate.imdbID;
       if (candidate.Year)
         this.newEntryNote = "Made in " + candidate.Year;
-      this.newEntryCandidates = [];
-      $('#addEntryCandidate').hide();
+      this.closeCandidateDropdown();
     },
     addEntry: function (event) {
 
