@@ -140,7 +140,7 @@
         <div id="addEntryCandidate">
 
           <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
-            {{ candidate.Title }} &nbsp;&nbsp;({{ candidate.Type}}&nbsp;{{ candidate.Year }})
+            {{ candidate.Title }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ candidate.Type}}&nbsp;&nbsp;&nbsp;{{ candidate.Year }}
           </p>
           <p v-if= "newEntryCandidates.length==0">Not found.</p>
         </div>

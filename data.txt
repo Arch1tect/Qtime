@@ -289,12 +289,13 @@
         "name": "The Lord of the Rings: The Return of the King", 
         "note": "Made in 2003", 
         "link": "http://www.imdb.com/title/tt0167260", 
-        "duration": null, 
+        "duration": 150, 
         "id": 34
     }, 
     {
         "category": "movie", 
         "name": "Crouching Tiger, Hidden Dragon", 
+        "deleted": true, 
         "note": "Made in 2000", 
         "link": "http://www.imdb.com/title/tt0190332", 
         "duration": null, 
@@ -308,5 +309,45 @@
         "link": "", 
         "duration": null, 
         "id": 36
+    }, 
+    {
+        "category": "anime", 
+        "name": "Puella Magi Madoka Magica", 
+        "note": "Made in 2011\u2013\n\nhttps://movie.douban.com/review/4921954/", 
+        "link": "http://www.imdb.com/title/tt1773185", 
+        "duration": 25, 
+        "id": 37
+    }, 
+    {
+        "category": "series", 
+        "name": "The Office", 
+        "note": "Made in 2005\u20132013", 
+        "link": "http://www.imdb.com/title/tt0386676", 
+        "duration": 45, 
+        "id": 38
+    }, 
+    {
+        "category": "Qtime", 
+        "name": "Better way to delete row", 
+        "note": "Maybe on hover show delete button? Or when editing cell, provide option to delete row. Refer existing projects", 
+        "link": "", 
+        "duration": 60, 
+        "id": 39
+    }, 
+    {
+        "category": "Qtime", 
+        "name": "Improve category filter", 
+        "note": "Can wait until we have enough data. Then there's really a problem to solve.", 
+        "link": "", 
+        "duration": 100, 
+        "id": 40
+    }, 
+    {
+        "category": "", 
+        "name": "fdfds", 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 41
     }
 ]
