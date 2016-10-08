@@ -478,6 +478,7 @@
     {
         "category": "movie", 
         "name": "Catch Me If You Can", 
+        "deleted": true, 
         "note": "Made in 2002", 
         "link": "http://www.imdb.com/title/tt0264464", 
         "duration": "", 
@@ -500,5 +501,14 @@
         "link": "", 
         "duration": "", 
         "id": 58
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "hi", 
+        "link": "", 
+        "duration": "", 
+        "id": 59
     }
 ]
