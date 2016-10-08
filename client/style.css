@@ -102,7 +102,10 @@ button {
   font-size: larger;
   color: yellow;
 }
-
+.rightFloat {
+  float:right;
+  margin-left: 50px;
+}
 #addEntry {
   border: none;
   table-layout: fixed;
