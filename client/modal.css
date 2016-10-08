@@ -1,4 +1,7 @@
-
+.modal-button:hover, .modal-button:active {
+    color: deepskyblue;
+    background: #fff;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;

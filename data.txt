@@ -238,7 +238,7 @@
         "name": "Miss Peregrine's Home for Peculiar Children", 
         "note": "Made in 2016", 
         "link": "http://www.imdb.com/title/tt1935859", 
-        "duration": 120, 
+        "duration": 127, 
         "id": 28
     }, 
     {
@@ -482,5 +482,23 @@
         "link": "http://www.imdb.com/title/tt0264464", 
         "duration": "", 
         "id": 56
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 57
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 58
     }
 ]
