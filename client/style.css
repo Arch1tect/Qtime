@@ -4,9 +4,8 @@ body {
   font-size: 14px;
   color: #444;
 }
-/*td:hover .contentTooltip {
-  display: block;
-}*/
+
+
 button:hover, button:active {
     color: deepskyblue;
     background: #fff;
@@ -23,14 +22,9 @@ button {
     border-radius: 3px;
     background: none;
     cursor: pointer;
-    /*padding: 25px 80px;*/
     display: inline-block;
-    /*margin: 15px 30px;*/
-    /* margin-bottom: 36px; */
-    /* text-transform: uppercase; */
     letter-spacing: 1px;
     font-weight: 700;
-    /*outline: none;*/
     position: relative;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
@@ -40,114 +34,6 @@ button {
 [v-cloak] {
   display: none;
 }
-#entryGrid {
-  border: 3px solid deepskyblue;
-  border-collapse: collapse;
-  border-radius: 3px;
-  table-layout: fixed;
-  width: 200px;
-  text-align: center;
-  margin-bottom: 100px;
-
-}
-
-#entryGrid th {
-  background-color: deepskyblue;
-  color: white;
-  cursor: pointer;
-  overflow: hidden;
-  width: 100px;
-
-}
-#entryGrid tr {
-  height: 50px;
-}
-#addEntry tr {
-  height: 50px;
-}
-
-#entryGrid th:first-child {
-  width: 200px;
-}
-#entryGrid th:last-child {
-  width: 200px;
-}
-#entryGrid td:first-child {
-  font-size: 15px;
-  /*font-weight: bold;*/
-  /*font-weight: 500;*/
-  white-space: normal;
-  line-height: 150%;
-
-}
-#entryGrid td:last-child {
-  /* font-size: smaller; */
-}
-#addEntry td:first-child {
-  width: 200px;
-}
-#addEntry td:last-child {
-  width: 200px;
-}
-#entryGrid td {
-  cursor: pointer;
-  padding: 10px 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-}
-
-#entryGrid th.active {
-  font-size: larger;
-  color: yellow;
-}
-.rightFloat {
-  float:right;
-  margin-left: 50px;
-}
-#addEntry {
-  border: none;
-  table-layout: fixed;
-  width: 200px;
-  float: left;
-  border-collapse: collapse;
-
-  /*display: inline;*/
-}
-#addEntry td {
-  /*padding: 0px;*/
-  /*max-width: 150px;*/
-  width: 98px;
-  border: 2px dashed #e9e9e9;
-}
-#addEntry input {
-  height: 100%;
-  width: 100%;
-  border: none;
-  font-size: larger;
-  text-align: center;
-}
-#addEntryBtn {
-  /*float: right;*/
-  position: absolute;
-  height: 50px;
-  width: 50px;
-  margin: 1px; 
-  color: deepskyblue;
-  cursor: pointer;
-  font-size: 30px;
-  /*border: 2px solid deepskyblue;*/
-  border: none;
-  background-color: white;
-  border-radius: 1px;
-}
-
-
-tr:nth-child(even) {
-  background: #f1f1f1;
-}
-
 
 #qtimeTitle {
   font-size: 72px;
@@ -168,6 +54,7 @@ tr:nth-child(even) {
 }
 #qtime {
   width: 950px;
+  min-height: 1000px;
   margin: auto;
 }
 
@@ -193,14 +80,12 @@ select option:hover{
   color: white;
 }
 #select-category {
-  /* border: 3px solid deepskyblue; */
+
   cursor: pointer;
   border: none;
   overflow: hidden;
-  /* margin: 0px; */
   font-size: x-large;
   width: 100%;
-  /*text-align: center;*/
 }
 
 
@@ -213,156 +98,5 @@ textarea:focus
     outline: none;
 }
 
-.editingBackground {
-  background-color: #faffbd;;
-}
-
-table tr th:nth-child(2) {
-  /*width: 100%;*/
-}
-
-.contentTooltip{
-    position: absolute;
-    /* margin-top: -30px; */
-    padding: 29px;
-    margin-top: 15px;
-    /* margin-left: -5px; */
-    background: rgba(0, 0, 0, 0.75);
-    color: white;
-    /* font-weight: bold; */
-    /* border: 1px solid deepskyblue; */
-    word-wrap: break-word;
-    border-radius: 5px;
-    line-height: 140%;
-    white-space: normal;
-    text-align: left;
-    /* height: 100%; */
-    /* min-width: 120px; */
-    width: 220px;
-    /* max-width: 200px; */
-    padding: 15px;
-    /* font-size: larger; */
-    display: none;
-}
-
-#addEntryCandidate {
-    position: absolute;
-    min-width: 200px;
-    margin-top: 52px;
-    display: none;
-    background: white;
-    border: 1px solid #ccc;
-    box-shadow: rgba(0,0,0,0.8) 0 7px 20px 0;
-    z-index: 99999;
-    border-radius: 0 0 7px 7px;
-}
-#addEntryCandidate p {
-  padding: 10px;
-  margin:0px;
-}
-#addEntryCandidate p:hover {
-  background-color: yellow;
-  cursor: pointer;
-}
-.arrow {
-  display: inline-block;
-  vertical-align: middle;
-  width: 0;
-  height: 0;
-  margin-left: 5px;
-}
-
-.arrow.asc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
-}
-
-.arrow.dsc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
-}
- 
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-
-.modal-wrapper {
-  /* display: table-cell; */
-  /* vertical-align: middle; */
-  margin: 15%;
-}
-
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  padding-top: 10px;
-  background-color: deepskyblue;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-}
-
-.modal-header {
-  margin-top: 0;
-  color: white;
-  text-align: center;
-  text-transform: capitalize;
-}
-
-.modal-body {
-  margin: 15px 0;
-}
-.modal-footer {
-  height: 20px;
-}
-
-.modal-body textarea {
-  width: 280px;
-  max-width: 280px;
-  padding: 10px;
-  font-size: 15px;
-  border-radius: 5px;
-}
-
-.modal-button {
-  float: right;
-}
 
 
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}

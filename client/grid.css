@@ -1,0 +1,165 @@
+#entryGrid {
+  border: 3px solid deepskyblue;
+  border-collapse: collapse;
+  border-radius: 3px;
+  table-layout: fixed;
+  width: 200px;
+  text-align: center;
+  margin-bottom: 100px;
+
+}
+.highlightRow {
+  background: yellow !important;
+}
+#entryGrid th {
+  background-color: deepskyblue;
+  color: white;
+  cursor: pointer;
+  overflow: hidden;
+  width: 100px;
+
+}
+#entryGrid tr {
+  height: 50px;
+}
+#addEntry tr {
+  height: 50px;
+}
+
+#entryGrid th:first-child {
+  width: 200px;
+}
+#entryGrid th:last-child {
+  width: 200px;
+}
+#entryGrid td:first-child {
+  font-size: 15px;
+  white-space: normal;
+  line-height: 150%;
+
+}
+#entryGrid td:last-child {
+  /* font-size: smaller; */
+}
+#addEntry td:first-child {
+  width: 200px;
+}
+#addEntry td:last-child {
+  width: 200px;
+}
+#entryGrid td {
+  cursor: pointer;
+  padding: 10px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+#entryGrid th.active {
+  font-size: larger;
+  color: yellow;
+}
+.rightFloat {
+  float:right;
+  margin-left: 50px;
+}
+#addEntry {
+  border: none;
+  table-layout: fixed;
+  width: 200px;
+  float: left;
+  border-collapse: collapse;
+}
+#addEntry td {
+
+  width: 98px;
+  border: 2px dashed #e9e9e9;
+}
+#addEntry input {
+  height: 100%;
+  width: 100%;
+  border: none;
+  font-size: larger;
+  text-align: center;
+}
+#addEntryBtn {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  margin: 1px; 
+  color: deepskyblue;
+  cursor: pointer;
+  font-size: 30px;
+  border: none;
+  background-color: white;
+  border-radius: 1px;
+}
+table tr th:nth-child(2) {
+  /*width: 100%;*/
+}
+
+.contentTooltip{
+    position: absolute;
+    padding: 29px;
+    margin-top: 15px;
+    margin-left: -50px;
+    background: #ffd;
+    z-index: 9999;
+    word-wrap: break-word;
+    border-radius: 5px;
+    line-height: 140%;
+    white-space: normal;
+    text-align: left;
+    width: 220px;
+    padding: 15px;
+    display: none;
+    border: 1px solid #999;
+    border-radius: 4px;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+}
+
+#addEntryCandidate {
+    position: absolute;
+    min-width: 200px;
+    margin-top: 52px;
+    display: none;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: rgba(0,0,0,0.8) 0 7px 20px 0;
+    z-index: 99999;
+    border-radius: 0 0 7px 7px;
+}
+#addEntryCandidate p {
+  padding: 10px;
+  margin:0px;
+}
+#addEntryCandidate p:hover {
+  background-color: yellow;
+  cursor: pointer;
+}
+.arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+}
+
+.arrow.asc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #fff;
+}
+
+.arrow.dsc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #fff;
+}
+
+
+tr:nth-child(even) {
+  background: #f1f1f1;
+}
+
