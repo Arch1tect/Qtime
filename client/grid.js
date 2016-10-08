@@ -12,7 +12,10 @@ Vue.component('qtime-grid', {
   props: {
     data: Array,
     columns: Array,
-    filterKey: String
+    filterKey: String,
+    selectedCategory: Array,
+    durationMin: Number,
+    durationMax: Number
 
   },
   data: function () {
@@ -22,10 +25,57 @@ Vue.component('qtime-grid', {
     })
     return {
       sortKey: '',
-      previousVal: '',
-      sortOrders: sortOrders,
-      durationMin: DURATION_MIN,
-      durationMax: DURATION_MAX
+      sortOrders: sortOrders
+    }
+  },
+
+  computed: {
+    filteredData: function () {
+      var sortKey = this.sortKey
+      var filterKey = this.filterKey && this.filterKey.toLowerCase()
+      var order = this.sortOrders[sortKey] || 1
+      var data = this.data
+      var durationMin = this.durationMin;
+      var durationMax = this.durationMax;
+      var selectedCategory = this.selectedCategory;
+      // filter search key
+      if (filterKey) {
+        data = data.filter(function (row) {
+          return Object.keys(row).some(function (key) {
+            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+          })
+        })
+      }
+      // filter duration
+      data = data.filter(function(entry){
+        if (!entry.duration||isNaN(entry.duration))
+          return true;
+        var dur = parseInt(entry.duration);
+        return dur >= durationMin && ( durationMax === DURATION_MAX || dur <= durationMax );
+      });
+
+      // filter category
+      if (selectedCategory.length > 0 && selectedCategory.indexOf("") ==-1) {
+
+        data = data.filter(function (entry) {
+          // If the entry's category is in the selected categories array, keep the entry
+          return selectedCategory.indexOf(entry.category) > -1 ;
+        });
+      }
+
+      if (sortKey) {
+        data = data.slice().sort(function (a, b) {
+          a = a[sortKey]
+          b = b[sortKey]
+          return (a === b ? 0 : a > b ? 1 : -1) * order
+        })
+      }
+      return data
+    }
+  },
+  filters: {
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
     }
   },
   methods: {
@@ -33,26 +83,6 @@ Vue.component('qtime-grid', {
     sortBy: function (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
-    },
-
-    filterByDuration: function (entry) {
-      if (isNaN(entry.duration))
-        return true;
-      return entry.duration >= this.durationMin && ( this.durationMax === DURATION_MAX || entry.duration <= this.durationMax );
-    },
-
-    filterByCategory: function (entry) {
-      // If the entry's category is in the selected categories array, keep the entry
-      var i=0;
-      for (; i<this.$parent.selectedCategory.length; i++) {
-
-        if (entry.category === this.$parent.selectedCategory[i]||this.$parent.selectedCategory[i]==='')
-          return true;
-      }
-
-      if (!i) return true;
-
-      return false;
     }
   }
 })
@@ -62,7 +92,7 @@ Vue.component('modal', {
   template: '#modal-template',
   props: {
     header: String,
-    cellval: {twoWay: true} // wonder if this is discouraged by vue.js
+    cellObj: Object
   }
 })
 
@@ -72,13 +102,15 @@ var qtime = new Vue({
   data: {
     showModal: false,
     editCellName: '',
-    editCellVal: '',
+    editCellValObj: {},
     editEntry: '',
 
     searchQuery: '',
     gridColumns: ['name', 'duration', 'category', 'link', 'note'],
     gridData: [],
 
+    durationMin: DURATION_MIN,
+    durationMax: DURATION_MAX,
 
     newEntryName: '',
     newEntryDuration: '',
@@ -158,7 +190,7 @@ var qtime = new Vue({
 
       var newEntry = {
         name: this.newEntryName,
-        duration: parseInt(this.newEntryDuration), 
+        duration: this.newEntryDuration? parseInt(this.newEntryDuration): '', 
         category: this.newEntryCategory, 
         link: this.newEntryLink,
         note: this.newEntryNote
@@ -190,7 +222,7 @@ var qtime = new Vue({
 qtime.$on('edit', function (entry, key) {
   this.editEntry = entry;
   this.editCellName = key;
-  this.editCellVal = entry[key];
+  this.editCellValObj = {val:entry[key]}; // hacky way, wonder what's better way
   this.showModal = true;
 
   Vue.nextTick(function () {
@@ -204,11 +236,10 @@ qtime.$on('save', function () {
 
   var entry = this.editEntry;
   var key = this.editCellName;
-  var val = this.editCellVal;
+  var val = this.editCellValObj.val; // hacky way, wonder what's better way
+  
 
 
-  if (key === 'duration')
-    val = parseInt(val);
 
   //del whole
   if (val==='xxx') {
@@ -222,7 +253,7 @@ qtime.$on('save', function () {
       dataType: 'json',
       data: JSON.stringify({ "id": entry.id}),
       success: function () {
-        qtime.$data.gridData.$remove(entry); //TODO: better way to access?
+        qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
       },
       error: function () {
         alert('error');
@@ -230,8 +261,9 @@ qtime.$on('save', function () {
     });
 
   }else{
-    
-    console.log('changing entry value');
+    if (val && key === 'duration')
+      val = parseInt(val);
+    console.log('changing entry value from '+entry[key]+'to '+val);
     
     //request server to update change
     $.ajax({
@@ -278,14 +310,13 @@ noUiSlider.create(durationSlider, {
   }
 
 });
+
 // When the slider value changes, update the input and span
 durationSlider.noUiSlider.on('update', function( values, handle ) {
-  if ( handle ) {
-    // change this code asap, very bad to assume grid component is the first child component
-    qtime.$children[0].$set('durationMax',values[handle]);
-  } else {
-    qtime.$children[0].$set('durationMin',values[handle]);
-  }
+  if ( handle ) 
+    qtime.durationMax = values[handle];
+   else 
+    qtime.durationMin = values[handle];
 });
 
 $(document).on("mouseover","td",function() {
@@ -314,8 +345,7 @@ $.get("/api/data", function(jsonData, status){
     optionsArray.push({'text':key, 'value': key});
   }
 
-  qtime.$set('gridData', jsonData['array']);
-
+  qtime.gridData = jsonData['array'];
     
 });
 

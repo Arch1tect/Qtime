@@ -330,7 +330,7 @@
     {
         "category": "Qtime", 
         "name": "Better way to delete row", 
-        "note": "Maybe on hover show delete button? Or when editing cell, provide option to delete row. Refer existing projects", 
+        "note": "Maybe on hover show delete button? Or when editing cell, provide option to delete row. Maybe the button show a minus sign since add button is a plus sign right now. How do we do a batch delete? Refer existing projects", 
         "link": "", 
         "duration": 60, 
         "id": 39
@@ -431,5 +431,31 @@
         "link": "", 
         "duration": 100, 
         "id": 50
+    }, 
+    {
+        "category": "Qtime", 
+        "name": "Wait till ajax call success then close modal", 
+        "note": "", 
+        "link": "", 
+        "duration": 30, 
+        "id": 51
+    }, 
+    {
+        "category": "ha", 
+        "name": "no duration", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 52
+    }, 
+    {
+        "category": "", 
+        "name": "no dd", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 53
     }
 ]

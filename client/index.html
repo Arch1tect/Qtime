@@ -23,7 +23,7 @@
               </div>
 
               <div class="modal-body">
-                <textarea rows="5" name="body" v-model="cellval"></textarea>
+                <textarea rows="5" name="body" v-model="cellObj.val"></textarea>
                 
               </div>
 
@@ -52,7 +52,7 @@
             <th v-for="key in columns"
               @click="sortBy(key)"
               :class="{active: sortKey == key}">
-              {{key | capitalize}}
+              {{ key | capitalize }}
               <span class="arrow"
                 :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
               </span>
@@ -61,13 +61,13 @@
         </thead>
         <tbody>
           <tr v-for="
-            entry in data
+            entry in filteredData
             | filterBy filterKey in 'name'
             | filterBy filterByDuration
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
-            <td v-for="key in columns" data-name="{{key}}" @dblclick="$root.$emit('edit', entry, key)">
-              <a v-if="key=='link'&&entry[key]" target="_blank" href={{entry[key]}}>url</a>
+            <td v-for="key in columns" @dblclick="$root.$emit('edit', entry, key)">
+              <a v-if="key=='link'&&entry[key]" target="_blank" :href="entry[key]">url</a>
               <span v-else>
                 {{entry[key]}} 
               </span>
@@ -77,7 +77,6 @@
           </tr>
         </tbody>
       </table>
-      <br/><br/><br/><br/><br/>
 
     </script>
 
@@ -100,12 +99,8 @@
       <!-- use the modal component, pass in the prop -->
       <modal
         :header="editCellName"
-        :cellval.sync="editCellVal"
+        :cell-obj="editCellValObj"
         v-if="showModal" @close="showModal = false">
-        <!--
-          you can use custom content here to overwrite
-          default content
-        -->
       </modal>
 
 
@@ -147,8 +142,10 @@
         <qtime-grid
           :data="gridData"
           :columns="gridColumns"
-          :filter-key="searchQuery">
-
+          :filter-key="searchQuery"
+          :selected-category="selectedCategory"
+          :duration-min="durationMin"
+          :duration-max="durationMax">
         </qtime-grid>
       </div>
 
@@ -157,7 +154,7 @@
 
 
     <script src="jquery-3.1.0.min.js"></script>
-    <script src="vue.js"></script>
+    <script src="vue2.js"></script>
     <script src="nouislider.min.js"></script>
     <script src="grid.js"></script>
 
