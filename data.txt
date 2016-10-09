@@ -66,6 +66,7 @@
     {
         "category": "show", 
         "name": "Shameless", 
+        "deleted": true, 
         "note": "Hulu", 
         "link": "", 
         "duration": 51, 
@@ -328,7 +329,7 @@
         "id": 38
     }, 
     {
-        "category": "Qtime", 
+        "category": "dev", 
         "name": "Better way to delete row", 
         "note": "Maybe on hover show delete button? Or when editing cell, provide option to delete row. Maybe the button show a minus sign since add button is a plus sign right now. How do we do a batch delete? Refer existing projects", 
         "link": "", 
@@ -336,7 +337,7 @@
         "id": 39
     }, 
     {
-        "category": "Qtime", 
+        "category": "dev", 
         "name": "Improve category filter", 
         "note": "Can wait until we have enough data. Then there's really a problem to solve.", 
         "link": "", 
@@ -425,15 +426,15 @@
         "id": 49
     }, 
     {
-        "category": "Qtime", 
-        "name": "More source to search from", 
+        "category": "dev", 
+        "name": "Add more sources to search from", 
         "note": "Hulu, Youtube, Wiki, etc", 
         "link": "", 
         "duration": 100, 
         "id": 50
     }, 
     {
-        "category": "Qtime", 
+        "category": "dev", 
         "name": "Wait till ajax call success then close modal", 
         "note": "", 
         "link": "", 
@@ -460,10 +461,10 @@
     }, 
     {
         "category": "dev", 
-        "name": "code deploy", 
-        "note": "AWS codedeploy didn't work out last time and took me hours. ", 
+        "name": "AWS Code Deploy", 
+        "note": "AWS CodeDeploy didn't work out last time and took me hours. \n\nNow using my own Python script with Github webhook", 
         "link": "", 
-        "duration": 999, 
+        "duration": 100, 
         "id": 54
     }, 
     {
@@ -512,7 +513,7 @@
         "id": 59
     }, 
     {
-        "category": "Qtime", 
+        "category": "dev", 
         "name": "Add mask when waiting for ajax", 
         "note": "", 
         "link": "", 
@@ -522,9 +523,70 @@
     {
         "category": "", 
         "name": "github test", 
+        "deleted": true, 
         "note": "gogogog", 
         "link": "", 
         "duration": "", 
         "id": 61
+    }, 
+    {
+        "category": "", 
+        "name": "hi", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 62
+    }, 
+    {
+        "category": "series", 
+        "name": "Game of Thrones", 
+        "deleted": true, 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt0944947", 
+        "duration": "", 
+        "id": 63
+    }, 
+    {
+        "category": "series", 
+        "name": "Shameless", 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt1586680", 
+        "duration": 50, 
+        "id": 64
+    }, 
+    {
+        "category": "series", 
+        "name": "Game of Thrones", 
+        "deleted": true, 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt0944947", 
+        "duration": 60, 
+        "id": 65
+    }, 
+    {
+        "category": "series", 
+        "name": "Game of Thrones", 
+        "deleted": true, 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt0944947", 
+        "duration": 60, 
+        "id": 66
+    }, 
+    {
+        "category": "series", 
+        "name": "Game of Thrones", 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt0944947", 
+        "duration": 60, 
+        "id": 67
+    }, 
+    {
+        "category": "anime", 
+        "name": "\u4f60\u7684\u540d\u5b57", 
+        "note": "\u542c\u8bf4\u975e\u5e38\u68d2\uff01\u65b0\u6d77\u8bda", 
+        "link": "", 
+        "duration": 120, 
+        "id": 68
     }
 ]
