@@ -98,4 +98,4 @@ def deleteEntry():
 	return {"success":True}
 
 
-run(host='localhost', port=8080)
+run(host='localhost', port=80)
