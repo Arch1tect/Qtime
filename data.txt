@@ -510,5 +510,13 @@
         "link": "", 
         "duration": "", 
         "id": 59
+    }, 
+    {
+        "category": "Qtime", 
+        "name": "Add mask when waiting for ajax", 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 60
     }
 ]
