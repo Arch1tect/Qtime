@@ -59,7 +59,7 @@
 }
 
 #entryGrid th.active {
-  font-size: larger;
+  /*font-size: larger;*/
   color: yellow;
 }
 .rightFloat {
