@@ -279,7 +279,7 @@
     }, 
     {
         "category": "show", 
-        "name": "\u9535\u9535\u4e09\u4eba\u884c", 
+        "name": "\u9535\u9535\u4e09\u4eba\u884c m", 
         "note": "", 
         "link": "https://www.youtube.com/user/qqsrxofficial", 
         "duration": 25, 
@@ -461,9 +461,9 @@
     {
         "category": "dev", 
         "name": "code deploy", 
-        "note": "", 
+        "note": "AWS codedeploy didn't work out last time and took me hours. ", 
         "link": "", 
-        "duration": 60, 
+        "duration": 999, 
         "id": 54
     }, 
     {
@@ -516,7 +516,7 @@
         "name": "Add mask when waiting for ajax", 
         "note": "", 
         "link": "", 
-        "duration": "", 
+        "duration": 30, 
         "id": 60
     }
 ]
