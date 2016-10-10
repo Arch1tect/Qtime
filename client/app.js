@@ -33,7 +33,7 @@ $(document).ready(function(){
 	    optionsArray.push({'text':key, 'value': key});
 	  }
 
-	  qtime.gridData = jsonData['array'];
+	  qtime.gridData = jsonData['array'].reverse();
 	    
 	});
 
