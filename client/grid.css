@@ -6,6 +6,7 @@
   border-radius: 3px;
   table-layout: fixed;
   width: 200px;
+  background-color: white;
   text-align: center;
   margin-bottom: 100px;
 
@@ -82,7 +83,7 @@
   height: 100%;
   width: 100%;
   border: none;
-  background: none;
+  /*background: none;*/
   font-size: larger;
   text-align: center;
 }
