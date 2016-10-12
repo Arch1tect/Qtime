@@ -44,6 +44,20 @@ var qtime = new Vue({
                 }
             })  
         })
+
+        $(window).scroll(function(event) {
+            $("#leftWrapper").stop().animate({"marginTop": ($(window).scrollTop()) + "px"}, "fast" );
+
+        });
+
+    },
+    watch: {
+        selectedCategory: function (val, oldVal) {
+
+            $("#leftWrapper").css("margin-top", "0px");
+            $(window).scrollTop(false); // put false here so it won't trigger .scroll again
+            
+        }
     },
     methods: {
 
@@ -60,65 +74,65 @@ var qtime = new Vue({
         var that = this;
         $.get("http://www.omdbapi.com/?s="+query, 
             function(jsonData, status){
-            that.newEntryCandidates = [];
-            if (jsonData.Search){
-                that.newEntryCandidates = jsonData.Search;
-                $('#addEntryCandidate').show();
-            }
-            console.log("omdb: "+status);
-        })
+                that.newEntryCandidates = [];
+                if (jsonData.Search){
+                    that.newEntryCandidates = jsonData.Search;
+                    $('#addEntryCandidate').show();
+                }
+                console.log("omdb: "+status);
+            })
 
-    },
-    closeCandidateDropdown: function () {
+        },
+        closeCandidateDropdown: function () {
 
-        // here we have to use setTimeout because when click on a candidate
-        // blur event is fired before click event, so click event won't really be fired
-        setTimeout(function() {
-        this.newEntryCandidates = [];
-        $('#addEntryCandidate').hide();
-        },200);
+            // here we have to use setTimeout because when click on a candidate
+            // blur event is fired before click event, so click event won't really be fired
+            setTimeout(function() {
+            this.newEntryCandidates = [];
+            $('#addEntryCandidate').hide();
+            },200);
 
-    },
-    pickCandidate: function (candidate) {
-        console.log('click candidate');
-        console.log(candidate);
-        this.newEntryName = candidate.Title;
-        this.newEntryCategory = candidate.Type;
-        this.newEntryLink = "http://www.imdb.com/title/"+candidate.imdbID;
-        if (candidate.Year)
-        this.newEntryNote = "Made in " + candidate.Year;
-        this.closeCandidateDropdown();
-    },
-    addEntry: function (event) {
-        var gridData = this.gridData;
-        var newEntry = {
-            name: this.newEntryName,
-            duration: this.newEntryDuration? parseInt(this.newEntryDuration): '', 
-            category: this.newEntryCategory, 
-            link: this.newEntryLink,
-            note: this.newEntryNote
-        };
+        },
+        pickCandidate: function (candidate) {
+            console.log('click candidate');
+            console.log(candidate);
+            this.newEntryName = candidate.Title;
+            this.newEntryCategory = candidate.Type;
+            this.newEntryLink = "http://www.imdb.com/title/"+candidate.imdbID;
+            if (candidate.Year)
+            this.newEntryNote = "Made in " + candidate.Year;
+            this.closeCandidateDropdown();
+        },
+        addEntry: function (event) {
+            var gridData = this.gridData;
+            var newEntry = {
+                name: this.newEntryName,
+                duration: this.newEntryDuration? parseInt(this.newEntryDuration): '', 
+                category: this.newEntryCategory, 
+                link: this.newEntryLink,
+                note: this.newEntryNote
+            };
 
-        $.ajax({
-            type: "POST",
-            contentType : 'application/json',
-            url: 'api/data',
-            dataType: 'json',
-            data: JSON.stringify(newEntry),
-            success: function (data) {
-                console.log('Add entry success, id: '+ data.id);
-                newEntry.id = data.id;
-                gridData.push(newEntry);
-            }
-        });
-      
-        this.newEntryName = '';
-        this.newEntryDuration = '';
-        this.newEntryLink = '';
-        this.newEntryCategory = '';
-        this.newEntryNote = '';
+            $.ajax({
+                type: "POST",
+                contentType : 'application/json',
+                url: 'api/data',
+                dataType: 'json',
+                data: JSON.stringify(newEntry),
+                success: function (data) {
+                    console.log('Add entry success, id: '+ data.id);
+                    newEntry.id = data.id;
+                    gridData.push(newEntry);
+                }
+            });
+          
+            this.newEntryName = '';
+            this.newEntryDuration = '';
+            this.newEntryLink = '';
+            this.newEntryCategory = '';
+            this.newEntryNote = '';
+        }
     }
-  }
 })
 
 qtime.$on('edit', function (entry, key) {

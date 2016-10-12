@@ -60,6 +60,7 @@ button {
   display: inline;
   border: 2px solid deepskyblue;
   font-size: larger;
+  width: 190px;
 }
 #leftWrapper {
   width: 200px;

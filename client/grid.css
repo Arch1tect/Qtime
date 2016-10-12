@@ -68,6 +68,7 @@
   margin-left: 50px;
 }
 #addEntry {
+  background: white;
   border: none;
   table-layout: fixed;
   width: 200px;
@@ -83,7 +84,7 @@
   height: 100%;
   width: 100%;
   border: none;
-  /*background: none;*/
+  /*background: white;*/
   font-size: larger;
   text-align: center;
 }
