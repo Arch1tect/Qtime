@@ -52,16 +52,28 @@ var qtime = new Vue({
 
     },
     watch: {
-        selectedCategory: function (val, oldVal) {
+        selectedCategory: function(){
+            this.scrollToTop();
+        },
 
-            $("#leftWrapper").css("margin-top", "0px");
-            $(window).scrollTop(false); // put false here so it won't trigger .scroll again
-            
+        durationMin: function(){
+            this.scrollToTop();
+        },
+
+        durationMax: function(){
+            this.scrollToTop();
         }
+
     },
     methods: {
 
-        newEntryNameChanged: function(event){
+        scrollToTop: function () {
+
+            $("#leftWrapper").css("margin-top", "0px");
+            $(window).scrollTop(false); // put false here so it won't trigger .scroll again
+        
+        },
+        newEntryNameChanged: function (event) {
         // only fired when user input, on keyup
 
         if (event.keyCode == 27 || event.keyCode == 32) //except esc and space button
