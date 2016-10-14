@@ -47,10 +47,13 @@ var qtime = new Vue({
             })  
         })
 
-        $(window).scroll(function(event) {
-            $("#leftWrapper").stop().animate({"marginTop": ($(window).scrollTop()) + "px"}, "fast" );
+        // $(window).scroll(function(event) {
 
-        });
+        //     var margin = ($(window).height() - $("#leftWrapper").height())/2;
+        //     $("#leftWrapper").stop().animate({"top": top+"px"}, "fast" );
+
+
+        // });
 
     },
     watch: {
@@ -71,8 +74,8 @@ var qtime = new Vue({
 
         scrollToTop: function () {
 
-            $("#leftWrapper").css("margin-top", "0px");
-            $(window).scrollTop(false); // put false here so it won't trigger .scroll again
+            // $("#leftWrapper").css("margin-top", "0px");
+            // $(window).scrollTop(false); // put false here so it won't trigger .scroll again
         
         },
         newEntryNameChanged: function (event) {
