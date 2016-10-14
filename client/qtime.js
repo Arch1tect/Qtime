@@ -138,7 +138,7 @@ var qtime = new Vue({
                     showAjaxMsg(newEntry['name']+' is added!');
                     console.log('Add entry success, id: '+ data.id);
                     newEntry.id = data.id;
-                    gridData.push(newEntry);
+                    gridData.unshift(newEntry);
                 }
             });
           
