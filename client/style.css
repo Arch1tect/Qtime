@@ -87,6 +87,20 @@ select option:hover{
   width: 100%;
 }
 
+#ajaxMsg {
+    position: fixed;
+    z-index: 9999;
+    min-width: 150px;
+    margin: 10px;
+    bottom: 0;
+    border-radius: 5px;
+    text-align: center;
+    padding: 7px;
+    background: deepskyblue;
+    color: white;
+    display: none;
+}
+
 
 input:focus,
 select:focus,

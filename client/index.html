@@ -96,7 +96,7 @@
         :cell-obj="editCellValObj"
         v-if="showModal" @close="showModal = false">
       </modal>
-
+      <div id="ajaxMsg">{{ajaxMsg}}</div>
 
       <div id="leftWrapper">
         <input id="search" name="query" placeholder="Search..." v-model="searchQuery">

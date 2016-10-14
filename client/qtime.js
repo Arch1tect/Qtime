@@ -5,6 +5,9 @@ var qtime = new Vue({
     el: '#qtime',
     data: {
         showModal: false,
+
+        ajaxMsg: 'hi',
+
         editCellName: '',
         editCellValObj: {},
         editEntry: '',
@@ -132,6 +135,7 @@ var qtime = new Vue({
                 dataType: 'json',
                 data: JSON.stringify(newEntry),
                 success: function (data) {
+                    showAjaxMsg(newEntry['name']+' is added!');
                     console.log('Add entry success, id: '+ data.id);
                     newEntry.id = data.id;
                     gridData.push(newEntry);
@@ -160,6 +164,11 @@ qtime.$on('edit', function (entry, key) {
 
 });
 
+function showAjaxMsg(msg) {
+    qtime.ajaxMsg = msg;
+    $('#ajaxMsg').fadeIn();
+    setTimeout(function(){$('#ajaxMsg').fadeOut();}, 3000);
+}
 qtime.$on('save', function () {
 
     var entry = this.editEntry;
@@ -178,10 +187,11 @@ qtime.$on('save', function () {
             dataType: 'json',
             data: JSON.stringify({ "id": entry.id}),
             success: function () {
+                showAjaxMsg(entry['name']+' is deleted!');
                 qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
             },
             error: function () {
-                alert('error');
+                alert('error! failed to delete');
             }
         });
 
@@ -198,6 +208,9 @@ qtime.$on('save', function () {
             dataType: 'json',
             data: JSON.stringify({ "id": entry.id, "colName" :key, "val": val }),
             success: function () {
+
+                showAjaxMsg(entry['name']+' is modified!');
+                console.log('debug '+qtime)
                 entry[key] = val;
             },
             error: function () {
