@@ -52,7 +52,7 @@ button {
 }
 #qtime {
   width: 950px;
-  min-height: 1000px;
+  /*min-height: 1000px;*/
   margin: auto;
 }
 
