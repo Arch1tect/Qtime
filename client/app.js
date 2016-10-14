@@ -16,6 +16,7 @@ $(document).ready(function(){
 
 		$(this).children(".contentTooltip").hide();
 	});
+	
 
 	// Go fetch the data
 	// populate the grid and also category options

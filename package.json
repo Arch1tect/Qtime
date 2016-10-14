@@ -1,0 +1,31 @@
+{
+  "name": "qtime",
+  "version": "1.0.0",
+  "description": "Time management app",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arch1tect/Qtime.git"
+  },
+  "keywords": [
+    "table",
+    "vue.js",
+    "time",
+    "management"
+  ],
+  "author": "ArchiTech",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arch1tect/Qtime/issues"
+  },
+  "homepage": "https://github.com/Arch1tect/Qtime#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-uglify": "^2.0.0"
+  }
+}
