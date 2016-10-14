@@ -34,7 +34,6 @@ var qtime = new Vue({
 
         var that = this;
         this.$nextTick(function () {
-            console.log(123);
             document.addEventListener("keydown", function(e) {
 
                 if (e.keyCode == 27) {
@@ -110,7 +109,6 @@ var qtime = new Vue({
         },
         pickCandidate: function (candidate) {
             console.log('click candidate');
-            console.log(candidate);
             this.newEntryName = candidate.Title;
             this.newEntryCategory = candidate.Type;
             this.newEntryLink = "http://www.imdb.com/title/"+candidate.imdbID;
@@ -163,11 +161,12 @@ qtime.$on('edit', function (entry, key) {
     });
 
 });
-
 function showAjaxMsg(msg) {
     qtime.ajaxMsg = msg;
+    if (typeof showAjaxMsgTimeout != 'undefined')
+        clearTimeout(showAjaxMsgTimeout);
     $('#ajaxMsg').fadeIn();
-    setTimeout(function(){$('#ajaxMsg').fadeOut();}, 3000);
+    showAjaxMsgTimeout = setTimeout(function(){$('#ajaxMsg').fadeOut();}, 3000);
 }
 qtime.$on('save', function () {
 
@@ -210,7 +209,6 @@ qtime.$on('save', function () {
             success: function () {
 
                 showAjaxMsg(entry['name']+' is modified!');
-                console.log('debug '+qtime)
                 entry[key] = val;
             },
             error: function () {
