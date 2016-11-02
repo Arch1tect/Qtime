@@ -3,13 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Qtime</title>
+
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="bundle.css">
+    <link rel="chrome-webstore-item"
+    href="https://chrome.google.com/webstore/detail/bldcellajihanglphncgjmceklbibjkk">
 <!--     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="grid.css">
     <link rel="stylesheet" href="modal.css">
     <link rel="stylesheet" href="nouislider.min.css"> -->
+
 
   </head>
   <body>
@@ -87,8 +91,11 @@
 
 
 
+    <button onclick="chrome.webstore.install()" id="install-button">Install Chrome Extension</button>
 
-    <center><div id="qtimeTitle">Qtime</div></center>
+    <center><div id="qtimeTitle">Qtime</div>
+
+    </center>
 
     <div id="qtime">
 
@@ -147,6 +154,11 @@
 
 
     </div>
+    <script>
+    if (chrome.app.isInstalled) {
+      document.getElementById('install-button').style.display = 'none';
+    }
+    </script>
 
 
 <!--     <script src="jquery-3.1.0.min.js"></script>
