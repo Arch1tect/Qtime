@@ -1,25 +1,27 @@
-from bottle import get, post, put, delete, route, request, run, template, static_file
+from bottle import Bottle, get, post, put, delete, route, request, run, template, static_file
+from werkzeug.serving import run_simple
 import json
 
+app = Bottle()
 
 # static routing
-@route('/')
+@app.route('/')
 def server_static_home():
     return static_file('index.html', root='client/')
 
-@route('/<filename>')
+@app.route('/<filename>')
 def server_static(filename):
     return static_file(filename, root='client/')
 
 
 # dynamic routing
-@route('/hello/<name>')
+@app.route('/hello/<name>')
 def index(name):
     return template('<b>Hello {{name}}</b>!', name=name)
 
-@get('/api/data')
+@app.get('/api/data')
 def getData():
-
+	print "getData start"
 	data = {}
 	arrayToReturn = []
 	with open("data.txt", "r") as dataFile:
@@ -29,13 +31,15 @@ def getData():
 				arrayToReturn.append(entry)
 		
 		data["array"] = arrayToReturn
-	# response.content_type = 'application/json'
+
+	print "getData done"
 
 	return data
 
 
-@post('/api/data')
+@app.post('/api/data')
 def addEntry():
+	print "addEntry start"
 
 	jsonObj = request.json
 
@@ -54,13 +58,16 @@ def addEntry():
 		json.dump(entryArray, dataFile, indent=4)
 		dataFile.truncate()
 
+	print "addEntry done"
 
 	return {"id": newID}
 
 
 
-@put('/api/data')
+@app.put('/api/data')
 def changeEntry():
+
+	print "changeEntry start"
 
 	jsonObj = request.json
 
@@ -73,14 +80,16 @@ def changeEntry():
 		json.dump(entryArray, dataFile, indent=4)
 		dataFile.truncate()
 
+	print "changeEntry done"
 
 	return {"success":True}
 
 
 
-@delete('/api/data')
+@app.delete('/api/data')
 def deleteEntry():
 
+	print "deleteEntry start"
 	jsonObj = request.json
 
 	with open("data.txt", "r+") as dataFile:
@@ -94,8 +103,12 @@ def deleteEntry():
 		json.dump(entryArray, dataFile, indent=4)
 		dataFile.truncate()
 
+	print "deleteEntry done"
 
 	return {"success":True}
 
+run_simple('0.0.0.0', 80, app, use_reloader=True)
 
-run(host='0.0.0.0', port=80)
+
+
+
