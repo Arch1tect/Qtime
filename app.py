@@ -1,6 +1,7 @@
 from bottle import Bottle, get, post, put, delete, route, request, run, template, static_file
 from werkzeug.serving import run_simple
 import json
+import config
 
 app = Bottle()
 
@@ -107,7 +108,7 @@ def deleteEntry():
 
 	return {"success":True}
 
-run_simple('0.0.0.0', 80, app, use_reloader=True)
+run_simple('0.0.0.0', config.port, app, use_reloader=True)
 
 
 
