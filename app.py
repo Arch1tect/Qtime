@@ -108,6 +108,7 @@ def deleteEntry():
 
 	return {"success":True}
 
+
 run_simple('0.0.0.0', config.port, app, use_reloader=True)
 
 
