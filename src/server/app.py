@@ -1,10 +1,13 @@
+# run from /src folder, i.e. python server/app.py
+import sys
 from bottle import Bottle, get, post, put, delete, route, request, run, template, static_file
 from werkzeug.serving import run_simple
 import json
-import config
+from config import config
 
 app = Bottle()
 
+file_path = "db/data.txt"
 # static routing
 @app.route('/')
 def server_static_home():
@@ -25,7 +28,7 @@ def getData():
 	print "getData start"
 	data = {}
 	arrayToReturn = []
-	with open("data.txt", "r") as dataFile:
+	with open(file_path, "r") as dataFile:
 		entryArray = json.load(dataFile)
 		for entry in entryArray:
 			if not 'deleted' in entry or not entry['deleted']:
@@ -44,7 +47,7 @@ def addEntry():
 
 	jsonObj = request.json
 
-	with open("data.txt", "r+") as dataFile:
+	with open(file_path, "r+") as dataFile:
 		entryArray = json.load(dataFile)
 
 		lastID = -1
@@ -72,7 +75,7 @@ def changeEntry():
 
 	jsonObj = request.json
 
-	with open("data.txt", "r+") as dataFile:
+	with open(file_path, "r+") as dataFile:
 		entryArray = json.load(dataFile)
 		for entry in entryArray:
 			if entry['id'] == jsonObj['id']:
@@ -93,7 +96,7 @@ def deleteEntry():
 	print "deleteEntry start"
 	jsonObj = request.json
 
-	with open("data.txt", "r+") as dataFile:
+	with open(file_path, "r+") as dataFile:
 		entryArray = json.load(dataFile)
 		for entry in entryArray:
 			if entry['id'] == jsonObj['id']:
