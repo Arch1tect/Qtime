@@ -1,6 +1,6 @@
 # run from /src folder, i.e. python server/app.py
 import sys
-from bottle import Bottle, get, post, put, delete, route, request, run, template, static_file
+from bottle import Bottle, get, post, put, delete, route, request, response, run, template, static_file
 from werkzeug.serving import run_simple
 import json
 from config import config
@@ -19,6 +19,7 @@ def server_static(filename):
 
 @app.route('/restart.log')
 def server_static():
+	response.set_header('Content-Type', 'text/html; charset=utf-8')
 	return static_file('restart.log', root='')
 
 @app.get('/api/data')
