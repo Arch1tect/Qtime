@@ -11,17 +11,21 @@ file_path = "db/data.txt"
 # static routing
 @app.route('/')
 def server_static_home():
-    return static_file('index.html', root='client/')
+	return static_file('index.html', root='client/')
 
 @app.route('/<filename>')
 def server_static(filename):
-    return static_file(filename, root='client/')
+	return static_file(filename, root='client/')
+
+@app.route('/restart')
+def server_static():
+	return static_file('restart.log', root='')
 
 
 # dynamic routing
 @app.route('/hello/<name>')
 def index(name):
-    return template('<b>Hello {{name}}</b>!', name=name)
+	return template('<b>Hello {{name}}</b>!', name=name)
 
 @app.get('/api/data')
 def getData():
