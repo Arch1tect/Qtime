@@ -17,15 +17,9 @@ def server_static_home():
 def server_static(filename):
 	return static_file(filename, root='client/')
 
-@app.route('/restart')
+@app.route('/restart.log')
 def server_static():
 	return static_file('restart.log', root='')
-
-
-# dynamic routing
-@app.route('/hello/<name>')
-def index(name):
-	return template('<b>Hello {{name}}</b>!', name=name)
 
 @app.get('/api/data')
 def getData():
