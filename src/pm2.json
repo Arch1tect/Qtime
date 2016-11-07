@@ -1,7 +1,7 @@
 {
   "apps" : [{
     "name"        : "qtime",
-    "script"      : "src/server/app.py",
+    "script"      : "server/app.py",
     "watch"       : "restart.log",
     "error_file"      : "err.log",
   	"out_file"        : "out.log",
