@@ -19,7 +19,7 @@ def server_static(filename):
 
 @app.route('/restart.log')
 def server_static():
-	response.set_header('Content-Type', 'text/html; charset=utf-8')
+	response.set_header('Content-Type', 'text/plain; charset=utf-8')
 	return static_file('restart.log', root='')
 
 @app.get('/api/data')
