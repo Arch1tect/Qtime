@@ -12,32 +12,32 @@ gulp.task('default', function() {
 
     // bundle for bundle.js 
     gulp.src([
-    './client/jquery-3.1.0.min.js',
-    './client/vue2.js',
-    './client/nouislider.min.js',
+    './jquery-3.1.0.min.js',
+    './vue2.js',
+    './nouislider.min.js',
 
-    './client/grid.js',
-    './client/modal.js',
+    './grid.js',
+    './modal.js',
 
-    './client/qtime.js',
-    './client/durationSlider.js',
+    './qtime.js',
+    './durationSlider.js',
 
-    './client/app.js'
+    './app.js'
 
     ])
     .pipe(concat('bundle.js'))
     // .pipe(stripDebug())
     .pipe(uglify())
-    .pipe(gulp.dest('./client/'));
+    .pipe(gulp.dest('./build/'));
 
 
     // bundle for style.css
     gulp.src([
-        './client/*.css'
+        './*.css'
         ])
         .pipe(concat('bundle.css'))
         .pipe(minifyCSS())
-        .pipe(gulp.dest('./client/'));
+        .pipe(gulp.dest('./build/'));
 
 
 });

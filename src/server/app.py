@@ -17,6 +17,11 @@ def server_static_home():
 def server_static(filename):
 	return static_file(filename, root='client/')
 
+@app.route('/build/<filename>')
+def server_static(filename):
+	return static_file(filename, root='client/build')
+
+
 @app.route('/restart.log')
 def server_static():
 	response.set_header('Content-Type', 'text/plain; charset=utf-8')

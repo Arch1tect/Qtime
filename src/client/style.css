@@ -38,6 +38,7 @@ button {
   /*font-weight: bold;*/
   color: deepskyblue;
   margin: 50px;
+  cursor: pointer;
 }
 #durationSliderWrapper {
   width: 165px;
