@@ -9,7 +9,7 @@
   background-color: white;
   text-align: center;
   margin-bottom: 300px;
-
+  box-shadow: 20px 20px 5px #9a9d9e;
 }
 .highlightRow {
   background: yellow !important;
@@ -73,6 +73,7 @@
   table-layout: fixed;
   width: 200px;
   float: left;
+  margin-bottom: 30px;
   border-collapse: collapse;
 }
 #addEntry td {
