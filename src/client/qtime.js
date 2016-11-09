@@ -2,10 +2,11 @@ var optionsArray = [{'text': 'all category', 'value':''}];
 
 // bootstrap the qtime
 var qtime = new Vue({
-    el: '#qtime',
+    el: '#qtime-wrapper',
     data: {
         showModal: false,
-
+        loginPopup: null,
+        
         ajaxMsg: 'hi',
 
         editCellName: '',
@@ -151,6 +152,23 @@ var qtime = new Vue({
         }
     }
 })
+
+qtime.$on('Log in', function (email, password) {
+
+    console.log('log in');
+    console.log('email '+email);
+    console.log('password '+password);
+    this.loginPopup = null;
+});
+
+qtime.$on('Sign up', function (email, password) {
+
+    console.log('Sign up');
+    console.log('email '+email);
+    console.log('password '+password);
+    this.loginPopup = null;
+
+});
 
 qtime.$on('edit', function (entry, key) {
     this.editEntry = entry;

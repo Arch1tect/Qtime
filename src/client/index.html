@@ -18,6 +18,54 @@
   </head>
   <body>
 
+
+    <!-- template for the login/signup component -->
+    <script type="text/x-template" id="login-template">
+      <transition name="login">
+        <div class="modal-mask" @click="$emit('close')">
+          <div class="modal-wrapper">
+            <div class="modal-container" @click.stop>
+
+              <div class="modal-header">
+                <slot name="header">
+
+                  <span class="modal-option" v-for="option in options">
+                    <input type="radio"
+                      :id="option"
+                      :value="option"
+                      name="option"
+                      v-model="selected">
+                    <label :for="option">{{ option }}</label>
+                  </span>
+                </slot>
+              </div>
+
+              <div class="login-modal-body">
+                <input type="text" placeholder="Email" v-model="email">
+                <input type="text" placeholder="Password" v-model="password">
+                <input v-if="selected=='Sign up'" type="text" placeholder="Confirm password" v-model="password2">
+                <span class="login-tips" v-if="selected!='Sign up'">
+                <label id="remember-me"><input type="checkbox" v-model="remember"/> Remember me</label> 
+                <a id="forgot-password">Forgot password?</a>
+                </span>
+              </div>
+
+              <div class="modal-footer">
+                <slot name="footer">
+                  <button class="modal-button" @click="$root.$emit(selected, email, password)">
+                    OK
+                  </button>                  
+                  <button class="modal-button" @click="$emit('close')">
+                    Cancel
+                  </button>
+                </slot>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </script>
+
     <!-- template for the modal component -->
     <script type="text/x-template" id="modal-template">
       <transition name="modal">
@@ -91,67 +139,82 @@
 
 
 
-    <button onclick="chrome.webstore.install()" id="install-button">Install Chrome Extension</button>
 
-    <center><div id="qtimeTitle" onclick="location.reload()">Qtime</div>
+    <div id="qtime-wrapper">
+      <div id="header-wrapper">
+        <div id="header">
+          <span id="qtimeTitle" onclick="location.reload()">Qtime</span>
+            <button onclick="chrome.webstore.install()" id="install-button">Install Chrome Extension</button>
 
-    </center>
-
-    <div id="qtime">
-
-      <!-- use the modal component, pass in the prop -->
-      <modal
-        :header="editCellName"
-        :cell-obj="editCellValObj"
-        v-if="showModal" @close="showModal = false">
-      </modal>
-      <div id="ajaxMsg">{{ajaxMsg}}</div>
-
-      <div id="leftWrapper">
-        <input id="search" name="query" placeholder="Search..." v-model="searchQuery">
-        <div id="durationSliderWrapper">
-          <div id="durationSlider"></div>
+          <div class="float-right">
+            <button @click="loginPopup = 'Sign up'">Sign up</button> | 
+            <button @click="loginPopup = 'Log in'">Log in</button>
+          </div>
         </div>
-        <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
-          <option v-for="option in options" v-bind:value="option.value">
-            {{ option.text }}
-          </option>
-        </select>
       </div>
-      <div id="rightWrapper">
-        <div id="addEntryWrapper">
-          <table id="addEntry">
-            <tbody>
-              <tr>
-                <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="New Entry" />
-                </td>
-                <td><input v-model="newEntryDuration" type="text"/></td>
-                <td><input v-model="newEntryCategory" type="text"/></td>
-                <td><input v-model="newEntryLink" type="text"/></td>
-                <td><input v-model="newEntryNote" type="text"/></td>
+      <div id="blank-space"></div>
+      <div id="qtime">
 
-              </tr>
-            </tbody>
-          </table>                
-          <button v-on:click="addEntry" type="button" id="addEntryBtn">+</button>
-        </div>
-        <div id="addEntryCandidate">
+        <login
+          :passin="loginPopup"
+          v-if="loginPopup" @close="loginPopup = null">
+        </login>
 
-          <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
-            {{ candidate.Title }} <span class="rightFloat">{{ candidate.Type}}&nbsp;&nbsp;&nbsp;{{ candidate.Year }}</span>
-          </p>
-          <p v-if= "newEntryCandidates.length==0">Not found.</p>
+        <!-- use the modal component, pass in the prop -->
+        <modal
+          :header="editCellName"
+          :cell-obj="editCellValObj"
+          v-if="showModal" @close="showModal = false">
+        </modal>
+
+
+        <div id="ajaxMsg">{{ajaxMsg}}</div>
+
+        <div id="leftWrapper">
+          <input id="search" name="query" placeholder="Search..." v-model="searchQuery">
+          <div id="durationSliderWrapper">
+            <div id="durationSlider"></div>
+          </div>
+          <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
+            <option v-for="option in options" v-bind:value="option.value">
+              {{ option.text }}
+            </option>
+          </select>
         </div>
-        <qtime-grid
-          :data="gridData"
-          :columns="gridColumns"
-          :filter-key="searchQuery"
-          :selected-category="selectedCategory"
-          :duration-min="durationMin"
-          :duration-max="durationMax">
-        </qtime-grid>
+        <div id="rightWrapper">
+          <div id="addEntryWrapper">
+            <table id="addEntry">
+              <tbody>
+                <tr>
+                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="New Entry" />
+                  </td>
+                  <td><input v-model="newEntryDuration" type="text"/></td>
+                  <td><input v-model="newEntryCategory" type="text"/></td>
+                  <td><input v-model="newEntryLink" type="text"/></td>
+                  <td><input v-model="newEntryNote" type="text"/></td>
+
+                </tr>
+              </tbody>
+            </table>                
+            <button v-on:click="addEntry" type="button" id="addEntryBtn">+</button>
+          </div>
+          <div id="addEntryCandidate">
+
+            <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
+              {{ candidate.Title }} <span class="rightFloat">{{ candidate.Type}}&nbsp;&nbsp;&nbsp;{{ candidate.Year }}</span>
+            </p>
+            <p v-if= "newEntryCandidates.length==0">Not found.</p>
+          </div>
+          <qtime-grid
+            :data="gridData"
+            :columns="gridColumns"
+            :filter-key="searchQuery"
+            :selected-category="selectedCategory"
+            :duration-min="durationMin"
+            :duration-max="durationMax">
+          </qtime-grid>
+        </div>
       </div>
-
 
     </div>
     <script>

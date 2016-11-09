@@ -17,6 +17,7 @@ gulp.task('default', function() {
     './nouislider.min.js',
 
     './grid.js',
+    './login.js',
     './modal.js',
 
     './qtime.js',

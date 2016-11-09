@@ -26,11 +26,10 @@
   padding: 20px 30px;
   padding-top: 10px;
   background-color: deepskyblue;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  border-radius: 5px;
+  box-shadow: 20px 20px 6px rgba(0,0,0,.33);
   transition: all .3s ease;
   font-size: 20px;
-  font-weight: 700;
   color: white;
 }
 
@@ -58,6 +57,7 @@
 
 .modal-button {
   float: right;
+  margin-right: 10px;
 }
 
 

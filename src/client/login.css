@@ -1,0 +1,34 @@
+.login-modal-body {
+  padding: 20px;
+  height: 100px;
+}
+
+.login-modal-body input[type="text"] {
+    width: 100%;
+    font-size: 15px;
+    margin-bottom: 10px
+}
+
+.modal-option {
+	margin: 10px;
+}
+.modal-option label {
+	color: #aaeaff;
+	cursor: pointer;
+	text-transform: none;
+}
+.modal-option input[type="radio"]:checked + label {
+    color: white;
+}
+.modal-option input[type="radio"] {
+    display:none;
+}
+.login-tips {
+	font-size: 12px;
+}
+#remember-me {
+	float: left;
+}
+#forgot-password {
+	float: right;
+}
