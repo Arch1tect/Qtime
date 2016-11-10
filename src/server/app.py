@@ -7,7 +7,6 @@ import json
 from config import config
 
 app = Bottle()
-my_lock = threading.Lock()
 file_path = "db/data.txt"
 # static routing
 @app.route('/')
@@ -32,7 +31,7 @@ def server_static():
 def get_data():
 	data = {}
 	arrayToReturn = []
-	with open(file_path, "r") as dataFile, my_lock:
+	with open(file_path, "r") as dataFile:
 		entryArray = json.load(dataFile)
 		for entry in entryArray:
 			if not 'deleted' in entry or not entry['deleted']:
@@ -47,7 +46,7 @@ def add_entry():
 
 	jsonObj = request.json
 
-	with open(file_path, "r+") as dataFile, my_lock:
+	with open(file_path, "r+") as dataFile:
 		entryArray = json.load(dataFile)
 
 		lastID = -1
@@ -71,7 +70,7 @@ def change_entry():
 
 	jsonObj = request.json
 
-	with open(file_path, "r+") as dataFile, my_lock:
+	with open(file_path, "r+") as dataFile:
 		entryArray = json.load(dataFile)
 		for entry in entryArray:
 			if entry['id'] == jsonObj['id']:
@@ -89,7 +88,7 @@ def delete_entry():
 
 	jsonObj = request.json
 
-	with open(file_path, "r+") as dataFile, my_lock:
+	with open(file_path, "r+") as dataFile:
 		entryArray = json.load(dataFile)
 		for entry in entryArray:
 			if entry['id'] == jsonObj['id']:
