@@ -13,12 +13,12 @@
 	margin: 10px;
 }
 .modal-option label {
-	color: #aaeaff;
+	color: darkgray;
 	cursor: pointer;
 	text-transform: none;
 }
 .modal-option input[type="radio"]:checked + label {
-    color: white;
+    color: black;
 }
 .modal-option input[type="radio"] {
     display:none;

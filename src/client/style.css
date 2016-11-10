@@ -8,8 +8,12 @@ body {
   margin:0px;
 }
 
-
-
+a {
+    color: black;
+}
+textarea {
+  font-weight: 300;
+}
 button {
     border: 3px solid #fff;
     color: #fff;
@@ -36,12 +40,13 @@ button {
 }
 
 #header-wrapper {
-    background-color: #00bfff;
+    background-color: white;
     z-index: 9997; /*mask is 9998*/
-    color: #fff;
+    /*color: #fff;*/
     width: 100%;
     position: fixed;
     padding: 5px;
+    border-bottom: 1px solid black;
 }
 #header {
   max-width: 1000px;
@@ -86,7 +91,7 @@ button {
 
 #search {
   display: inline;
-  border: 2px solid deepskyblue;
+  border: 1px solid;
   font-size: larger;
   width: 190px;
 }
@@ -99,13 +104,12 @@ button {
   max-width: 720px;
 }
 select option{
-  color: deepskyblue;
   padding-left: 20px;
   font-weight: 300;
   text-transform: capitalize;
 }
 select option:hover{
-  background-color: deepskyblue;
+  background-color: black;
   color: white;
 }
 #select-category {
@@ -126,7 +130,7 @@ select option:hover{
     border-radius: 5px;
     text-align: center;
     padding: 7px;
-    background: deepskyblue;
+    background: black;
     color: white;
     display: none;
 }

@@ -1,7 +1,7 @@
 #entryGrid {
 
   font-size: 16px;
-  border: 3px solid deepskyblue;
+  border: 1px solid;
   border-collapse: collapse;
   border-radius: 3px;
   table-layout: fixed;
@@ -15,7 +15,7 @@
   background: yellow !important;
 }
 #entryGrid th {
-  background-color: deepskyblue;
+  background-color: black;
   color: white;
   cursor: pointer;
   font-weight: 300;
@@ -95,7 +95,7 @@
   height: 50px;
   width: 50px;
   margin: 1px; 
-  color: deepskyblue;
+  color: black;
   cursor: pointer;
   font-size: 30px;
   border: none;

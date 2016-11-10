@@ -1,6 +1,6 @@
 .modal-button:hover, .modal-button:active {
-    color: deepskyblue;
-    background: #fff;
+    color: white;
+    background: black;
 }
 .modal-mask {
   position: fixed;
@@ -25,17 +25,16 @@
   margin: 0px auto;
   padding: 20px 30px;
   padding-top: 10px;
-  background-color: deepskyblue;
   border-radius: 5px;
+  border: 1px black;
+  background-color: white;
   box-shadow: 20px 20px 6px rgba(0,0,0,.33);
   transition: all .3s ease;
   font-size: 20px;
-  color: white;
 }
 
 .modal-header {
   margin-top: 0;
-  color: white;
   text-align: center;
   text-transform: capitalize;
 }
