@@ -52,7 +52,9 @@
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <button class="modal-button" @click="$root.$emit(selected, email, password)">
+                  <span>{{serverresponse}}</span>
+
+                  <button class="modal-button" @click="submit()">
                     OK
                   </button>                  
                   <button class="modal-button" @click="$emit('close')">

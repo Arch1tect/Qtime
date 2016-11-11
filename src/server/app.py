@@ -1,13 +1,19 @@
 # run from /src folder, i.e. python server/app.py
 import sys
 import threading
-from bottle import Bottle, get, post, put, delete, route, request, response, run, template, static_file
+from bottle import Bottle, get, post, put, delete, route, request, response, HTTPResponse, run, template, static_file
 from werkzeug.serving import run_simple
 import json
 from config import config
 
 app = Bottle()
 file_path = "db/data.txt"
+
+
+class InvalidLogin(HTTPResponse):
+	def __init__(self):
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Invalid login"}))
+
 # static routing
 @app.route('/')
 def server_static_home():
@@ -27,8 +33,18 @@ def server_static():
 	response.set_header('Content-Type', 'text/plain; charset=utf-8')
 	return static_file('restart.log', root='')
 
-@app.get('/api/data')
-def get_data():
+
+@app.post('/login')
+def login():
+
+	request_body = request.json
+	validate(request_body['username'], request_body['password'])
+
+	return {"success": True}
+
+
+@app.get('/api/public')
+def get_public_data():
 	data = {}
 	arrayToReturn = []
 	with open(file_path, "r") as dataFile:
@@ -39,6 +55,37 @@ def get_data():
 		
 		data["array"] = arrayToReturn
 	return data
+
+
+def validate(username, password):
+	validated = False
+	with open("db/account.txt", "r") as account_file:
+		account_array = json.load(account_file)
+		for account in account_array:
+			if account['username'] == username:
+				validated = account['password'] == password
+				break
+	if not validated:
+		raise InvalidLogin
+
+
+@app.post('/api/data')
+def get_data():
+
+	request_body = request.json
+	validate(request_body['username'], request_body['password'])
+
+	data = {}
+	active_entries = []
+	with open('db/'+request_body['username'], "r") as data_file:
+		entry_array = json.load(data_file)
+		for entry in entry_array:
+			if not 'deleted' in entry or not entry['deleted']:
+				active_entries.append(entry)
+		
+		data["array"] = active_entries
+	return data
+
 
 
 @app.post('/api/data')
@@ -62,6 +109,7 @@ def add_entry():
 		dataFile.truncate()
 
 	return {"id": newID}
+
 
 
 

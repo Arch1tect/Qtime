@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 	// Go fetch the data
 	// populate the grid and also category options
-	$.get("/api/data", function(jsonData, status){
+	$.get("/api/public", function(jsonData, status){
 	  
 	  var optionsSet = {};
 	  // load categories into optionsArray

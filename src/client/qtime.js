@@ -153,22 +153,34 @@ var qtime = new Vue({
     }
 })
 
-qtime.$on('Log in', function (email, password) {
+// qtime.$on('Log in', function (email, password) {
 
-    console.log('log in');
-    console.log('email '+email);
-    console.log('password '+password);
-    this.loginPopup = null;
-});
+//     var that = this;
+//     $.ajax({
+//         type: "POST",
+//         contentType : 'application/json',
+//         url: 'login',
+//         dataType: 'json',
+//         data: JSON.stringify({ "username": email, "password": password}),
+//         success: function () {
+    
+//             that.loginPopup = null;
+//         },
+//         error: function () {
+//             alert('error! failed to log in');
+//             that.loginPopup = null;
+//         }
+//     });
+// });
 
-qtime.$on('Sign up', function (email, password) {
+// qtime.$on('Sign up', function (email, password) {
 
-    console.log('Sign up');
-    console.log('email '+email);
-    console.log('password '+password);
-    this.loginPopup = null;
+//     console.log('Sign up');
+//     console.log('email '+email);
+//     console.log('password '+password);
+//     this.loginPopup = null;
 
-});
+// });
 
 qtime.$on('edit', function (entry, key) {
     this.editEntry = entry;
