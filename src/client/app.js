@@ -28,16 +28,10 @@ $(document).ready(function(){
 			contentType : 'application/json',
 			url: 'login',
 			dataType: 'json',
-			headers: {"Authorization": "Basic " + btoa(username + ":" + token)},
 			success: function (data) {
-				token = data.token;
-				qtime.$emit('login', username, token);
-				Cookies.set('username', username, { expires: 100 });
-				Cookies.set('token', token, { expires: 30 });
-				
+				qtime.$emit('login success');
 			},
 			error: function (data) {
-				Cookies.remove('token');
 				qtime.getPublicData();
 			}
 		});

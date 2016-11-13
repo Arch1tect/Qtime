@@ -2,7 +2,8 @@
     {
         "username": "ArchiTech", 
         "status": "active", 
-        "token": "7d1bf728-c786-45c5-ba3c-d475f0486079", 
+        "email": "", 
+        "token": "ba6d51b4-d670-429a-945f-c6f6a6f55229", 
         "password": "password", 
         "id": 0
     }, 
@@ -10,13 +11,22 @@
         "username": "Goku", 
         "status": "active", 
         "password": "password", 
+        "email": "", 
         "id": 1
     }, 
     {
         "username": "David", 
         "status": "active", 
+        "email": "haha@ha.com", 
         "token": "ae0ba751-22ec-446e-9e1d-400476af01e2", 
         "password": "password", 
         "id": 2
+    }, 
+    {
+        "username": "test", 
+        "token": "85e7f7bd-b33b-4dbd-82ac-e8dd74f5cd31", 
+        "password": "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86", 
+        "email": "eee", 
+        "id": 3
     }
 ]

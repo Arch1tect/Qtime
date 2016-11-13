@@ -44,7 +44,7 @@
                 <input type="text" placeholder="Username" v-model="username">
                 <input v-if="selected=='Sign up'" type="text" placeholder="Email" v-model="email">
                 <input type="password" placeholder="Password" v-model="password">
-                <input v-if="selected=='Sign up'" type="text" placeholder="Confirm password" v-model="password2">
+                <input v-if="selected=='Sign up'" type="password" placeholder="Confirm password" v-model="password2">
                 <span class="login-tips" v-if="selected!='Sign up'">
                 <label id="remember-me"><input type="checkbox" v-model="remember"/> Remember me</label> 
                 <a id="forgot-password">Forgot password?</a>
@@ -53,7 +53,7 @@
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <span class="login-response" v-bind:class="{error: loginFailed}">{{serverresponse}}</span>
+                  <span class="login-response" v-bind:class="{error: loginOrSignupFailed}">{{serverresponse}}</span>
 
                   <button class="modal-button" @click="submit()">
                     OK
@@ -176,7 +176,7 @@
               <button @click="loginPopup = 'Sign up'">Sign up</button> | 
               <button @click="loginPopup = 'Log in'">Log in</button>
             </span>
-            <span v-if="login">
+            <span v-cloak v-if="login">
               Welcome, {{username}}! <button @click="logout">Log out</button>
             </span>
           </div>

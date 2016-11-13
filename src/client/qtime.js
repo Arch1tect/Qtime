@@ -108,7 +108,7 @@ var qtime = new Vue({
 		},
 		logout: function () {
 
-			Cookies.remove('token');
+			Cookies.remove('token'); // should remove token from server!
 			location.reload();
 
 		},
@@ -168,7 +168,6 @@ var qtime = new Vue({
 				contentType : 'application/json',
 				url: 'api/add-entry',
 				dataType: 'json',
-				headers: {"Authorization": "Basic " + btoa(qtime.username + ":" + qtime.token)},
 				data: JSON.stringify(newEntry),
 				success: function (data) {
 					showAjaxMsg(newEntry['name']+' is added!');
@@ -187,18 +186,19 @@ var qtime = new Vue({
 	}
 })
 
-qtime.$on('login', function (username, token) {
+qtime.$on('login success', function (username) {
+	
+	//once login success, save username, token, mark state,
+	//then go get user's own data
 
-	qtime.username = username;
-	qtime.token = token;
+	qtime.username = Cookies.get('username');
 	qtime.login = true;
-	//once login, get user's own data
+
 	$.ajax({
 		type: "GET",
 		contentType : 'application/json',
 		url: 'api/data',
 		dataType: 'json',
-		headers: {"Authorization": "Basic " + btoa(username + ":" + token)},
 		success: function (jsonData) {
 
 			var optionsSet = {};
@@ -227,6 +227,8 @@ qtime.$on('login', function (username, token) {
 });
 
 qtime.$on('edit', function (entry, key) {
+	if (!qtime.login)
+		return;
 	this.editEntry = entry;
 	this.editCellName = key;
 	this.editCellValObj = {val:entry[key]}; // hacky way, wonder what's better way
@@ -238,6 +240,7 @@ qtime.$on('edit', function (entry, key) {
 	});
 
 });
+
 function showAjaxMsg(msg) {
 	qtime.ajaxMsg = msg;
 	if (typeof showAjaxMsgTimeout != 'undefined')
@@ -245,6 +248,7 @@ function showAjaxMsg(msg) {
 	$('#ajaxMsg').fadeIn();
 	showAjaxMsgTimeout = setTimeout(function(){$('#ajaxMsg').fadeOut();}, 3000);
 }
+
 qtime.$on('save', function () {
 
 	var entry = this.editEntry;
@@ -259,11 +263,8 @@ qtime.$on('save', function () {
 		$.ajax({
 			type: "DELETE",
 			contentType : 'application/json',
-			url: 'api/delete-entry',
+			url: 'api/delete-entry/'+entry.id,
 			dataType: 'json',
-			data: JSON.stringify({ "id": entry.id}),
-			headers: {"Authorization": "Basic " + btoa(qtime.username + ":" + qtime.token)},
-
 			success: function () {
 				showAjaxMsg(entry['name']+' is deleted!');
 				qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
@@ -282,10 +283,9 @@ qtime.$on('save', function () {
 		$.ajax({
 			type: "PUT",
 			contentType : 'application/json',
-			url: 'api/change-entry',
+			url: 'api/change-entry/'+entry.id+'/'+key,
 			dataType: 'json',
-			headers: {"Authorization": "Basic " + btoa(qtime.username + ":" + qtime.token)},
-			data: JSON.stringify({ "id": entry.id, "colName" :key, "val": val }),
+			data: val,
 			success: function () {
 
 				showAjaxMsg(entry['name']+' is modified!');
