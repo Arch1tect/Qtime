@@ -14,6 +14,7 @@ gulp.task('default', function() {
     gulp.src([
     './jquery-3.1.0.min.js',
     './vue2.js',
+    './cookie.js',
     './nouislider.min.js',
 
     './grid.js',

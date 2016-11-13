@@ -1,0 +1,17 @@
+select option{
+  padding-left: 20px;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+select option:hover{
+  background-color: black;
+  color: white;
+}
+#select-category {
+  background: none;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  font-size: large;
+  width: 100%;
+}

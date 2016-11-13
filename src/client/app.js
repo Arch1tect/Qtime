@@ -17,26 +17,36 @@ $(document).ready(function(){
 		$(this).children(".contentTooltip").hide();
 	});
 	
+	// try to login
 
-	// Go fetch the data
-	// populate the grid and also category options
-	$.get("/api/public", function(jsonData, status){
-	  
-	  var optionsSet = {};
-	  // load categories into optionsArray
-	  for (var i=0; i<jsonData.array.length; i++) {
-	    var entry = jsonData.array[i];
-	    if (! (entry.category in optionsSet))
-	      optionsSet[entry.category] = true;
-	  }
+	username = Cookies.get('username')
+	token = Cookies.get('token')
 
-	  for (var key in optionsSet) {
-	    optionsArray.push({'text':key, 'value': key});
-	  }
+	if (username && token) {
+		$.ajax({
+			type: "POST",
+			contentType : 'application/json',
+			url: 'login',
+			dataType: 'json',
+			headers: {"Authorization": "Basic " + btoa(username + ":" + token)},
+			success: function (data) {
+				token = data.token;
+				qtime.$emit('login', username, token);
+				Cookies.set('username', username, { expires: 100 });
+				Cookies.set('token', token, { expires: 30 });
+				
+			},
+			error: function (data) {
+				Cookies.remove('token');
+				qtime.getPublicData();
+			}
+		});
 
-	  qtime.gridData = jsonData['array'].reverse();
-	    
-	});
-
+	}else 
+		qtime.getPublicData();
 
 });
+
+
+
+

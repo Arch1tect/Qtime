@@ -1,25 +1,26 @@
 Vue.component('login', {
 	template: '#login-template',
 	props: {
-		passin: String,
-		loginPopup: String
+		passin: String
 	},
 	data: function () {
 
 		return {
+			username: '',
 			email: '',
-			password: '',
+			password: '', //password never live outside this component
 			password2: '',
 			remember: true,
 			selected: this.passin,
 			options: ['Sign up', 'Log in'],
-			serverresponse: 'hi'
+			loginFailed: false,
+			serverresponse: ''
 		}
 	},  
 	// watch: {
 	// 	selected: 'updateModal'
 	// },
-
+	
 	methods: {
 		submit: function () {
 			var that = this;
@@ -28,15 +29,25 @@ Vue.component('login', {
 				contentType : 'application/json',
 				url: 'login',
 				dataType: 'json',
-				data: JSON.stringify({ "username": this.email, "password": this.password}),
-				success: function () {
-					serverresponse = "Success!";
+				headers: {"Authorization": "Basic " + btoa(this.username + ":" + this.password)},
+				success: function (data) {
+					token = data.token;
+					that.loginFailed = false;
+					that.serverresponse = "Success!";
+					that.$root.$emit('login', that.username, token);
+					Cookies.set('username', that.username, { expires: 100 });
+					Cookies.set('token', token, { expires: 30 });
+					// setTimeout(function(){that.$emit('close');}, 1000);
 					that.$emit('close');
+					
 				},
-				error: function () {
-					alert('error! failed to log in');
+				error: function (data) {
+					that.serverresponse = data.responseJSON.error;
+					that.loginFailed = true;
 				}
 			});
 		}
+
 	}
 })
+

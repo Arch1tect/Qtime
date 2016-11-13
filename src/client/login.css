@@ -1,16 +1,22 @@
-.login-modal-body {
+.login .modal-body {
   padding: 20px;
-  height: 100px;
+  padding-bottom: 0px;
+  min-height: 100px;
 }
 
-.login-modal-body input[type="text"] {
+.login .modal-body input[type="text"], .login .modal-body input[type="password"] {
     width: 100%;
     font-size: 15px;
     margin-bottom: 10px;
     line-height: 25px;
     border: 1px solid;
 }
-
+.login-response {
+  font-size: smaller;
+}
+.login-response.error {
+  color: red;
+}
 .modal-option {
 	margin: 10px;
 }
@@ -34,3 +40,9 @@
 #forgot-password {
 	float: right;
 }
+.login .modal-button {
+    margin-right: 15px; 
+    margin-top: 3px;
+}
+
+

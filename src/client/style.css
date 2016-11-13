@@ -27,12 +27,16 @@ button {
     background: none;
     cursor: pointer;
     display: inline-block;
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
     font-weight: 300;
     position: relative;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     transition: all 0.3s;
+}
+button:hover, button:active {
+    color: white;
+    background: black;
 }
 
 [v-cloak] {
@@ -56,7 +60,7 @@ button {
   cursor: pointer;
 }
 #header .float-right {
-  width: 180px;
+  margin-right: 30px;
   margin-top: 10px;
 }
 
@@ -102,23 +106,6 @@ button {
 #rightWrapper {
   float: right;
   max-width: 720px;
-}
-select option{
-  padding-left: 20px;
-  font-weight: 300;
-  text-transform: capitalize;
-}
-select option:hover{
-  background-color: black;
-  color: white;
-}
-#select-category {
-  background: none;
-  cursor: pointer;
-  border: none;
-  overflow: hidden;
-  font-size: x-large;
-  width: 100%;
 }
 
 #ajaxMsg {
