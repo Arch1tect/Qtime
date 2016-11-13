@@ -92,7 +92,10 @@ button:hover, button:active {
   margin-top: 100px;
   margin: auto;
 }
-
+#qtime-tip {
+  font-size: large;
+  margin-bottom: 30px;
+}
 #search {
   display: inline;
   border: 1px solid;

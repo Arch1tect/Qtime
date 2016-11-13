@@ -16,6 +16,7 @@ gulp.task('default', function() {
     './vue2.js',
     './cookie.js',
     './nouislider.min.js',
+    './utils.js',
 
     './grid.js',
     './login.js',

@@ -33,7 +33,7 @@
     }, 
     {
         "category": "show", 
-        "name": "South Park", 
+        "name": "South Park123", 
         "note": "Hulu", 
         "link": "http://www.hulu.com/south-park", 
         "duration": "20", 
@@ -575,7 +575,7 @@
     }, 
     {
         "category": "series", 
-        "name": "Game of Thrones", 
+        "name": "\nxcxc", 
         "note": "Made in 2011\u2013", 
         "link": "http://www.imdb.com/title/tt0944947", 
         "duration": 60, 
@@ -588,58 +588,5 @@
         "link": "", 
         "duration": 120, 
         "id": 68
-    }, 
-    {
-        "category": "", 
-        "name": "", 
-        "deleted": true, 
-        "note": "", 
-        "link": "", 
-        "duration": "", 
-        "id": 69
-    }, 
-    {
-        "category": "", 
-        "name": "", 
-        "deleted": true, 
-        "note": "", 
-        "link": "", 
-        "duration": "", 
-        "id": 70
-    }, 
-    {
-        "category": "", 
-        "name": "", 
-        "deleted": true, 
-        "note": "", 
-        "link": "", 
-        "duration": "", 
-        "id": 71
-    }, 
-    {
-        "category": "", 
-        "name": "", 
-        "deleted": true, 
-        "note": "", 
-        "link": "", 
-        "duration": "", 
-        "id": 72
-    }, 
-    {
-        "category": "", 
-        "name": "jkljk;kj;jk", 
-        "deleted": true, 
-        "note": "", 
-        "link": "", 
-        "duration": "", 
-        "id": 73
-    }, 
-    {
-        "category": "", 
-        "name": "", 
-        "note": "", 
-        "link": "", 
-        "duration": "", 
-        "id": 74
     }
 ]

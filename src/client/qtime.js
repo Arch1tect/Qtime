@@ -86,25 +86,27 @@ var qtime = new Vue({
 		},
 		getPublicData: function () {
 			// Go fetch the data
+			qRequest('GET', 'api/public', null, qtime.loadData, 
+				function () {alert('Error! Failed to get public data.')}
+			);
+
+		},
+		loadData: function (jsonData) {
 			// populate the grid and also category options
-			$.get("/api/public", function(jsonData, status){
-			  
-			  var optionsSet = {};
-			  qtime.options = JSON.parse(JSON.stringify(INIT_OPT_LIST));
-			  // load categories into optionsArray
-			  for (var i=0; i<jsonData.array.length; i++) {
-			    var entry = jsonData.array[i];
-			    if (! (entry.category in optionsSet))
-			      optionsSet[entry.category] = true;
-			  }
+			var optionsSet = {};
+			qtime.options = JSON.parse(JSON.stringify(INIT_OPT_LIST));
+			// load categories into options
+			for (var i=0; i<jsonData.array.length; i++) {
+				var entry = jsonData.array[i];
+				if (! (entry.category in optionsSet))
+				optionsSet[entry.category] = true;
+			}
 
-			  for (var key in optionsSet) {
-			    qtime.options.push({'text':key, 'value': key});
-			  }
+			for (var key in optionsSet) {
+				qtime.options.push({'text':key, 'value': key});
+			}
 
-			  qtime.gridData = jsonData['array'].reverse();
-			    
-			});
+			qtime.gridData = jsonData['array'].reverse();
 		},
 		logout: function () {
 
@@ -163,19 +165,17 @@ var qtime = new Vue({
 				note: this.newEntryNote
 			};
 
-			$.ajax({
-				type: "POST",
-				contentType : 'application/json',
-				url: 'api/add-entry',
-				dataType: 'json',
-				data: JSON.stringify(newEntry),
-				success: function (data) {
+
+			qRequest('POST', 'api/entry', JSON.stringify(newEntry), 
+				function (data) { //success
 					showAjaxMsg(newEntry['name']+' is added!');
 					console.log('Add entry success, id: '+ data.id);
 					newEntry.id = data.id;
 					gridData.unshift(newEntry);
-				}
-			});
+				}, 
+				function () {alert('Error! Failed to add entry.')}
+			);
+
 		  
 			this.newEntryName = '';
 			this.newEntryDuration = '';
@@ -194,35 +194,9 @@ qtime.$on('login success', function (username) {
 	qtime.username = Cookies.get('username');
 	qtime.login = true;
 
-	$.ajax({
-		type: "GET",
-		contentType : 'application/json',
-		url: 'api/data',
-		dataType: 'json',
-		success: function (jsonData) {
-
-			var optionsSet = {};
-			qtime.options = JSON.parse(JSON.stringify(INIT_OPT_LIST));
-			// load categories into options
-			for (var i=0; i<jsonData.array.length; i++) {
-				var entry = jsonData.array[i];
-				if (! (entry.category in optionsSet))
-				optionsSet[entry.category] = true;
-			}
-
-			for (var key in optionsSet) {
-				qtime.options.push({'text':key, 'value': key});
-			}
-
-			qtime.gridData = jsonData['array'].reverse();
-
-		},
-		error: function () {
-			alert('Error! Failed to load user data');
-		}
-	});
-
-	
+	qRequest('GET', 'api/data', null, qtime.loadData, 
+		function () {alert('Error! Failed to get user data')}
+	);
 
 });
 
@@ -256,45 +230,30 @@ qtime.$on('save', function () {
 	var val = this.editCellValObj.val; // hacky way, wonder what's better way
   
 	//del whole entry
-	if (val==='xxx') {
+	if (val==='del') {
 	
 		console.log('deleting entry');
 
-		$.ajax({
-			type: "DELETE",
-			contentType : 'application/json',
-			url: 'api/delete-entry/'+entry.id,
-			dataType: 'json',
-			success: function () {
+
+		qRequest('DELETE', 'api/entry/'+entry.id, null, 
+			function (data) { //success
 				showAjaxMsg(entry['name']+' is deleted!');
 				qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
-			},
-			error: function () {
-				alert('error! failed to delete');
-			}
-		});
+			}, 
+			function () {alert('Error! Failed to delete entry.')}
+		);
 
 	}else{
-		if (val && key === 'duration')
-			val = parseInt(val);
-		console.log('changing entry value from '+entry[key]+'to '+val);
-	
-		//request server to update change
-		$.ajax({
-			type: "PUT",
-			contentType : 'application/json',
-			url: 'api/change-entry/'+entry.id+'/'+key,
-			dataType: 'json',
-			data: val,
-			success: function () {
 
+		console.log('changing entry value from '+entry[key]+' to '+val);
+	
+		qRequest('PUT', 'api/entry/'+entry.id+'/'+key, val, 
+			function (data) { //success
 				showAjaxMsg(entry['name']+' is modified!');
 				entry[key] = val;
-			},
-			error: function () {
-				alert('error');
-			}
-		});
+			}, 
+			function () {alert('Error! Failed to update entry.')}
+		);
 
 	}
 

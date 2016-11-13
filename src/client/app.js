@@ -17,24 +17,18 @@ $(document).ready(function(){
 		$(this).children(".contentTooltip").hide();
 	});
 	
-	// try to login
+	// try to login if cookies are there, 
+	// if login fail, fetch public data
 
 	username = Cookies.get('username')
 	token = Cookies.get('token')
 
 	if (username && token) {
-		$.ajax({
-			type: "POST",
-			contentType : 'application/json',
-			url: 'login',
-			dataType: 'json',
-			success: function (data) {
-				qtime.$emit('login success');
-			},
-			error: function (data) {
-				qtime.getPublicData();
-			}
-		});
+
+		qRequest('GET', 'token-login', null, 
+			function() {qtime.$emit('login success')},
+			function() {qtime.getPublicData()}
+		)
 
 	}else 
 		qtime.getPublicData();

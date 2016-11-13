@@ -170,7 +170,6 @@
         <div id="header">
           <span id="qtimeTitle" onclick="location.reload()">Qtime</span>
             <button onclick="chrome.webstore.install()" id="install-button">Install Chrome Extension</button>
-
           <div class="float-right">
             <span v-if="!login">
               <button @click="loginPopup = 'Sign up'">Sign up</button> | 
@@ -212,6 +211,10 @@
           </select>
         </div>
         <div id="rightWrapper">
+          <div v-if="!login" id="qtime-tip">
+            Welcome, you can check out trending entries below, or <a href="#" style="" @click="loginPopup = 'Log in'">log in</a> to manage your own.
+          </div>
+
           <div v-if="login" id="addEntryWrapper">
             <table id="addEntry">
               <tbody>
@@ -228,6 +231,7 @@
             </table>                
             <button v-on:click="addEntry" type="button" id="addEntryBtn">+</button>
           </div>
+
           <div id="addEntryCandidate">
 
             <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">

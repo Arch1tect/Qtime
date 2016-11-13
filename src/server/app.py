@@ -10,17 +10,19 @@ import hashlib
 
 
 app = Bottle()
-file_path = "db/data.txt"
+salt = "qtimesalt2016" # move to more secure place
 
 
+# exceptions during request validation or login
 class InvalidLoginException(HTTPResponse):
 	def __init__(self):
-		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Invalid login."}))
+		HTTPResponse.__init__(self, status=401, body=json.dumps({"error":"Invalid login."}))
 
 class AccountNotFoundException(HTTPResponse):
 	def __init__(self):
-		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Account not found."}))
+		HTTPResponse.__init__(self, status=401, body=json.dumps({"error":"Account not found."}))
 
+# exceptions during signup
 class AccountExistedException(HTTPResponse):
 	def __init__(self):
 		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Username is taken."}))
@@ -47,11 +49,14 @@ def server_static(filename):
 def server_static():
 	response.set_header('Content-Type', 'text/plain; charset=utf-8')
 	return static_file('restart.log', root='')
+# end of static routing
+
 
 # used by both password and token log in
 def validate(username, password_or_token):
 	validated = False
 	found_account = False
+	password_or_token = hashlib.sha512(salt+password_or_token).hexdigest()
 	with open("db/account.txt", "r") as account_file:
 		account_array = json.load(account_file)
 		for account in account_array:
@@ -64,7 +69,7 @@ def validate(username, password_or_token):
 	if not validated:
 		raise InvalidLoginException
 
-# not used for password log in
+# Only for token, not used for password log in
 def validate_request(fn):
 
 	def wrapper(*args, **kwargs):
@@ -77,41 +82,53 @@ def validate_request(fn):
 def update_token(username): 
 	''' Generate token and save to file'''
 	token = str(uuid.uuid4())
+	hashed_token = hashlib.sha512(salt+token).hexdigest()
 	with open("db/account.txt", "r+") as account_file:
 		account_array = json.load(account_file)
 		for account in account_array:
 			if account['username'] == username:
-				account['token'] = token
+				account['token'] = hashed_token
 				break
 		account_file.seek(0)
 		json.dump(account_array, account_file, indent=4)
 		account_file.truncate()
 	return token
 
-@app.post('/login')
-def login():
-
+@app.post('/password-login')
+def password_login():
+	'''
+	This is when user login using login form, read data from
+	request body, don't read cookie
+	'''
 	request_body = request.json
-	username = request.get_cookie('username')
+	username = request_body['username']
+	password = request_body['password']
 
-	if request_body and 'password' in request_body:
-		password = hashlib.sha512(request_body['password']).hexdigest()
-		validate(username, password)
-	else:
-		token = request.get_cookie('token')
-		validate(username, token)
-		
+	validate(username, password)
+
 	token = update_token(username)
+	response.set_cookie('token', token)
+	response.set_cookie('username', username)
+
+	return {"success": True}
+
+
+@app.get('/token-login')
+@validate_request
+def token_login():
+	
+	# login success, update token
+	token = update_token(request.get_cookie('username'))
 	response.set_cookie('token', token)
 
 	return {"success": True}
+
 
 @app.post('/signup')
 def signup():
 
 	request_body = request.json
-	token = str(uuid.uuid4())
-	request_body['password'] = hashlib.sha512(request_body['password']).hexdigest()
+	request_body['password'] = hashlib.sha512(salt+request_body['password']).hexdigest()
 
 	# try to add new account into account file, check for duplicates
 	with open("db/account.txt", "r+") as account_file:
@@ -125,15 +142,10 @@ def signup():
 		# Didn't encounter problem, now create new account
 
 		last_id = -1
-
 		if len(account_array):
 			last_id = account_array[-1]['id']
-
 		new_id = last_id + 1
-
 		request_body['id'] = new_id
-		request_body['token'] = token
-
 		account_array.append(request_body)
 		account_file.seek(0)
 		json.dump(account_array, account_file, indent=4)
@@ -152,6 +164,7 @@ def signup():
 
 		json.dump(entry_array, data_file, indent=4)
 	
+	token = update_token(request_body['username'])
 	response.set_cookie('token', token)
 
 	return {"success": True}
@@ -161,7 +174,7 @@ def signup():
 def get_public_data():
 	data = {}
 	arrayToReturn = []
-	with open(file_path, "r") as data_file:
+	with open("db/public.txt", "r") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
 			if not 'deleted' in entry or not entry['deleted']:
@@ -190,7 +203,7 @@ def get_data():
 
 
 
-@app.post('/api/add-entry')
+@app.post('/api/entry')
 @validate_request
 def add_entry():
 
@@ -217,7 +230,7 @@ def add_entry():
 
 
 
-@app.put('/api/change-entry/<id>/<key>')
+@app.put('/api/entry/<id>/<key>')
 @validate_request
 def change_entry(id, key):
 
@@ -236,7 +249,7 @@ def change_entry(id, key):
 
 
 
-@app.delete('/api/delete-entry/<id>')
+@app.delete('/api/entry/<id>')
 @validate_request
 def delete_entry(id):
 
@@ -245,7 +258,7 @@ def delete_entry(id):
 	with open('db/'+ username +'.txt', "r+") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
-			if entry['id'] == id:
+			if str(entry['id']) == id:
 				# entry_array.remove(entry)
 				entry['deleted'] = True
 				break

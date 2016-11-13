@@ -29,15 +29,10 @@ Vue.component('login', {
 				this.login();
 		},
 		login: function () {
-			$.ajax({
-				type: "POST",
-				contentType : 'application/json',
-				url: 'login',
-				dataType: 'json',
-				data: JSON.stringify({ "username": this.username, "password": this.password}),
-				success: this.loginSuccess,
-				error: this.loginFail
-			});
+
+			var data = JSON.stringify({ "username": this.username, "password": this.password});
+			qRequest('POST', 'password-login', data, this.loginSuccess, this.loginFail);
+
 		},
 		loginSuccess: function (data) {
 			this.loginOrSignupFailed = false;
@@ -50,15 +45,10 @@ Vue.component('login', {
 			this.loginOrSignupFailed = true;
 		},
 		signup: function () {
-			$.ajax({
-				type: "POST",
-				contentType : 'application/json',
-				url: 'signup',
-				dataType: 'json',
-				data: JSON.stringify({ "username": this.username, "email": this.email, "password": this.password}),
-				success: this.loginSuccess,
-				error: this.loginFail
-			});
+
+			var data = JSON.stringify({ "username": this.username, "email": this.email, "password": this.password});
+			qRequest('POST', 'signup', data, this.loginSuccess, this.loginFail);
+
 		}
 
 	}
