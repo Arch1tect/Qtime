@@ -28,15 +28,13 @@
   background: yellow;
 }
 
-#addEntry tr {
-  height: 50px;
-}
+
 
 #entryGrid th:first-child {
-  width: 180px;
+  width: 200px;
 }
 #entryGrid th:last-child {
-  width: 290px;
+  width: 270px;
 }
 #entryGrid th:nth-child(4) {
   width: 55px;
@@ -50,23 +48,7 @@
 #entryGrid td:last-child {
   /* font-size: smaller; */
 }
-#addEntry th:nth-child(3) {
-  width: 55px;
-}
-#addEntry td:first-child {
-  width: 180px;
-}
-#addEntry td:last-child {
-  width: 250px;
-}
-#entryGrid td {
-  cursor: pointer;
-  padding: 10px 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
-}
 
 #entryGrid th.active {
   /*font-size: larger;*/
@@ -87,9 +69,32 @@
 }
 #addEntry td {
 
-  width: 85px;
+  width: 70px;
   border: 2px dashed #afafaf;
 }
+
+
+#addEntry tr {
+  height: 50px;
+}
+#addEntry th:nth-child(3) {
+  width: 55px;
+}
+#addEntry td:first-child {
+  width: 200px;
+}
+#addEntry td:last-child {
+  width: 225px;
+}
+#entryGrid td {
+  cursor: pointer;
+  padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
 #addEntry input {
   height: 100%;
   width: 100%;
@@ -135,7 +140,7 @@ table tr th:nth-child(2) {
     position: absolute;
     padding: 29px;
     margin-top: 15px;
-    margin-left: -50px;
+    /*margin-left: -50px;*/
     background: #ffd;
     z-index: 9999;
     word-wrap: break-word;
@@ -143,8 +148,8 @@ table tr th:nth-child(2) {
     line-height: 140%;
     white-space: normal;
     text-align: left;
-    width: 220px;
-    padding: 15px;
+    width: 245px;
+    padding: 10px;
     display: none;
     border: 1px solid #999;
     border-radius: 4px;
