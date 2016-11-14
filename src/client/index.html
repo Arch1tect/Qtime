@@ -89,7 +89,7 @@
 
               <div class="modal-footer">
                 <slot name="footer">
-                  <button class="modal-button" @click="$root.$emit('save')">
+                  <button class="modal-button" @click="$root.$emit('update-cell')">
                     Save
                   </button>                  
                   <button class="modal-button" @click="$emit('close')">
@@ -126,7 +126,9 @@
             | filterBy filterByDuration
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
-            <td v-for="key in columns" @dblclick="$root.$emit('edit', entry, key)">
+            <td v-for="(key, index) in columns" @dblclick="$root.$emit('edit-cell', entry, key)">
+              <button v-if="index==0 && $root.canEdit" @click="$root.$emit('remove-entry', entry)" class="delete-entry">X</button>
+
               <a v-if="key=='link' && entry[key]" target="_blank" :href="entry[key]">url</a>
               <span v-else>
                 {{entry[key]}} 
@@ -224,10 +226,10 @@
         </div>
         <div id="rightWrapper">
           <center v-if="!login" id="qtime-tip">
-            Welcome, check out trending entries below, or <a href="#" style="" @click="loginPopup = 'Log in'">log in</a> to manage your own.
+            Welcome, you can check out trending entries below, or <a href="#" style="" @click="loginPopup = 'Log in'">log in</a> to manage your own.
           </center>
 
-          <div v-if="login" id="addEntryWrapper">
+          <div v-if="canEdit" id="addEntryWrapper">
             <table id="addEntry">
               <tbody>
                 <tr>

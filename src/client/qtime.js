@@ -69,6 +69,13 @@ var qtime = new Vue({
 		// });
 
 	},
+	computed: {
+
+		canEdit: function() {
+			return this.login && this.selectedTable=="My stuff";
+		}
+
+	},
 	watch: {
 		selectedTable: function () {
 			if (this.selectedTable === 'Trending') {
@@ -219,6 +226,14 @@ var qtime = new Vue({
 	}
 })
 
+function showAjaxMsg(msg) {
+	qtime.ajaxMsg = msg;
+	if (typeof showAjaxMsgTimeout != 'undefined')
+		clearTimeout(showAjaxMsgTimeout);
+	$('#ajaxMsg').fadeIn();
+	showAjaxMsgTimeout = setTimeout(function(){$('#ajaxMsg').fadeOut();}, 3000);
+}
+
 qtime.$on('login success', function (username) {
 	
 	//once login success, save username, token, mark state,
@@ -231,8 +246,8 @@ qtime.$on('login success', function (username) {
 
 });
 
-qtime.$on('edit', function (entry, key) {
-	if (!qtime.login)
+qtime.$on('edit-cell', function (entry, key) {
+	if (!qtime.canEdit)
 		return;
 	this.editEntry = entry;
 	this.editCellName = key;
@@ -246,48 +261,35 @@ qtime.$on('edit', function (entry, key) {
 
 });
 
-function showAjaxMsg(msg) {
-	qtime.ajaxMsg = msg;
-	if (typeof showAjaxMsgTimeout != 'undefined')
-		clearTimeout(showAjaxMsgTimeout);
-	$('#ajaxMsg').fadeIn();
-	showAjaxMsgTimeout = setTimeout(function(){$('#ajaxMsg').fadeOut();}, 3000);
-}
+qtime.$on('remove-entry', function (entry) {
 
-qtime.$on('save', function () {
+	console.log('deleting entry');
+	qRequest('DELETE', 'api/entry/'+entry.id, null, 
+		function (data) { //success
+			showAjaxMsg(entry['name']+' is deleted!');
+			qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
+		}, 
+		function () {alert('Error! Failed to delete entry.')}
+	);
+});
+
+qtime.$on('update-cell', function () {
 
 	var entry = this.editEntry;
 	var key = this.editCellName;
 	var val = this.editCellValObj.val; // hacky way, wonder what's better way
-  
-	//del whole entry
-	if (val==='del') {
+
+	console.log('changing entry value from '+entry[key]+' to '+val);
+
+	qRequest('PUT', 'api/entry/'+entry.id+'/'+key, val, 
+		function (data) { //success
+			showAjaxMsg(entry['name']+' is modified!');
+			entry[key] = val;
+		}, 
+		function () {alert('Error! Failed to update entry.')}
+	);
+
 	
-		console.log('deleting entry');
-
-
-		qRequest('DELETE', 'api/entry/'+entry.id, null, 
-			function (data) { //success
-				showAjaxMsg(entry['name']+' is deleted!');
-				qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
-			}, 
-			function () {alert('Error! Failed to delete entry.')}
-		);
-
-	}else{
-
-		console.log('changing entry value from '+entry[key]+' to '+val);
-	
-		qRequest('PUT', 'api/entry/'+entry.id+'/'+key, val, 
-			function (data) { //success
-				showAjaxMsg(entry['name']+' is modified!');
-				entry[key] = val;
-			}, 
-			function () {alert('Error! Failed to update entry.')}
-		);
-
-	}
-
 	this.showModal = false;
 
 });

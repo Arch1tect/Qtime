@@ -1,18 +1,27 @@
 $(document).ready(function(){
 
+	$("#entryGrid").on("mouseover","tr",function() {
 
+		$(this).addClass("highlight");
+	});
+
+	$("#entryGrid").on("mouseout","tr",function() {
+
+		$(this).removeClass("highlight");
+
+	});
+
+
+	//TODO: below can be done in vue.js style
 	$("#entryGrid").on("mouseover","td",function() {
 
-		// highlight the row
-		$(this).closest("tr").addClass("highlightRow");
-
-		// only show tooltip for long content
+		// only show tooltip for content that's cut off
 		if ($(this)[0].scrollWidth > $(this).innerWidth()) 
 			$(this).children(".contentTooltip").show();
 	});
 	$("#entryGrid").on("mouseout","td",function() {
 
-		$(this).closest("tr").removeClass("highlightRow");
+		// $(this).closest("tr").removeClass("highlightRow");
 
 		$(this).children(".contentTooltip").hide();
 	});

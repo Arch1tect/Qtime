@@ -11,9 +11,6 @@
   margin-bottom: 300px;
   box-shadow: 20px 20px 5px #9a9d9e;
 }
-.highlightRow {
-  background: yellow !important;
-}
 #entryGrid th {
   background-color: black;
   color: white;
@@ -26,6 +23,11 @@
 #entryGrid tr {
   height: 50px;
 }
+
+#entryGrid tr:hover {
+  background: yellow;
+}
+
 #addEntry tr {
   height: 50px;
 }
@@ -100,7 +102,23 @@
   border: none;
   border-radius: 1px;
 }
-
+button.delete-entry {
+  float: left;
+  visibility: hidden;
+  color: black;
+  border-radius: 100%;
+  border: 1px solid black;
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  transition: all 0s;
+}
+.highlight button.delete-entry {
+  visibility: visible;
+}
+button.delete-entry:hover {
+  color: black;
+  background-color: red;
+}
 table tr th:nth-child(2) {
   /*width: 100%;*/
 }
