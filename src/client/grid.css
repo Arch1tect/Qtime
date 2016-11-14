@@ -104,6 +104,8 @@
 }
 button.delete-entry {
   float: left;
+  margin-right: 5px;
+  margin-left: -5px;
   visibility: hidden;
   color: black;
   border-radius: 100%;
