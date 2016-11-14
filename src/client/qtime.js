@@ -138,7 +138,7 @@ var qtime = new Vue({
 			// load categories into options
 			for (var i=0; i<jsonData.array.length; i++) {
 				var entry = jsonData.array[i];
-				if (! (entry.category in optionsSet))
+				if (entry.category && entry.category !='' && !(entry.category in optionsSet)) 
 				optionsSet[entry.category] = true;
 			}
 
