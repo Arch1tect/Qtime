@@ -345,7 +345,7 @@
         "id": 40
     }, 
     {
-        "category": "", 
+        "category": " ", 
         "name": "fdfds", 
         "deleted": true, 
         "note": "", 
