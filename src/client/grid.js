@@ -59,6 +59,17 @@ Vue.component('qtime-grid', {
         data = data.slice().sort(function (a, b) {
           a = a[sortKey]
           b = b[sortKey]
+          console.log(sortKey);
+          if (sortKey == 'duration') {
+
+            if (!$.isNumeric(a))
+              return order;
+            if (!$.isNumeric(b))
+              return -1*order;
+            a = parseFloat(a);
+            b = parseFloat(b);
+          }
+
           return (a === b ? 0 : a > b ? 1 : -1) * order
         })
       }
@@ -80,6 +91,5 @@ Vue.component('qtime-grid', {
 
   }
 })
-
 
 
