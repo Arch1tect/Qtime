@@ -12,7 +12,7 @@
     border: 1px solid;
 }
 .login-response {
-  font-size: smaller;
+  font-size: small;
 }
 .login-response.error {
   color: red;

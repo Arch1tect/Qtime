@@ -1,44 +1,10 @@
 [
     {
-        "category": "qtime", 
+        "category": "Qtime", 
         "name": "Welcome!", 
         "note": "Please have a good time!", 
         "link": "", 
         "duration": 1, 
         "id": 0
-    }, 
-    {
-        "category": "", 
-        "name": "", 
-        "deleted": true, 
-        "note": "", 
-        "link": "", 
-        "duration": "", 
-        "id": 1
-    }, 
-    {
-        "category": "movie", 
-        "name": "ji", 
-        "note": "Made in 1998", 
-        "link": "http://www.imdb.com/title/tt0120699", 
-        "duration": "123", 
-        "id": 2
-    }, 
-    {
-        "category": "", 
-        "name": "", 
-        "deleted": true, 
-        "note": "", 
-        "link": "", 
-        "duration": "", 
-        "id": 3
-    }, 
-    {
-        "category": "", 
-        "name": "yoyyooyo", 
-        "note": "done", 
-        "link": "", 
-        "duration": "321", 
-        "id": 4
     }
 ]

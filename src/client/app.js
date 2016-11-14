@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 		qRequest('GET', 'token-login', null, 
 			function() {qtime.$emit('login success')},
-			function() {qtime.getPublicData()}
+			function() {qtime.getPublicData(); Cookies.remove('token');}
 		)
 
 	}else 

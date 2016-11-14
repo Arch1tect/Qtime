@@ -17,11 +17,12 @@ Vue.component('login', {
 			serverresponse: ''
 		}
 	},  
-	// watch: {
-	// 	selected: 'updateModal'
-	// },
+	watch: {
+		selected: function () {this.password = '';}
+	},
 
 	methods: {
+
 		submit: function () {
 			if (this.selected == 'Sign up') 
 				this.signup();
@@ -45,7 +46,11 @@ Vue.component('login', {
 			this.loginOrSignupFailed = true;
 		},
 		signup: function () {
-
+			if (this.password !== this.password2) {
+				this.serverresponse = "Password not match.";
+				this.loginOrSignupFailed = true;
+				return;
+			}
 			var data = JSON.stringify({ "username": this.username, "email": this.email, "password": this.password});
 			qRequest('POST', 'signup', data, this.loginSuccess, this.loginFail);
 

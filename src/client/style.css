@@ -52,14 +52,20 @@ button:hover, button:active {
     padding: 5px;
     border-bottom: 1px solid black;
 }
-#header {
+.header {
   max-width: 1000px;
   margin:auto;
 }
-#header span {
-  cursor: pointer;
+.header span {
+  font-size: large;
 }
-#header .float-right {
+button.logout  {
+  font-size: small;
+}
+#welcome-msg {
+  margin-right: 15px;
+}
+.header .float-right {
   margin-right: 30px;
   margin-top: 10px;
 }

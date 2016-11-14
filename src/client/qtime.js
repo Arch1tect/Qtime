@@ -12,6 +12,13 @@ var qtime = new Vue({
 		showModal: false,
 		loginPopup: null,
 		
+
+		tableOptions: ['Trending', 'My stuff'],
+		selectedTable: 'My stuff',
+
+		publicData:null,
+		userData:null,
+
 		ajaxMsg: 'hi',
 
 		editCellName: '',
@@ -63,6 +70,17 @@ var qtime = new Vue({
 
 	},
 	watch: {
+		selectedTable: function () {
+			if (this.selectedTable === 'Trending') {
+				if (this.publicData)
+					this.loadData(this.publicData);
+				else
+					this.getPublicData();
+			}
+			else
+				this.loadData(this.userData);
+		},
+
 		selectedCategory: function(){
 			this.scrollToTop();
 		},
@@ -85,11 +103,26 @@ var qtime = new Vue({
 		
 		},
 		getPublicData: function () {
-			// Go fetch the data
-			qRequest('GET', 'api/public', null, qtime.loadData, 
+			// Go fetch the public trending data
+			qRequest('GET', 'api/public', null, this.loadPublicData, 
 				function () {alert('Error! Failed to get public data.')}
 			);
 
+		},
+		getUserData: function () {
+			// Go fetch user's personal data
+			qRequest('GET', 'api/data', null, this.loadUserData, 
+				function () {alert('Error! Failed to get user data')}
+			);
+
+		},
+		loadPublicData: function (jsonData) {
+			this.publicData = jsonData;
+			this.loadData(jsonData);
+		},
+		loadUserData: function (jsonData) {
+			this.userData = jsonData;
+			this.loadData(jsonData);
 		},
 		loadData: function (jsonData) {
 			// populate the grid and also category options
@@ -194,9 +227,7 @@ qtime.$on('login success', function (username) {
 	qtime.username = Cookies.get('username');
 	qtime.login = true;
 
-	qRequest('GET', 'api/data', null, qtime.loadData, 
-		function () {alert('Error! Failed to get user data')}
-	);
+	qtime.getUserData();
 
 });
 

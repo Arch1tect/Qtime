@@ -1,16 +1,9 @@
 [
     {
         "username": "test", 
-        "token": "50634ab271b165eff38d1a3f8656fe1616fe50185e1109a3437673a1351a38d19f313a05fe32d7a8200f1e912431641a74458b23a270de8a47053b94e51cbdf0", 
+        "token": "5fa48ce515cb628475edc1b5dc93074e6bf1f4d46c9d1d967b469e92a1f1cfe5d404dd2bb48273b7fb4231bc0d2c4a8e175a97a9139d03e0f51a0ffc91908028", 
         "password": "cc6152f0f7cc78c386d3fbf0047dbc1f8a2d2074be99948c9c73344bbc5145c29e212ae846ac09f1fb0fc4817bc79965fb71c4f676b8d3efc8093168fac386bc", 
         "email": "", 
         "id": 0
-    }, 
-    {
-        "username": "", 
-        "token": "3fbf7f5475ae81a9f4d141b6604c8691380edd7392a73c15c8d35556d97e3501f542f3d7437e0249dbe22d220ff5fbabc6a3048b0e8d39d93a0ab36bd0a28aa5", 
-        "password": "a93413e2ba48bd349c15d750433bda146b6775c1b1bb43431babc2b51d9a0504b5dad8a386912a87bff96340323b3cfc682d27175a12a9519e9caaa0615fd39e", 
-        "email": "vvv", 
-        "id": 1
     }
 ]

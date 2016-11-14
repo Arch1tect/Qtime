@@ -12,6 +12,7 @@ import hashlib
 app = Bottle()
 salt = "qtimesalt2016" # move to more secure place
 
+public_qtime_data = {}
 
 # exceptions during request validation or login
 class InvalidLoginException(HTTPResponse):
@@ -23,9 +24,12 @@ class AccountNotFoundException(HTTPResponse):
 		HTTPResponse.__init__(self, status=401, body=json.dumps({"error":"Account not found."}))
 
 # exceptions during signup
-class AccountExistedException(HTTPResponse):
+class UsernameExistedException(HTTPResponse):
 	def __init__(self):
 		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Username is taken."}))
+class UsernameEmptyException(HTTPResponse):
+	def __init__(self):
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Username is empty."}))
 
 class EmailExistedException(HTTPResponse):
 	def __init__(self):
@@ -65,7 +69,7 @@ def validate(username, password_or_token):
 				validated = account['password'] == password_or_token or ('token' in account and password_or_token==account['token'])
 				break
 	if not found_account:
-		raise AccountNotFoundException
+		print "Account not found" # do not expose info that the username exist or not
 	if not validated:
 		raise InvalidLoginException
 
@@ -129,14 +133,15 @@ def signup():
 
 	request_body = request.json
 	request_body['password'] = hashlib.sha512(salt+request_body['password']).hexdigest()
-
+	if request_body['username'] == '':
+		raise UsernameEmptyException
 	# try to add new account into account file, check for duplicates
 	with open("db/account.txt", "r+") as account_file:
 		account_array = json.load(account_file)
 		for account in account_array:
 			if account['username'] == request_body['username']:
-				raise AccountExistedException
-			if account['email'] == request_body['email']:
+				raise UsernameExistedException
+			if request_body['email'] != '' and account['email'] == request_body['email']:
 				raise EmailExistedException
 
 		# Didn't encounter problem, now create new account
@@ -166,13 +171,17 @@ def signup():
 	
 	token = update_token(request_body['username'])
 	response.set_cookie('token', token)
+	response.set_cookie('username', request_body['username'])
 
 	return {"success": True}
 
 
 @app.get('/api/public')
 def get_public_data():
-	data = {}
+
+	if "array" in public_qtime_data:
+		return public_qtime_data
+
 	arrayToReturn = []
 	with open("db/public.txt", "r") as data_file:
 		entry_array = json.load(data_file)
@@ -180,8 +189,8 @@ def get_public_data():
 			if not 'deleted' in entry or not entry['deleted']:
 				arrayToReturn.append(entry)
 		
-		data["array"] = arrayToReturn
-	return data
+		public_qtime_data["array"] = arrayToReturn
+	return public_qtime_data
 
 
 @app.get('/api/data')
