@@ -1,9 +1,8 @@
 #entryGrid {
 
   font-size: 16px;
-  border: 1px solid;
+  outline: 1px solid;
   border-collapse: collapse;
-  border-radius: 3px;
   table-layout: fixed;
   width: 200px;
   background-color: white;
