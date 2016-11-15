@@ -122,8 +122,11 @@ def password_login():
 def token_login():
 	
 	# login success, update token
-	token = update_token(request.get_cookie('username'))
-	response.set_cookie('token', token)
+	# token = update_token(request.get_cookie('username'))
+	# response.set_cookie('token', token)
+
+	# commented out, if always update token when opening new tab,
+	# then user always has to login again if they use more than one device or browser.
 
 	return {"success": True}
 
