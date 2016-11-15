@@ -1,6 +1,7 @@
 select option{
-  padding-left: 20px;
+  /*padding-left: 20px;*/
   font-weight: 300;
+  width: 190px;
   text-transform: capitalize;
 }
 select option:hover{
@@ -11,7 +12,11 @@ select option:hover{
   background: none;
   cursor: pointer;
   border: none;
-  overflow: hidden;
   font-size: large;
-  width: 100%;
+  margin-right: -11px;
+}
+
+.selected-category-wrapper {
+  overflow: hidden;
+  display: inline-block;
 }

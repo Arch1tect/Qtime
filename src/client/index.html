@@ -218,11 +218,13 @@
           <div id="durationSliderWrapper">
             <div id="durationSlider"></div>
           </div>
-          <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
-            <option v-for="option in options" v-bind:value="option.value">
-              {{ option.text }}
-            </option>
-          </select>
+          <div class="selected-category-wrapper">
+            <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
+              <option v-for="option in options" v-bind:value="option.value">
+                {{ option.text }}
+              </option>
+            </select>
+          </div>
         </div>
         <div id="rightWrapper">
           <center v-if="!login" id="qtime-tip">
