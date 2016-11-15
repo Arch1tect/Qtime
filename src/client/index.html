@@ -127,7 +127,6 @@
             | filterBy filterByCategory
             | orderBy sortKey sortOrders[sortKey]">
             <td v-for="(key, index) in columns" @dblclick="$root.$emit('edit-cell', entry, key)">
-              <button v-if="index==0 && $root.canEdit" @click="$root.$emit('remove-entry', entry)" class="delete-entry">X</button>
 
               <a v-if="key=='link' && entry[key]" target="_blank" :href="entry[key]">url</a>
               <span v-else>
@@ -136,6 +135,7 @@
               <div class="contentTooltip">{{entry[key]}}</div>
 
             </td>
+                          <button v-if="$root.canEdit" @click="$root.$emit('remove-entry', entry)" class="delete-entry">X</button>
           </tr>
         </tbody>
       </table>
