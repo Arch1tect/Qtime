@@ -67,24 +67,22 @@
   margin-bottom: 30px;
   border-collapse: collapse;
 }
-#addEntry td {
-
-  width: 70px;
-  border: 2px dashed #afafaf;
-}
-
 
 #addEntry tr {
   height: 50px;
 }
-#addEntry th:nth-child(3) {
+#addEntry td {
+  width: 85px;
+  border: none;
+}
+#addEntry td:nth-child(4) {
   width: 55px;
 }
 #addEntry td:first-child {
   width: 200px;
 }
 #addEntry td:last-child {
-  width: 225px;
+  width: 210px;
 }
 #entryGrid td {
   cursor: pointer;
@@ -98,7 +96,7 @@
 #addEntry input {
   height: 100%;
   width: 100%;
-  border: none;
+  border: 1px dashed gray;
   /*background: white;*/
   font-size: larger;
   text-align: center;
@@ -107,11 +105,11 @@
   position: absolute;
   height: 50px;
   width: 50px;
-  margin: 1px; 
   cursor: pointer;
   font-size: 30px;
-  border: none;
-  border-radius: 1px;
+  border: 1px solid gray;
+  margin-left: 10px;
+  border-radius: 0px;
 }
 button.delete-entry {
   float: left;
@@ -180,7 +178,6 @@ table tr th:nth-child(2) {
   vertical-align: middle;
   width: 0;
   height: 0;
-  margin-left: 5px;
 }
 
 .arrow.asc {
