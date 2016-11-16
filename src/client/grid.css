@@ -111,7 +111,7 @@ input:focus {
   height: 35px;
   width: 100%;
   border: 1px dashed gray;
-  /*background: white;*/
+  text-align: center;
   font-size: larger;
 }
 #addEntryBtn {
