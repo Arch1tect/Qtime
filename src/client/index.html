@@ -231,12 +231,12 @@
             <table id="addEntry">
               <tbody>
                 <tr>
-                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="New Entry" />
+                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="Name" />
                   </td>
-                  <td><input v-model="newEntryDuration" type="text" /></td>
-                  <td><input v-model="newEntryCategory" type="text"/></td>
-                  <td><input v-model="newEntryLink" type="text"/></td>
-                  <td><input v-model="newEntryNote" type="text"/></td>
+                  <td><input v-model="newEntryDuration" type="text" placeholder="Time" /></td>
+                  <td><input v-model="newEntryCategory" type="text" placeholder="Category" /></td>
+                  <td><input v-model="newEntryLink" type="text" placeholder="Link" /></td>
+                  <td><input v-model="newEntryNote" type="text" placeholder="Note" /></td>
 
                 </tr>
               </tbody>

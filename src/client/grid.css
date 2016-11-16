@@ -90,7 +90,6 @@
   width: 210px;
 }
 #entryGrid td {
-  cursor: pointer;
   padding: 5px;
   white-space: nowrap;
   overflow: hidden;
