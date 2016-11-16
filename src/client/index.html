@@ -210,14 +210,14 @@
         <div id="ajaxMsg">{{ajaxMsg}}</div>
 
         <div id="leftWrapper">
-          <input id="search" name="query" placeholder="Filter with Keyword..." v-model="searchQuery">
+          <input id="search" name="query" placeholder="Filter by Keyword" v-model="searchQuery">
           
           <div id="durationSlider-description">Set Time Range (min)</div>
           <div id="durationSliderWrapper">
             <div id="durationSlider"></div>
           </div>
 
-          <div id="select-category-description">Choose Category</div>
+          <div id="select-category-description">Filter by Category</div>
           <div class="selected-category-wrapper">
             <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
               <option v-for="option in options" v-bind:value="option.value">
