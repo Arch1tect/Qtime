@@ -112,7 +112,7 @@
             <th v-for="key in columns"
               @click="sortBy(key)"
               :class="{active: sortKey == key}">
-              {{ key | capitalize }}
+              {{ getColName(key) | capitalize }}
               <span class="arrow"
                 :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
               </span>
@@ -121,21 +121,17 @@
         </thead>
         <tbody>
           <tr v-for="
-            entry in filteredData
-            | filterBy filterKey in 'name'
-            | filterBy filterByDuration
-            | filterBy filterByCategory
-            | orderBy sortKey sortOrders[sortKey]">
-            <td v-for="(key, index) in columns" @dblclick="$root.$emit('edit-cell', entry, key)">
+            entry in filteredData">
+            <td v-for="key in columns" @dblclick="$root.$emit('edit-cell', entry, key)">
 
-              <a v-if="key=='link' && entry[key]" target="_blank" :href="entry[key]">url</a>
+              <a v-if="key=='link' && entry[key]" target="_blank" :href="entry[key]">&nearr;</a>
               <span v-else>
                 {{entry[key]}} 
               </span>
               <div class="contentTooltip">{{entry[key]}}</div>
 
             </td>
-                          <button v-if="$root.canEdit" @click="$root.$emit('remove-entry', entry)" class="delete-entry">X</button>
+            <button v-if="$root.canEdit" @click="$root.$emit('remove-entry', entry)" class="delete-entry">X</button>
           </tr>
         </tbody>
       </table>

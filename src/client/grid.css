@@ -16,7 +16,7 @@
   cursor: pointer;
   font-weight: 300;
   overflow: hidden;
-  width: 85px;
+  width: 100px;
 
 }
 #entryGrid tr {
@@ -35,8 +35,11 @@
 #entryGrid th:last-child {
   width: 270px;
 }
+#entryGrid th:nth-child(2) {
+  width: 50px;
+}
 #entryGrid th:nth-child(4) {
-  width: 55px;
+  width: 50px;
 }
 #entryGrid td:first-child {
   /*font-size: 20px;*/
@@ -71,11 +74,14 @@
   height: 50px;
 }
 #addEntry td {
-  width: 85px;
+  width: 100px;
   border: none;
 }
 #addEntry td:nth-child(4) {
-  width: 55px;
+  width: 50px;
+}
+#addEntry td:nth-child(2) {
+  width: 50px;
 }
 #addEntry td:first-child {
   width: 200px;
@@ -145,7 +151,7 @@ table tr th:nth-child(2) {
     line-height: 140%;
     white-space: normal;
     text-align: left;
-    width: 245px;
+    max-width: 245px;
     padding: 10px;
     display: none;
     border: 1px solid #999;

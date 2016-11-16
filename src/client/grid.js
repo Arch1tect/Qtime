@@ -59,7 +59,7 @@ Vue.component('qtime-grid', {
         data = data.slice().sort(function (a, b) {
           a = a[sortKey]
           b = b[sortKey]
-          console.log(sortKey);
+          // console.log(sortKey);
           if (sortKey == 'duration') {
 
             if (!$.isNumeric(a))
@@ -86,6 +86,18 @@ Vue.component('qtime-grid', {
     sortBy: function (key) {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
+    },
+
+    getColName: function (key) {
+
+      var dict = {
+        "name": "Name",
+        "duration": "Time",
+        "category": "Category",
+        "link": "Link",
+        "note": "Note"
+      }
+      return dict[key];
     }
 
 
