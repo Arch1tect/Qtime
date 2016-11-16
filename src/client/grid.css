@@ -60,6 +60,15 @@
   float:right;
   margin-left: 50px;
 }
+
+/* webkit solution */
+::-webkit-input-placeholder { text-align:center; }
+/* mozilla solution */
+input:-moz-placeholder { text-align:center; }
+input:focus {
+    background: #faffbd;
+}
+
 #addEntry {
   background: white;
   border: none;
@@ -71,10 +80,11 @@
 }
 
 #addEntry tr {
-  height: 50px;
+  height: 35px;
 }
 #addEntry td {
   width: 100px;
+  height: 35px;
   border: none;
 }
 #addEntry td:nth-child(4) {
@@ -87,7 +97,7 @@
   width: 200px;
 }
 #addEntry td:last-child {
-  width: 210px;
+  width: 225px;
 }
 #entryGrid td {
   padding: 5px;
@@ -98,21 +108,20 @@
 }
 
 #addEntry input {
-  height: 45px;
+  height: 35px;
   width: 100%;
   border: 1px dashed gray;
   /*background: white;*/
   font-size: larger;
-  text-align: center;
 }
 #addEntryBtn {
   position: absolute;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 20px;
   border: 1px solid gray;
-  margin-left: 10px;
+  margin-left: 5px;
   border-radius: 0px;
 }
 button.delete-entry {

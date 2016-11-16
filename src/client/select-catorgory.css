@@ -1,8 +1,10 @@
 select option{
   /*padding-left: 20px;*/
-  font-weight: 300;
-  width: 190px;
-  text-transform: capitalize;
+    font-weight: 300;
+    width: 185px;
+    padding: 2px;
+    padding-left: 5px;
+    text-transform: capitalize;
 }
 select option:hover{
   background-color: black;
@@ -12,11 +14,18 @@ select option:hover{
   background: none;
   cursor: pointer;
   border: none;
-  font-size: large;
+  font-size: 15px;
   margin-right: -11px;
 }
+#select-category-description {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
 
+}
 .selected-category-wrapper {
   overflow: hidden;
   display: inline-block;
+  border: 1px solid black;
+  padding-right: 0px;
 }

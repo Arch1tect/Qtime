@@ -83,14 +83,18 @@ button.logout  {
 }
 #durationSliderWrapper {
   width: 165px;
-  /* width: 100%; */
   padding: 15px;
-  /*margin: auto;*/
+  padding-top: 0px;
   margin-bottom: 50px;
+}
+#durationSlider-description {
+  margin-top: 35px;
+  text-align: center;
+  font-size: 16px;
 }
 #durationSlider {
   /* width: 100%; */
-  margin-top: 20px;
+  margin-top: 15px;
 }
 #qtime {
   width: 950px;
@@ -105,6 +109,8 @@ button.logout  {
 #search {
   display: inline;
   border: 1px solid;
+  height: 30px;
+  padding-left: 5px; 
   font-size: larger;
   width: 190px;
 }

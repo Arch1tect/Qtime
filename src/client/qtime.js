@@ -1,4 +1,4 @@
-var INIT_OPT_LIST = [{'text': 'all category', 'value':''}];
+var INIT_OPT_LIST = [{'text': 'all categories', 'value':''}];
 
 // bootstrap the qtime
 var qtime = new Vue({
@@ -75,6 +75,8 @@ var qtime = new Vue({
 			return this.login && this.selectedTable=="My stuff";
 		}
 
+
+
 	},
 	watch: {
 		selectedTable: function () {
@@ -108,6 +110,12 @@ var qtime = new Vue({
 			// $("#leftWrapper").css("margin-top", "0px");
 			// $(window).scrollTop(false); // put false here so it won't trigger .scroll again
 		
+		},
+		trendingOrMyStuffTitle: function(option) {
+			if (option==="My stuff")
+				return "show my stuff";
+			else
+				return "show trending stuff"
 		},
 		getPublicData: function () {
 			// Go fetch the public trending data

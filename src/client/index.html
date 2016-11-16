@@ -183,7 +183,7 @@
                   :id="option"
                   name="option"
                   v-model="selectedTable">
-                <label :for="option">{{ option }}</label>
+                <label :for="option" :title="trendingOrMyStuffTitle(option)">{{ option }}</label>
               </span>
 
               <button class="logout" @click="logout">Log out</button>
@@ -210,10 +210,14 @@
         <div id="ajaxMsg">{{ajaxMsg}}</div>
 
         <div id="leftWrapper">
-          <input id="search" name="query" placeholder="Search..." v-model="searchQuery">
+          <input id="search" name="query" placeholder="Filter with Keyword..." v-model="searchQuery">
+          
+          <div id="durationSlider-description">Set Time Range (min)</div>
           <div id="durationSliderWrapper">
             <div id="durationSlider"></div>
           </div>
+
+          <div id="select-category-description">Choose Category</div>
           <div class="selected-category-wrapper">
             <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
               <option v-for="option in options" v-bind:value="option.value">
@@ -231,7 +235,7 @@
             <table id="addEntry">
               <tbody>
                 <tr>
-                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="Name" />
+                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="New Entry Name" />
                   </td>
                   <td><input v-model="newEntryDuration" type="text" placeholder="Time" /></td>
                   <td><input v-model="newEntryCategory" type="text" placeholder="Category" /></td>

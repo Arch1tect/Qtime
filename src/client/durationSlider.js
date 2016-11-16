@@ -1,9 +1,9 @@
 var DURATION_MIN = 0;
-var DURATION_MAX = 200;
+var DURATION_MAX = 150;
 
 // create duration slider
 var durationSlider = document.getElementById('durationSlider');
-
+var largerOrEqualToMax = "&infin;";
 noUiSlider.create(durationSlider, {
   start: [ DURATION_MIN, DURATION_MAX ], // Handle start position
   step: 1, // Slider moves in increments of '10'
@@ -15,12 +15,14 @@ noUiSlider.create(durationSlider, {
     'max': DURATION_MAX
   },
   tooltips: true,
-  format: {
+  format: { 
     to: function ( value ) {
-      return value;
+      if (value==DURATION_MAX)
+        return largerOrEqualToMax;
+      return Math.round(value);
     },
     from: function ( value ) {
-      return value;
+      return Math.round(value);
     }
   }
 
@@ -28,8 +30,11 @@ noUiSlider.create(durationSlider, {
 
 // When the slider value changes, update the input and span
 durationSlider.noUiSlider.on('update', function( values, handle ) {
-  if ( handle ) 
-    qtime.durationMax = values[handle];
-   else 
+  if (handle) {
+    if (values[handle] === largerOrEqualToMax)
+      qtime.durationMax = DURATION_MAX;
+    else
+      qtime.durationMax = values[handle];
+  }else 
     qtime.durationMin = values[handle];
 });
