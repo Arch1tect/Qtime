@@ -17,14 +17,20 @@
   font-weight: 300;
   overflow: hidden;
   width: 100px;
+  border: none;
+
 
 }
+#entryGrid tbody tr {
+  border-top: 1px solid #dedede;
+}
+
 #entryGrid tr {
   height: 50px;
 }
 
-#entryGrid tr:hover {
-  background: yellow;
+#entryGrid tbody tr:hover {
+  box-shadow: 0px 5px 15px;
 }
 
 
@@ -126,22 +132,25 @@ input:focus {
 }
 button.delete-entry {
 
-    border-radius: 0px;
-    visibility: hidden;
-    height: 100%;
-    width: 30px;
-    padding: 0;
-    padding-left: 10px;
-    padding-right: 10px;
-    -webkit-transition: all 0s;
-    -moz-transition: all 0s;
-    transition: all 0s;
+  font-size: large;
+  border-radius: 0px;
+  visibility: hidden;
+  font-weight: bold;
+  height: 100%;
+  width: 30px;
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  transition: all 0s;
 }
 .highlight button.delete-entry {
   visibility: visible;
 }
 button.delete-entry:hover {
-  background-color: red;
+  color: red;
+  background-color: transparent;
 }
 table tr th:nth-child(2) {
   /*width: 100%;*/
@@ -206,7 +215,7 @@ table tr th:nth-child(2) {
 }
 
 
-tr:nth-child(even) {
+/*tr:nth-child(even) {
   background: #f1f1f1;
-}
+}*/
 

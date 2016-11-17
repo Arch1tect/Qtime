@@ -27,5 +27,6 @@ select option:hover{
   overflow: hidden;
   display: inline-block;
   border: 1px solid black;
+  box-shadow: 0px 5px 15px;
   padding-right: 0px;
 }
