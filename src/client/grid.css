@@ -130,7 +130,7 @@ input:focus {
   margin-left: 5px;
   border-radius: 0px;
 }
-button.delete-entry {
+button.delete-entry, button.add-entry-from-public {
 
   font-size: large;
   border-radius: 0px;
@@ -145,13 +145,15 @@ button.delete-entry {
   -moz-transition: all 0s;
   transition: all 0s;
 }
-.highlight button.delete-entry {
+.highlight button.delete-entry, 
+.highlight button.add-entry-from-public {
   visibility: visible;
 }
-button.delete-entry:hover {
-  color: red;
-  background-color: transparent;
+button.delete-entry:hover,
+button.add-entry-from-public:hover {
+
 }
+
 table tr th:nth-child(2) {
   /*width: 100%;*/
 }

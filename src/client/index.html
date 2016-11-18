@@ -131,7 +131,9 @@
               <div class="contentTooltip">{{entry[key]}}</div>
 
             </td>
-            <button v-if="$root.canEdit" @click="$root.$emit('remove-entry', entry)" class="delete-entry">X</button>
+            <button title="delete this entry" v-if="$root.canEdit" @click="$root.$emit('remove-entry', entry)" class="delete-entry">X</button>
+
+            <button title="add this entry to my list" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="add-entry-from-public">+</button>
           </tr>
         </tbody>
       </table>
@@ -245,7 +247,7 @@
                 </tr>
               </tbody>
             </table>                
-            <button v-on:click="addEntry" type="button" id="addEntryBtn">+</button>
+            <button v-on:click="addEntryByInput" type="button" id="addEntryBtn">+</button>
           </div>
 
           <div id="addEntryCandidate">

@@ -73,6 +73,10 @@ var qtime = new Vue({
 
 		canEdit: function() {
 			return this.login && this.selectedTable=="My stuff";
+		},
+
+		canAddToMyList: function() {
+			return this.login && this.selectedTable!=="My stuff";
 		}
 
 
@@ -131,21 +135,21 @@ var qtime = new Vue({
 			);
 
 		},
-		loadPublicData: function (jsonData) {
-			this.publicData = jsonData;
-			this.loadData(jsonData);
+		loadPublicData: function (rawJSONData) {
+			this.publicData = rawJSONData['array'].reverse();
+			this.loadData(this.publicData);
 		},
-		loadUserData: function (jsonData) {
-			this.userData = jsonData;
-			this.loadData(jsonData);
+		loadUserData: function (rawJSONData) {
+			this.userData = rawJSONData['array'].reverse();
+			this.loadData(this.userData);
 		},
 		loadData: function (jsonData) {
 			// populate the grid and also category options
 			var optionsSet = {};
 			qtime.options = JSON.parse(JSON.stringify(INIT_OPT_LIST));
 			// load categories into options
-			for (var i=0; i<jsonData.array.length; i++) {
-				var entry = jsonData.array[i];
+			for (var i=0; i<jsonData.length; i++) {
+				var entry = jsonData[i];
 				if (entry.category && entry.category !='' && !(entry.category in optionsSet)) 
 				optionsSet[entry.category] = true;
 			}
@@ -154,7 +158,7 @@ var qtime = new Vue({
 				qtime.options.push({'text':key, 'value': key});
 			}
 
-			qtime.gridData = jsonData['array'].reverse();
+			qtime.gridData = jsonData;
 		},
 		logout: function () {
 
@@ -203,8 +207,7 @@ var qtime = new Vue({
 			this.newEntryNote = "Made in " + candidate.Year;
 			this.closeCandidateDropdown();
 		},
-		addEntry: function (event) {
-			var gridData = this.gridData;
+		addEntryByInput: function (event) {
 			var newEntry = {
 				name: this.newEntryName,
 				duration: this.newEntryDuration? parseInt(this.newEntryDuration): '', 
@@ -214,15 +217,7 @@ var qtime = new Vue({
 			};
 
 
-			qRequest('POST', 'api/entry', JSON.stringify(newEntry), 
-				function (data) { //success
-					showAjaxMsg(newEntry['name']+' is added!');
-					console.log('Add entry success, id: '+ data.id);
-					newEntry.id = data.id;
-					gridData.unshift(newEntry);
-				}, 
-				function () {alert('Error! Failed to add entry.')}
-			);
+			this.addEntry(newEntry, true);
 
 		  
 			this.newEntryName = '';
@@ -230,6 +225,22 @@ var qtime = new Vue({
 			this.newEntryLink = '';
 			this.newEntryCategory = '';
 			this.newEntryNote = '';
+		},
+		addEntry: function (newEntry, reloadUserDataFlag) {
+			var userData = this.userData;
+			var that = this;
+			qRequest('POST', 'api/entry', JSON.stringify(newEntry), 
+				function (data) { //success
+					showAjaxMsg(newEntry['name']+' is added!');
+					console.log('Add entry success, id: '+ data.id);
+					newEntry.id = data.id;
+					userData.unshift(newEntry);
+					if (reloadUserDataFlag)
+						that.loadData(userData);
+				}, 
+				function () {alert('Error! Failed to add entry.')}
+			);
+
 		}
 	}
 })
@@ -253,6 +264,7 @@ qtime.$on('login success', function (username) {
 	qtime.getUserData();
 
 });
+
 
 qtime.$on('edit-cell', function (entry, key) {
 	if (!qtime.canEdit)
