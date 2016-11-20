@@ -124,14 +124,14 @@ var qtime = new Vue({
 		getPublicData: function () {
 			// Go fetch the public trending data
 			qRequest('GET', 'api/public', null, this.loadPublicData, 
-				function () {alert('Error! Failed to get public data.')}
+				function () {console.log('Error! Failed to get public data.')}
 			);
 
 		},
 		getUserData: function () {
 			// Go fetch user's personal data
 			qRequest('GET', 'api/data', null, this.loadUserData, 
-				function () {alert('Error! Failed to get user data')}
+				function () {console.log('Error! Failed to get user data')}
 			);
 
 		},
@@ -238,7 +238,7 @@ var qtime = new Vue({
 					if (reloadUserDataFlag)
 						that.loadData(userData);
 				}, 
-				function () {alert('Error! Failed to add entry.')}
+				function () {console.log('Error! Failed to add entry.')}
 			);
 
 		}
@@ -289,7 +289,7 @@ qtime.$on('remove-entry', function (entry) {
 			showAjaxMsg(entry['name']+' is deleted!');
 			qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
 		}, 
-		function () {alert('Error! Failed to delete entry.')}
+		function () {console.log('Error! Failed to delete entry.')}
 	);
 });
 
@@ -306,7 +306,7 @@ qtime.$on('update-cell', function () {
 			showAjaxMsg(entry['name']+' is modified!');
 			entry[key] = val;
 		}, 
-		function () {alert('Error! Failed to update entry.')}
+		function () {console.log('Error! Failed to update entry.')}
 	);
 
 	
