@@ -181,7 +181,7 @@ table tr th:nth-child(2) {
 #addEntryCandidate {
     position: absolute;
     min-width: 200px;
-    margin-top: 52px;
+    margin-top: 40px;
     display: none;
     background: white;
     border: 1px solid #ccc;
