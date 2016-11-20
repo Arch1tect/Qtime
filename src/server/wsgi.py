@@ -1,16 +1,18 @@
-# run from /src folder, i.e. python server/app.py
+# run from /src folder, i.e. python server/wsgi.py
 import sys
 import threading
 from bottle import Bottle, get, post, put, delete, route, request, response, HTTPResponse, run, template, static_file
 from werkzeug.serving import run_simple
 import json
-from config import config
+from server.config import config
 import uuid
 import hashlib
-
+import os
 
 app = Bottle()
 salt = "qtimesalt2016" # move to more secure place
+
+DB_PATH = "../db/"
 
 public_qtime_data = {}
 
@@ -38,6 +40,7 @@ class EmailExistedException(HTTPResponse):
 # static routing
 @app.route('/')
 def server_static_home():
+	cwd = os.getcwd()
 	return static_file('index.html', root='client/')
 
 @app.route('/<filename>')
@@ -61,7 +64,7 @@ def validate(username, password_or_token):
 	validated = False
 	found_account = False
 	password_or_token = hashlib.sha512(salt+password_or_token).hexdigest()
-	with open("db/account.txt", "r") as account_file:
+	with open(DB_PATH+"account.txt", "r") as account_file:
 		account_array = json.load(account_file)
 		for account in account_array:
 			if account['username'] == username:
@@ -87,7 +90,7 @@ def update_token(username):
 	''' Generate token and save to file'''
 	token = str(uuid.uuid4())
 	hashed_token = hashlib.sha512(salt+token).hexdigest()
-	with open("db/account.txt", "r+") as account_file:
+	with open(DB_PATH+"account.txt", "r+") as account_file:
 		account_array = json.load(account_file)
 		for account in account_array:
 			if account['username'] == username:
@@ -139,7 +142,7 @@ def signup():
 	if request_body['username'] == '':
 		raise UsernameEmptyException
 	# try to add new account into account file, check for duplicates
-	with open("db/account.txt", "r+") as account_file:
+	with open(DB_PATH+"account.txt", "r+") as account_file:
 		account_array = json.load(account_file)
 		for account in account_array:
 			if account['username'] == request_body['username']:
@@ -159,7 +162,7 @@ def signup():
 		json.dump(account_array, account_file, indent=4)
 
 	# create data file with default entry
-	with open("db/"+request_body['username']+".txt", "w") as data_file:
+	with open(DB_PATH+request_body['username']+".txt", "w") as data_file:
 
 		default_entry = {}
 		default_entry['id'] = 0
@@ -186,7 +189,7 @@ def get_public_data():
 		return public_qtime_data
 
 	arrayToReturn = []
-	with open("db/public.txt", "r") as data_file:
+	with open(DB_PATH+"public.txt", "r") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
 			if not 'deleted' in entry or not entry['deleted']:
@@ -204,7 +207,7 @@ def get_data():
 	data = {}
 	active_entries = []
 
-	with open('db/'+username+'.txt', "r") as data_file:
+	with open(DB_PATH+username+'.txt', "r") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
 			if not 'deleted' in entry or not entry['deleted']:
@@ -222,7 +225,7 @@ def add_entry():
 	request_body = request.json
 	username = request.get_cookie('username')
 
-	with open('db/'+username+'.txt', "r+") as data_file:
+	with open(DB_PATH+username+'.txt', "r+") as data_file:
 		entry_array = json.load(data_file)
 
 		lastID = -1
@@ -248,7 +251,7 @@ def change_entry(id, key):
 
 	username = request.get_cookie('username')
 
-	with open('db/'+username+'.txt', "r+") as data_file:
+	with open(DB_PATH+username+'.txt', "r+") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
 			if str(entry['id']) == id:
@@ -267,7 +270,7 @@ def delete_entry(id):
 
 	username = request.get_cookie('username')
 
-	with open('db/'+ username +'.txt', "r+") as data_file:
+	with open(DB_PATH + username +'.txt', "r+") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
 			if str(entry['id']) == id:
@@ -281,7 +284,9 @@ def delete_entry(id):
 	return {"success":True}
 
 
-run_simple('0.0.0.0', config.port, app, use_reloader=True)
+if __name__ == '__main__':
+
+	run_simple('0.0.0.0', config.port, app, use_reloader=True)
 
 
 

@@ -68,9 +68,9 @@
 }
 
 /* webkit solution */
-::-webkit-input-placeholder { text-align:center; }
+/*::-webkit-input-placeholder { text-align:center; }*/
 /* mozilla solution */
-input:-moz-placeholder { text-align:center; }
+/*input:-moz-placeholder { text-align:center; }*/
 input:focus {
     background: #faffbd;
 }
@@ -170,6 +170,7 @@ table tr th:nth-child(2) {
     line-height: 140%;
     white-space: normal;
     text-align: left;
+    width: 100%;
     max-width: 245px;
     padding: 10px;
     display: none;
