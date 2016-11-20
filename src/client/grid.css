@@ -162,7 +162,6 @@ table tr th:nth-child(2) {
     position: absolute;
     padding: 29px;
     margin-top: 15px;
-    /*margin-left: -50px;*/
     background: #ffd;
     z-index: 9999;
     word-wrap: break-word;
