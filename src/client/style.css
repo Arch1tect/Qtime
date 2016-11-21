@@ -124,6 +124,11 @@ button.logout  {
   width: 200px;
   position: absolute;
 }
+button.show-deleted {
+    width: 100%;
+    border: 1px solid;
+    margin-top: 50px;
+}
 #rightWrapper {
   float: right;
   max-width: 720px;

@@ -170,6 +170,7 @@ def signup():
 		default_entry['category'] = 'qtime'
 		default_entry['duration'] = 1
 		default_entry['link'] = ''
+		default_entry['deleted'] = False
 		default_entry['note'] = 'Please have a good time!'
 		entry_array = [default_entry]
 
@@ -192,8 +193,8 @@ def get_public_data():
 	with open(DB_PATH+"public.txt", "r") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
-			if not 'deleted' in entry or not entry['deleted']:
-				arrayToReturn.append(entry)
+			# if not 'deleted' in entry or not entry['deleted']:
+			arrayToReturn.append(entry)
 		
 		public_qtime_data["array"] = arrayToReturn
 	return public_qtime_data
@@ -210,8 +211,8 @@ def get_data():
 	with open(DB_PATH+username+'.txt', "r") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
-			if not 'deleted' in entry or not entry['deleted']:
-				active_entries.append(entry)
+			# if not 'deleted' in entry or not entry['deleted']:
+			active_entries.append(entry)
 
 		data["array"] = active_entries
 	return data

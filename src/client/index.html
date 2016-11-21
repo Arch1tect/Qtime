@@ -229,6 +229,11 @@
               </option>
             </select>
           </div>
+          <button class="show-deleted" v-if="showDeleted" @click="showDeleted=false">Hide deleted</button>          
+          <button class="show-deleted" v-if="!showDeleted" @click="showDeleted=true">Show deleted</button>
+
+
+
         </div>
         <div id="rightWrapper">
 
@@ -262,7 +267,8 @@
             :filter-key="searchQuery"
             :selected-category="selectedCategory"
             :duration-min="durationMin"
-            :duration-max="durationMax">
+            :duration-max="durationMax"
+            :show-deleted="showDeleted">
           </qtime-grid>
         </div>
       </div>

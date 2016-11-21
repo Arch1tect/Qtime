@@ -7,7 +7,8 @@ Vue.component('qtime-grid', {
     filterKey: String,
     selectedCategory: Array,
     durationMin: Number,
-    durationMax: Number
+    durationMax: Number,
+    showDeleted: Boolean
 
   },
   data: function () {
@@ -30,6 +31,17 @@ Vue.component('qtime-grid', {
       var durationMin = this.durationMin;
       var durationMax = this.durationMax;
       var selectedCategory = this.selectedCategory;
+
+      if (this.showDeleted) {
+          data = data.filter(function (entry) {
+            return entry.deleted ;
+        });
+      } else {
+          data = data.filter(function (entry) {
+            return !('deleted' in entry) ||  !entry.deleted;
+        });
+      }
+
       // filter search key
       if (filterKey) {
         data = data.filter(function (row) {
@@ -38,6 +50,8 @@ Vue.component('qtime-grid', {
           })
         })
       }
+
+
       // filter duration
       data = data.filter(function(entry){
         if (!entry.duration||isNaN(entry.duration))

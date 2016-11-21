@@ -26,6 +26,7 @@ var qtime = new Vue({
 		editCellValObj: {},
 		editEntry: '',
 
+		showDeleted: false,
 		searchQuery: '',
 		gridColumns: ['name', 'duration', 'category', 'link', 'note'],
 		gridData: [],
@@ -95,16 +96,20 @@ var qtime = new Vue({
 				this.loadData(this.userData);
 		},
 
-		selectedCategory: function(){
+		selectedCategory: function() {
 			this.scrollToTop();
 		},
 
-		durationMin: function(){
+		durationMin: function() {
 			this.scrollToTop();
 		},
 
-		durationMax: function(){
+		durationMax: function() {
 			this.scrollToTop();
+		},
+
+		showDeleted: function() {
+			this.populateOption(this.gridData);
 		}
 
 	},
@@ -144,21 +149,38 @@ var qtime = new Vue({
 			this.userData = rawJSONData['array'].reverse();
 			this.loadData(this.userData);
 		},
-		loadData: function (jsonData) {
+		populateOption: function(jsonData) {
 			// populate the grid and also category options
 			var optionsSet = {};
 			qtime.options = JSON.parse(JSON.stringify(INIT_OPT_LIST));
 			// load categories into options
 			for (var i=0; i<jsonData.length; i++) {
 				var entry = jsonData[i];
+
+
+				if(qtime.showDeleted != entry.deleted) 
+						continue;
+
+
 				if (entry.category && entry.category !='' && !(entry.category in optionsSet)) 
-				optionsSet[entry.category] = true;
+					optionsSet[entry.category] = true;
 			}
 
 			for (var key in optionsSet) {
 				qtime.options.push({'text':key, 'value': key});
 			}
+		},
+		loadData: function (jsonData) {
 
+
+			// for (var i=0; i<jsonData.length; i++) {
+			// 	var entry = jsonData[i];
+			// 	if (!('deleted' in entry)) {
+			// 		entry.deleted = false;
+			// 	}
+			// }
+			// console.log(jsonData);
+			qtime.populateOption(jsonData);
 			qtime.gridData = jsonData;
 		},
 		logout: function () {
@@ -214,7 +236,8 @@ var qtime = new Vue({
 				duration: this.newEntryDuration? parseInt(this.newEntryDuration): '', 
 				category: this.newEntryCategory, 
 				link: this.newEntryLink,
-				note: this.newEntryNote
+				note: this.newEntryNote,
+				deleted: false
 			};
 
 
@@ -228,6 +251,7 @@ var qtime = new Vue({
 			this.newEntryNote = '';
 		},
 		addEntry: function (newEntry, reloadUserDataFlag) {
+			// don't reload user data if adding entry from other list
 			var userData = this.userData;
 			var that = this;
 			qRequest('POST', 'api/entry', JSON.stringify(newEntry), 
@@ -287,7 +311,8 @@ qtime.$on('remove-entry', function (entry) {
 	qRequest('DELETE', 'api/entry/'+entry.id, null, 
 		function (data) { //success
 			showAjaxMsg(entry['name']+' is deleted!');
-			qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
+			entry.deleted = true;
+			// qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
 		}, 
 		function () {console.log('Error! Failed to delete entry.')}
 	);
