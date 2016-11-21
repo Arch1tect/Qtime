@@ -210,7 +210,9 @@
 
 
         <div id="ajaxMsg">{{ajaxMsg}}</div>
-
+        <div v-cloak v-if="showTip && !login" id="qtime-tip">
+          Welcome! Qtime helps you manage things you are interested in, you can easily sort, filter and search for items, it also provides a convenient <a href="#" onclick="chrome.webstore.install()">Chrome Extension</a> for saving web pages you come across. <br/><br/>Check out trending items below, or <a href="#" style="" @click="loginPopup = 'Log in'">log in</a> to manage your own stuff.
+        </div>
         <div id="leftWrapper">
           <input id="search" name="query" placeholder="Filter by Keyword" v-model="searchQuery">
           
@@ -229,15 +231,12 @@
           </div>
         </div>
         <div id="rightWrapper">
-          <center v-if="!login" id="qtime-tip">
-            Welcome, you can check out trending entries below, or <a href="#" style="" @click="loginPopup = 'Log in'">log in</a> to manage your own.
-          </center>
 
           <div v-if="canEdit" id="addEntryWrapper">
             <table id="addEntry">
               <tbody>
                 <tr>
-                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="New Entry Name" />
+                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="New Item Name" />
                   </td>
                   <td><input v-model="newEntryDuration" type="text" placeholder="Time" /></td>
                   <td><input v-model="newEntryCategory" type="text" placeholder="Category" /></td>

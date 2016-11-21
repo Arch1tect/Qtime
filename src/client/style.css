@@ -74,7 +74,7 @@ button.logout  {
   float: right;
 }
 #blank-space {
-  height: 120px;
+  height: 80px;
 }
 #qtimeTitle {
   font-size: xx-large;
@@ -103,8 +103,14 @@ button.logout  {
   margin: auto;
 }
 #qtime-tip {
-  font-size: large;
-  margin-bottom: 30px;
+    font-size: large;
+    margin-bottom: 50px;
+    line-height: 25px;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px;
+    background: #fff;
+    padding: 35px;
 }
 #search {
   display: inline;

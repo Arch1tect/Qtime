@@ -5,6 +5,7 @@ var qtime = new Vue({
 	el: '#qtime-wrapper',
 	data: {
 
+		showTip: false,
 		login: false,
 		username: null,
 		token: null,
@@ -260,7 +261,6 @@ qtime.$on('login success', function (username) {
 
 	qtime.username = Cookies.get('username');
 	qtime.login = true;
-
 	qtime.getUserData();
 
 });

@@ -37,11 +37,17 @@ $(document).ready(function(){
 
 		qRequest('GET', 'token-login', null, 
 			function() {qtime.$emit('login success')},
-			function() {qtime.getPublicData(); Cookies.remove('token');}
+			function() {
+				qtime.getPublicData(); 		
+				qtime.showTip = true;
+				Cookies.remove('token');
+			}
 		)
 
-	}else 
+	}else {
 		qtime.getPublicData();
+		qtime.showTip = true;
+	}
 
 });
 
