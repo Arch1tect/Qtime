@@ -264,6 +264,7 @@ def change_entry(id, key):
 		for entry in entry_array:
 			if str(entry['id']) == id:
 				entry[key] = request.body.read()
+				break
 		data_file.seek(0)
 		json.dump(entry_array, data_file, indent=4)
 		data_file.truncate()
@@ -294,6 +295,23 @@ def delete_entry(id):
 
 	return {"success":True}
 
+@app.put('/api/recover-entry/<id>')
+@validate_request
+def recover_entry(id):
+
+	username = request.get_cookie('username')
+	with open(DB_PATH+username+'.txt', "r+") as data_file:
+		entry_array = json.load(data_file)
+		for entry in entry_array:
+			if str(entry['id']) == id:
+				entry['deleted'] = False
+				print entry
+				break
+		data_file.seek(0)
+		json.dump(entry_array, data_file, indent=4)
+		data_file.truncate()
+
+	return {"success":True}
 
 if __name__ == '__main__':
 

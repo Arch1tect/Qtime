@@ -87,6 +87,7 @@ var qtime = new Vue({
 	watch: {
 		selectedTable: function () {
 			if (this.selectedTable === 'Trending') {
+				this.showDeleted = false;
 				if (this.publicData)
 					this.loadData(this.publicData);
 				else
@@ -302,6 +303,21 @@ qtime.$on('edit-cell', function (entry, key) {
 		$('textarea').focus();
 		$('textarea').select();
 	});
+
+});
+
+qtime.$on('recover entry', function (entry) {
+
+	console.log('recovering entry');
+
+	qRequest('PUT', 'api/recover-entry/'+entry.id, null, 
+		function (data) { //success
+			showAjaxMsg(entry['name']+' is recovered!');
+			entry['deleted'] = false;
+		}, 
+		function () {console.log('Error! Failed to recover entry.')}
+	);
+
 
 });
 
