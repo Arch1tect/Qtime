@@ -146,6 +146,7 @@
     {
         "category": "\u52a8\u753b", 
         "name": "South Park", 
+        "deleted": false, 
         "note": "Hulu", 
         "link": "http://www.hulu.com/south-park", 
         "duration": "20", 

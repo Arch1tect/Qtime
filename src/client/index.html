@@ -246,7 +246,7 @@
 
         </div>
         <div id="rightWrapper">
-          <center class="deleted-tips" v-if="showDeleted">Showing deleted entries below, you can't recover them if delete again here. </center> 
+          <center class="deleted-tips" v-cloak  v-if="showDeleted">Showing deleted entries below, you can't recover them if delete again here. </center> 
           <div v-if="canEdit && !showDeleted" id="addEntryWrapper">
             <table id="addEntry">
               <tbody>
