@@ -130,7 +130,7 @@ input:focus {
   margin-left: 5px;
   border-radius: 0px;
 }
-button.delete-entry, button.add-entry-from-public {
+button.manage-entry {
 
   font-size: large;
   border-radius: 0px;
@@ -145,12 +145,10 @@ button.delete-entry, button.add-entry-from-public {
   -moz-transition: all 0s;
   transition: all 0s;
 }
-.highlight button.delete-entry, 
-.highlight button.add-entry-from-public {
+.highlight button.manage-entry {
   visibility: visible;
 }
-button.delete-entry:hover,
-button.add-entry-from-public:hover {
+button.manage-entry:hover {
 
 }
 
@@ -216,7 +214,10 @@ table tr th:nth-child(2) {
   border-top: 4px solid #fff;
 }
 
-
+.recover-entry {
+  float: right;
+  background-color: white;
+}
 /*tr:nth-child(even) {
   background: #f1f1f1;
 }*/

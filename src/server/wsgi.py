@@ -32,7 +32,9 @@ class UsernameExistedException(HTTPResponse):
 class UsernameEmptyException(HTTPResponse):
 	def __init__(self):
 		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Username is empty."}))
-
+class UsernameInvalidException(HTTPResponse):
+	def __init__(self):
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Username is invalid."}))
 class EmailExistedException(HTTPResponse):
 	def __init__(self):
 		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Email is registered."}))
@@ -133,6 +135,8 @@ def token_login():
 
 	return {"success": True}
 
+def is_ascii(s):
+    return all(ord(c) < 128 for c in s)
 
 @app.post('/signup')
 def signup():
@@ -141,6 +145,9 @@ def signup():
 	request_body['password'] = hashlib.sha512(salt+request_body['password']).hexdigest()
 	if request_body['username'] == '':
 		raise UsernameEmptyException
+	if not is_ascii(request_body['username']):
+		raise UsernameInvalidException
+
 	# try to add new account into account file, check for duplicates
 	with open(DB_PATH+"account.txt", "r+") as account_file:
 		account_array = json.load(account_file)
@@ -211,8 +218,8 @@ def get_data():
 	with open(DB_PATH+username+'.txt', "r") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
-			# if not 'deleted' in entry or not entry['deleted']:
-			active_entries.append(entry)
+			if not 'removed' in entry:
+				active_entries.append(entry)
 
 		data["array"] = active_entries
 	return data
@@ -276,7 +283,10 @@ def delete_entry(id):
 		for entry in entry_array:
 			if str(entry['id']) == id:
 				# entry_array.remove(entry)
-				entry['deleted'] = True
+				if entry['deleted']:
+					entry['removed'] = True # permanantly delete
+				else:
+					entry['deleted'] = True
 				break
 		data_file.seek(0)
 		json.dump(entry_array, data_file, indent=4)

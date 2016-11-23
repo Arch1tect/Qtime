@@ -131,9 +131,14 @@
               <div class="contentTooltip">{{entry[key]}}</div>
 
             </td>
-            <button title="delete this entry" v-if="$root.canEdit" @click="$root.$emit('remove-entry', entry)" class="delete-entry">X</button>
 
-            <button title="add this entry to my list" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="add-entry-from-public">+</button>
+
+            <button title="recover this entry" v-if="$root.showDeleted" @click="$root.$emit('recover entry', entry)" class="recover-entry manage-entry">+</button>
+
+            <button title="delete this entry" v-if="$root.canEdit" @click="$root.$emit('remove entry', entry)" class="manage-entry">x</button>          
+            <button title="add this entry to my list" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="manage-entry">+</button>
+
+
           </tr>
         </tbody>
       </table>
@@ -236,8 +241,8 @@
 
         </div>
         <div id="rightWrapper">
-
-          <div v-if="canEdit" id="addEntryWrapper">
+          <center class="deleted-tips" v-if="showDeleted">Showing deleted entries below, if you delete them again here, you can't recover them. </center> 
+          <div v-if="canEdit && !showDeleted" id="addEntryWrapper">
             <table id="addEntry">
               <tbody>
                 <tr>
@@ -251,7 +256,7 @@
                 </tr>
               </tbody>
             </table>                
-            <button v-on:click="addEntryByInput" type="button" id="addEntryBtn">+</button>
+            <button title="add new entry to your list" v-on:click="addEntryByInput" type="button" id="addEntryBtn">+</button>
           </div>
 
           <div id="addEntryCandidate">

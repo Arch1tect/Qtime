@@ -192,22 +192,22 @@ var qtime = new Vue({
 		newEntryNameChanged: function (event) {
 		// only fired when user input, on keyup
 
-		if (event.keyCode == 27 || event.keyCode == 32) //except esc and space button
-			return;
+			if (event.keyCode == 27 || event.keyCode == 32) //except esc and space button
+				return;
 
-		var query = this.newEntryName.replace(/\s+/g, '+').toLowerCase();
-		if (!query)
-			return;
+			var query = this.newEntryName.replace(/\s+/g, '+').toLowerCase();
+			if (!query)
+				return;
 
-		var that = this;
-		$.get("http://www.omdbapi.com/?s="+query, 
-			function(jsonData, status){
-				that.newEntryCandidates = [];
-				if (jsonData.Search){
-					that.newEntryCandidates = jsonData.Search;
-					$('#addEntryCandidate').show();
-				}
-				console.log("omdb: "+status);
+			var that = this;
+			$.get("http://www.omdbapi.com/?s="+query, 
+				function(jsonData, status){
+					that.newEntryCandidates = [];
+					if (jsonData.Search){
+						that.newEntryCandidates = jsonData.Search;
+						$('#addEntryCandidate').show();
+					}
+					console.log("omdb: "+status);
 			})
 
 		},
@@ -305,17 +305,21 @@ qtime.$on('edit-cell', function (entry, key) {
 
 });
 
-qtime.$on('remove-entry', function (entry) {
+qtime.$on('remove entry', function (entry) {
 
 	console.log('deleting entry');
 	qRequest('DELETE', 'api/entry/'+entry.id, null, 
 		function (data) { //success
 			showAjaxMsg(entry['name']+' is deleted!');
-			entry.deleted = true;
-			// qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
+
+			if (entry.deleted)
+				qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
+			else
+				entry.deleted = true;
 		}, 
 		function () {console.log('Error! Failed to delete entry.')}
 	);
+
 });
 
 qtime.$on('update-cell', function () {

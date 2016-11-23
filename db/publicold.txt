@@ -1,0 +1,592 @@
+[
+    {
+        "category": "movie", 
+        "name": "Watchmen", 
+        "deleted": true, 
+        "note": "Hulu", 
+        "duration": 186, 
+        "id": 0
+    }, 
+    {
+        "category": "anime", 
+        "name": "ite", 
+        "deleted": true, 
+        "note": "Bilibili", 
+        "duration": 25, 
+        "id": 1
+    }, 
+    {
+        "category": "movie", 
+        "name": "Intersteller", 
+        "note": "Hulu", 
+        "link": "", 
+        "duration": 150, 
+        "id": 2
+    }, 
+    {
+        "category": "anime", 
+        "name": "\u4e1c\u4eac\u6697\u54cd", 
+        "note": "Hulu", 
+        "link": "", 
+        "duration": "25", 
+        "id": 3
+    }, 
+    {
+        "category": "show", 
+        "name": "South Park123", 
+        "note": "Hulu", 
+        "link": "http://www.hulu.com/south-park", 
+        "duration": "20", 
+        "id": 4
+    }, 
+    {
+        "category": "anime", 
+        "name": "\u9f50\u795e", 
+        "deleted": true, 
+        "note": "Bilibili", 
+        "duration": 5, 
+        "id": 5
+    }, 
+    {
+        "category": "anime", 
+        "name": "new item ", 
+        "deleted": true, 
+        "note": "wuhuhu", 
+        "duration": "20", 
+        "id": 6
+    }, 
+    {
+        "category": "movie", 
+        "name": "ite", 
+        "deleted": true, 
+        "note": "haehei", 
+        "duration": "10", 
+        "id": 7
+    }, 
+    {
+        "category": "show", 
+        "name": "Shameless", 
+        "deleted": true, 
+        "note": "Hulu", 
+        "link": "", 
+        "duration": 51, 
+        "id": 8
+    }, 
+    {
+        "duration": 150, 
+        "category": "movie", 
+        "note": "Bought on Youtube", 
+        "id": 9, 
+        "name": "V for Vendetta"
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "duration": "", 
+        "id": 10
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "duration": "", 
+        "id": 11
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "duration": "", 
+        "id": 12
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "duration": "", 
+        "id": 13
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "duration": "", 
+        "id": 14
+    }, 
+    {
+        "category": "anime", 
+        "name": "\u846b\u82a6\u5a03", 
+        "deleted": true, 
+        "note": "China", 
+        "duration": 20, 
+        "id": 15
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 16
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": 5, 
+        "id": 17
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": 9, 
+        "id": 18
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": 12, 
+        "id": 19
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": 21, 
+        "id": 20
+    }, 
+    {
+        "category": "Qtime", 
+        "name": "Double click to edit (completed)", 
+        "deleted": true, 
+        "note": "Double click to enable edit, use input inside cell, not contenteditable", 
+        "link": "http://stackoverflow.com/questions/11320692/javascript-enable-input-on-double-click", 
+        "duration": 300, 
+        "id": 21
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 22
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 23
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 24
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 25
+    }, 
+    {
+        "category": "movie", 
+        "name": "The Lord of the Rings: The Return of the King", 
+        "deleted": true, 
+        "note": "Made in 2003", 
+        "link": "http://www.imdb.com/title/tt0167260", 
+        "duration": 120, 
+        "id": 26
+    }, 
+    {
+        "category": "movie", 
+        "name": "The Matrix", 
+        "note": "Made in 1999", 
+        "link": "http://www.imdb.com/title/tt0133093", 
+        "duration": 120, 
+        "id": 27
+    }, 
+    {
+        "category": "movie", 
+        "name": "Miss Peregrine's Home for Peculiar Children", 
+        "note": "Made in 2016", 
+        "link": "http://www.imdb.com/title/tt1935859", 
+        "duration": 127, 
+        "id": 28
+    }, 
+    {
+        "category": "Qtime", 
+        "name": "Convert link", 
+        "deleted": true, 
+        "note": "A study suggests that humans \u201cwill never get older than 115.\u201d It\u2019s the latest volley in a long-running debate among scientists about whether there\u2019s a natural barrier to the human life span.", 
+        "link": "", 
+        "duration": 10, 
+        "id": 29
+    }, 
+    {
+        "category": "movie", 
+        "name": "A Temp for All Seasons", 
+        "deleted": true, 
+        "note": "Made in 2005", 
+        "link": "http://www.imdb.com/title/tt0464258", 
+        "duration": null, 
+        "id": 30
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 31
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 32
+    }, 
+    {
+        "category": "show", 
+        "name": "\u9535\u9535\u4e09\u4eba\u884c", 
+        "note": "", 
+        "link": "https://www.youtube.com/user/qqsrxofficial", 
+        "duration": 25, 
+        "id": 33
+    }, 
+    {
+        "category": "movie", 
+        "name": "The Lord of the Rings: The Return of the King", 
+        "note": "Made in 2003", 
+        "link": "http://www.imdb.com/title/tt0167260", 
+        "duration": 150, 
+        "id": 34
+    }, 
+    {
+        "category": "movie", 
+        "name": "Crouching Tiger, Hidden Dragon", 
+        "deleted": true, 
+        "note": "Made in 2000", 
+        "link": "http://www.imdb.com/title/tt0190332", 
+        "duration": null, 
+        "id": 35
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 36
+    }, 
+    {
+        "category": "anime", 
+        "name": "Puella Magi Madoka Magica", 
+        "note": "Made in 2011\u2013\n\nhttps://movie.douban.com/review/4921954/", 
+        "link": "http://www.imdb.com/title/tt1773185", 
+        "duration": 25, 
+        "id": 37
+    }, 
+    {
+        "category": "series", 
+        "name": "The Office", 
+        "note": "Made in 2005\u20132013\n\nhttps://www.netflix.com/watch/70126249?trackId=13589554", 
+        "link": "http://www.imdb.com/title/tt0386676", 
+        "duration": 45, 
+        "id": 38
+    }, 
+    {
+        "category": "dev", 
+        "name": "Better way to delete row", 
+        "note": "Maybe on hover show delete button? Or when editing cell, provide option to delete row. Maybe the button show a minus sign since add button is a plus sign right now. How do we do a batch delete? Refer existing projects", 
+        "link": "", 
+        "duration": 60, 
+        "id": 39
+    }, 
+    {
+        "category": "dev", 
+        "name": "Improve category filter", 
+        "note": "Can wait until we have enough data. Then there's really a problem to solve.", 
+        "link": "", 
+        "duration": 100, 
+        "id": 40
+    }, 
+    {
+        "category": " ", 
+        "name": "fdfds", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 41
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 42
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 43
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 44
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 45
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 46
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 47
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 48
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 49
+    }, 
+    {
+        "category": "dev", 
+        "name": "Add more sources to search from", 
+        "note": "Hulu, Youtube, Wiki, etc", 
+        "link": "", 
+        "duration": 100, 
+        "id": 50
+    }, 
+    {
+        "category": "dev", 
+        "name": "Wait till ajax call success then close modal", 
+        "note": "", 
+        "link": "", 
+        "duration": 30, 
+        "id": 51
+    }, 
+    {
+        "category": "ha", 
+        "name": "no duration", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": null, 
+        "id": 52
+    }, 
+    {
+        "category": "", 
+        "name": "no dd", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 53
+    }, 
+    {
+        "category": "dev", 
+        "name": "AWS Code Deploy", 
+        "note": "AWS CodeDeploy didn't work out last time and took me hours. \n\nNow using my own Python script with Github webhook", 
+        "link": "", 
+        "duration": 100, 
+        "id": 54
+    }, 
+    {
+        "category": "wuhu", 
+        "name": "test", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 55
+    }, 
+    {
+        "category": "movie", 
+        "name": "Catch Me If You Can", 
+        "deleted": true, 
+        "note": "Made in 2002", 
+        "link": "http://www.imdb.com/title/tt0264464", 
+        "duration": "", 
+        "id": 56
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 57
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 58
+    }, 
+    {
+        "category": "", 
+        "name": "", 
+        "deleted": true, 
+        "note": "hi", 
+        "link": "", 
+        "duration": "", 
+        "id": 59
+    }, 
+    {
+        "category": "dev", 
+        "name": "Add mask when waiting for ajax", 
+        "note": "", 
+        "link": "", 
+        "duration": 30, 
+        "id": 60
+    }, 
+    {
+        "category": "", 
+        "name": "github test", 
+        "deleted": true, 
+        "note": "gogogog", 
+        "link": "", 
+        "duration": "", 
+        "id": 61
+    }, 
+    {
+        "category": "", 
+        "name": "hi", 
+        "deleted": true, 
+        "note": "", 
+        "link": "", 
+        "duration": "", 
+        "id": 62
+    }, 
+    {
+        "category": "series", 
+        "name": "Game of Thrones", 
+        "deleted": true, 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt0944947", 
+        "duration": "", 
+        "id": 63
+    }, 
+    {
+        "category": "series", 
+        "name": "Shameless", 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt1586680", 
+        "duration": 50, 
+        "id": 64
+    }, 
+    {
+        "category": "series", 
+        "name": "Game of Thrones", 
+        "deleted": true, 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt0944947", 
+        "duration": 60, 
+        "id": 65
+    }, 
+    {
+        "category": "series", 
+        "name": "Game of Thrones", 
+        "deleted": true, 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt0944947", 
+        "duration": 60, 
+        "id": 66
+    }, 
+    {
+        "category": "series", 
+        "name": "\nxcxc", 
+        "note": "Made in 2011\u2013", 
+        "link": "http://www.imdb.com/title/tt0944947", 
+        "duration": 60, 
+        "id": 67
+    }, 
+    {
+        "category": "anime", 
+        "name": "\u4f60\u7684\u540d\u5b57", 
+        "note": "\u542c\u8bf4\u975e\u5e38\u68d2\uff01\u65b0\u6d77\u8bda", 
+        "link": "", 
+        "duration": 120, 
+        "id": 68
+    }
+]

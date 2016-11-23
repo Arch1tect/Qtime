@@ -148,6 +148,13 @@ button.show-deleted {
     display: none;
 }
 
+.deleted-tips {
+    font-size: large;
+    background: white;
+    padding: 15px;
+    border: 1px solid;
+}
+
 
 input:focus,
 select:focus,
