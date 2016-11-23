@@ -216,7 +216,12 @@
 
         <div id="ajaxMsg">{{ajaxMsg}}</div>
         <div v-cloak v-if="showTip && !login" id="qtime-tip">
-          Welcome! Qtime helps you manage things you are interested in, you can easily sort, filter and search for items, it also provides a convenient <a href="#" onclick="chrome.webstore.install()">Chrome Extension</a> for saving web pages you come across. <br/><br/>Check out trending items below, or <a href="#" style="" @click="loginPopup = 'Log in'">log in</a> to manage your own stuff.
+          <img class='header-img' src="qtime-header.png"/>
+          <div class='header-introduction'>
+            Welcome! Qtime is a simple web app that helps you manage things you are interested in. Once you add items to your list, you can easily sort, filter and search for them. Qtime also provides a convenient <a href="#" onclick="chrome.webstore.install()">Chrome Extension</a> for saving web pages you come across. <br/><br/>Now, check out trending items below, or <a href="#" style="" @click="loginPopup = 'Log in'">log in</a> to manage your own stuff.
+          </div>
+
+
         </div>
         <div id="leftWrapper">
           <input id="search" name="query" placeholder="Filter by Keyword" v-model="searchQuery">
@@ -234,8 +239,8 @@
               </option>
             </select>
           </div>
-          <button class="show-deleted" v-if="selectedTable=='My stuff' && showDeleted" @click="showDeleted=false">Hide deleted</button>          
-          <button class="show-deleted" v-if="selectedTable=='My stuff' && !showDeleted" @click="showDeleted=true">Show deleted</button>
+          <button class="show-deleted" v-if="canEdit && showDeleted" @click="showDeleted=false">Hide deleted</button>          
+          <button class="show-deleted" v-if="canEdit && !showDeleted" @click="showDeleted=true">Show deleted</button>
 
 
 

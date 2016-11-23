@@ -105,6 +105,7 @@ button.logout  {
 #qtime-tip {
     font-size: large;
     margin-bottom: 50px;
+    height: 345px;
     line-height: 25px;
     border: 1px solid whitesmoke;
     border-radius: 5px;
@@ -155,7 +156,14 @@ button.show-deleted {
     border: 1px solid;
 }
 
+.header-introduction {
+  text-align: justify;
+}
 
+.header-img {
+  float: right;
+  margin-left: 30px;
+}
 input:focus,
 select:focus,
 td:focus,
