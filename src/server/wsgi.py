@@ -17,6 +17,14 @@ DB_PATH = "../db/"
 public_qtime_data = {}
 
 # exceptions during request validation or login
+class EmptyUsernameException(HTTPResponse):
+	def __init__(self):
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"no username in cookie."}))
+
+class EmptyTokenException(HTTPResponse):
+	def __init__(self):
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"no token in cookie."}))
+
 class InvalidLoginException(HTTPResponse):
 	def __init__(self):
 		HTTPResponse.__init__(self, status=401, body=json.dumps({"error":"Invalid login."}))
@@ -84,6 +92,12 @@ def validate_request(fn):
 	def wrapper(*args, **kwargs):
 		username = request.get_cookie('username')
 		token = request.get_cookie('token')
+		
+		if not username:
+			raise EmptyUsernameException
+		if not token:
+			raise EmptyTokenException
+
 		validate(username, token)
 		return fn(*args, **kwargs)
 	return wrapper
