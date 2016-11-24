@@ -242,6 +242,7 @@ def add_entry():
 
 		newID = lastID + 1
 		request_body['id'] = newID
+		request_body['deleted'] = False
 
 		entry_array.append(request_body)
 		data_file.seek(0)
