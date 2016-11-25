@@ -1,10 +1,13 @@
 # Qtime
 
-Qtime is a mini project that provides a tool for people to record and manage things they are interested in. It's basically a table that's easy to add, modify, filter and search entries.
+Qtime is a mini project that helps you manage things you are interested in. Once you add items to your list, you can easily sort, filter and search for them.
 
 
-## Demo
-[http://arch1.tech](http://arch1.tech). 
+
+## Official website
+[http://quotime.me](http://quotime.me). 
+
+
 
 
 #### Screenshot
