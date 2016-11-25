@@ -16,6 +16,7 @@ select option:hover{
   border: none;
   width: 120%;
   font-size: 15px;
+  margin:auto !important;
 }
 #select-category-description {
   font-size: 16px;
