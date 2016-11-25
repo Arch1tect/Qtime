@@ -41,7 +41,7 @@
                 </slot>
               </div>
 
-              <div class="modal-body">
+              <div v-on:keyup.enter="submit"  class="modal-body">
                 <input type="text" name="username" placeholder="Username" v-model="username">
                 <input v-if="selected=='Sign up'" name="email" type="text" placeholder="Email" v-model="email">
                 <input type="password" name="password" placeholder="Password" v-model="password">
@@ -56,7 +56,7 @@
                 <slot name="footer">
                   <span class="login-response" v-bind:class="{error: loginOrSignupFailed}">{{serverresponse}}</span>
 
-                  <button class="modal-button" @click="submit()">
+                  <button class="modal-button" @click="submit">
                     OK
                   </button>                  
                   <button class="modal-button" @click="$emit('close')">

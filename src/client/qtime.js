@@ -57,6 +57,9 @@ var qtime = new Vue({
 
 					// close edit cell modal
 					that.showModal = false;
+					// close login/signup modal
+					that.loginPopup = null;
+
 				}
 			})  
 		})

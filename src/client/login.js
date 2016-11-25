@@ -24,18 +24,8 @@ Vue.component('login', {
 
 		var that = this;
 		this.$nextTick(function () {
-			document.addEventListener("keydown", function(e) {
-
-				if (e.keyCode == 13) {
-					console.log('enter');
-					that.submit();
-				}
-				else if (e.keyCode == 27) {
-					console.log('esc');
-					that.$emit('close');
-				}  
-			});
-		})
+ 
+		});
 
 	},
 	methods: {
