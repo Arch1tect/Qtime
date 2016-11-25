@@ -129,12 +129,12 @@ var qtime = new Vue({
 		},
 		getPublicData: function () {
 			// Go fetch the public trending data
-			qRequest('GET', 'api/public', null, this.loadPublicData);
+			qRequest('Getting trending data...', 'GET', 'api/public', null, this.loadPublicData);
 
 		},
 		getUserData: function () {
 			// Go fetch user's personal data
-			qRequest('GET', 'api/data', null, this.loadUserData);
+			qRequest('Getting your data...', 'GET', 'api/data', null, this.loadUserData);
 
 		},
 		loadPublicData: function (rawJSONData) {
@@ -250,7 +250,7 @@ var qtime = new Vue({
 			// don't reload user data if adding entry from other list
 			var userData = this.userData;
 			var that = this;
-			qRequest('POST', 'api/entry', JSON.stringify(newEntry), 
+			qRequest('Adding new entry...', 'POST', 'api/entry', JSON.stringify(newEntry), 
 				function (data) { //success
 					showAjaxMsg(newEntry['name']+' is added!');
 					console.log('Add entry success, id: '+ data.id);
@@ -297,7 +297,7 @@ qtime.$on('recover entry', function (entry) {
 
 	console.log('recovering entry');
 
-	qRequest('PUT', 'api/recover-entry/'+entry.id, null, 
+	qRequest('Recovering entry...', 'PUT', 'api/recover-entry/'+entry.id, null, 
 		function (data) { //success
 			showAjaxMsg(entry['name']+' is recovered!');
 			entry['deleted'] = false;
@@ -310,7 +310,7 @@ qtime.$on('recover entry', function (entry) {
 qtime.$on('remove entry', function (entry) {
 
 	console.log('deleting entry');
-	qRequest('DELETE', 'api/entry/'+entry.id, null, 
+	qRequest('Deleting entry...', 'DELETE', 'api/entry/'+entry.id, null, 
 		function (data) { //success
 			showAjaxMsg(entry['name']+' is deleted!');
 
@@ -331,15 +331,17 @@ qtime.$on('update-cell', function () {
 
 	console.log('changing entry value from '+entry[key]+' to '+val);
 
-	qRequest('PUT', 'api/entry/'+entry.id+'/'+key, val, 
+	var that = this;
+	qRequest('Updating entry...', 'PUT', 'api/entry/'+entry.id+'/'+key, val, 
 		function (data) { //success
+			that.showModal = false;
 			showAjaxMsg(entry['name']+' is modified!');
 			entry[key] = val;
 		}
 	);
 
 	
-	this.showModal = false;
+
 
 });
 

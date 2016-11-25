@@ -35,7 +35,7 @@ $(document).ready(function(){
 
 	if (username && token) {
 
-		qRequest('GET', 'token-login', null, 
+		qRequest('Logging in...', 'GET', 'token-login', null, 
 			function() {qtime.$emit('login success')},
 			function() {
 				qtime.getPublicData(); 		

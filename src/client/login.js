@@ -49,7 +49,7 @@ Vue.component('login', {
 		login: function () {
 
 			var data = JSON.stringify({ "username": this.username, "password": this.password});
-			qRequest('POST', 'password-login', data, this.loginSuccess, this.loginFail);
+			qRequest('Logging in...', 'POST', 'password-login', data, this.loginSuccess, this.loginFail);
 
 		},
 		loginSuccess: function (data) {
@@ -69,7 +69,7 @@ Vue.component('login', {
 				return;
 			}
 			var data = JSON.stringify({ "username": this.username, "email": this.email, "password": this.password});
-			qRequest('POST', 'signup', data, this.loginSuccess, this.loginFail);
+			qRequest('Signing you up...', 'POST', 'signup', data, this.loginSuccess, this.loginFail);
 
 		}
 

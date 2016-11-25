@@ -8,6 +8,7 @@ from server.config import config
 import uuid
 import hashlib
 import os
+import time
 
 app = Bottle()
 salt = "qtimesalt2016" # move to more secure place
@@ -92,13 +93,14 @@ def validate_request(fn):
 	def wrapper(*args, **kwargs):
 		username = request.get_cookie('username')
 		token = request.get_cookie('token')
-		
+
 		if not username:
 			raise EmptyUsernameException
 		if not token:
 			raise EmptyTokenException
 
 		validate(username, token)
+		# time.sleep(2)
 		return fn(*args, **kwargs)
 	return wrapper
 
@@ -206,6 +208,7 @@ def signup():
 
 @app.get('/api/public')
 def get_public_data():
+	# time.sleep(5)
 
 	if "array" in public_qtime_data:
 		return public_qtime_data
