@@ -20,7 +20,6 @@ var qtime = new Vue({
 		publicData:null,
 		userData:null,
 
-		ajaxMsg: 'hi',
 
 		editCellName: '',
 		editCellValObj: {},
@@ -130,16 +129,12 @@ var qtime = new Vue({
 		},
 		getPublicData: function () {
 			// Go fetch the public trending data
-			qRequest('GET', 'api/public', null, this.loadPublicData, 
-				function () {console.log('Error! Failed to get public data.')}
-			);
+			qRequest('GET', 'api/public', null, this.loadPublicData);
 
 		},
 		getUserData: function () {
 			// Go fetch user's personal data
-			qRequest('GET', 'api/data', null, this.loadUserData, 
-				function () {console.log('Error! Failed to get user data')}
-			);
+			qRequest('GET', 'api/data', null, this.loadUserData);
 
 		},
 		loadPublicData: function (rawJSONData) {
@@ -263,21 +258,13 @@ var qtime = new Vue({
 					userData.unshift(newEntry);
 					if (reloadUserDataFlag)
 						that.loadData(userData);
-				}, 
-				function () {console.log('Error! Failed to add entry.')}
+				}
 			);
 
 		}
 	}
 })
 
-function showAjaxMsg(msg) {
-	qtime.ajaxMsg = msg;
-	if (typeof showAjaxMsgTimeout != 'undefined')
-		clearTimeout(showAjaxMsgTimeout);
-	$('#ajaxMsg').fadeIn();
-	showAjaxMsgTimeout = setTimeout(function(){$('#ajaxMsg').fadeOut();}, 3000);
-}
 
 qtime.$on('login success', function (username) {
 	
@@ -314,8 +301,7 @@ qtime.$on('recover entry', function (entry) {
 		function (data) { //success
 			showAjaxMsg(entry['name']+' is recovered!');
 			entry['deleted'] = false;
-		}, 
-		function () {console.log('Error! Failed to recover entry.')}
+		}
 	);
 
 
@@ -332,8 +318,7 @@ qtime.$on('remove entry', function (entry) {
 				qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
 			else
 				entry.deleted = true;
-		}, 
-		function () {console.log('Error! Failed to delete entry.')}
+		}
 	);
 
 });
@@ -350,8 +335,7 @@ qtime.$on('update-cell', function () {
 		function (data) { //success
 			showAjaxMsg(entry['name']+' is modified!');
 			entry[key] = val;
-		}, 
-		function () {console.log('Error! Failed to update entry.')}
+		}
 	);
 
 	
