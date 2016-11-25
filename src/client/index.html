@@ -233,13 +233,13 @@
           </div>
 
           <div id="select-category-description">Filter by Category</div>
-          <div class="selected-category-wrapper">
+          <center class="selected-category-wrapper">
             <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
               <option v-for="option in options" v-bind:value="option.value">
                 {{ option.text }}
               </option>
             </select>
-          </div>
+          </center>
           <button class="show-deleted" v-if="canEdit && showDeleted" @click="showDeleted=false">Hide deleted</button>          
           <button class="show-deleted" v-if="canEdit && !showDeleted" @click="showDeleted=true">Show deleted</button>
 
