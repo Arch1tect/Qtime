@@ -17,10 +17,16 @@ a {
 
 footer {
   position: absolute;
-  width: 100%;
-  border-top: 1px solid #bdbdbd;
+  width: 500px;
   text-align: center;
-  padding: 20px;
+  left: 50%;
+}
+
+.footer-inner {
+    position: relative;
+    border-top: 1px solid #adadad;
+    padding: 20px;
+    left: -50%;
 }
 
 footer a {
