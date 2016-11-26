@@ -6,11 +6,32 @@ body {
   font-weight: 300;
   color: black;
   margin:0px;
+  position: absolute;
+  min-height: 100%;
 }
 
 a {
     color: black;
 }
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+footer a {
+  text-decoration: none;
+  margin-left:10px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+
 textarea {
   font-weight: 300;
 }
