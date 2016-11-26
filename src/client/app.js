@@ -23,9 +23,11 @@ $(document).ready(function(){
 	$("#entryGrid").on("mouseout","td",function() {
 		$(this).children(".contentTooltip").hide();
 	});
-	
 
-
+	placeFooter();
+	$(window).on('resize', function(){
+		placeFooter();
+	});
 
 	// try to login if cookies are there, 
 	// if login fail, fetch public data

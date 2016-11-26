@@ -6,9 +6,10 @@ body {
   font-weight: 300;
   color: black;
   margin:0px;
-  position: absolute;
-  min-height: 100%;
+
 }
+
+
 
 a {
     color: black;
@@ -16,8 +17,8 @@ a {
 
 footer {
   position: absolute;
-  bottom: 0px;
   width: 100%;
+  border-top: 1px solid #bdbdbd;
   text-align: center;
   padding: 20px;
 }

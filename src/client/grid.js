@@ -21,7 +21,6 @@ Vue.component('qtime-grid', {
       sortOrders: sortOrders
     }
   },
-
   computed: {
     filteredData: function () {
       var sortKey = this.sortKey
@@ -31,6 +30,13 @@ Vue.component('qtime-grid', {
       var durationMin = this.durationMin;
       var durationMax = this.durationMax;
       var selectedCategory = this.selectedCategory;
+
+
+      this.$nextTick(function () {
+
+        placeFooter();
+
+      });
 
       if (this.showDeleted) {
           data = data.filter(function (entry) {

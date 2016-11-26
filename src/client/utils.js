@@ -49,3 +49,22 @@ function qRequest(msgBeforeRequest, type, url, data, success, error) {
 	});
 
 }
+
+function placeFooter() {
+	    var height = $('#leftWrapper').position().top+Math.max($('#leftWrapper').height(), $('#rightWrapper').height());
+        height = Math.max(height+30, $(window).height()-50);
+        $('footer').css('top', height);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
