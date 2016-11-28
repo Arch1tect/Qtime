@@ -1,5 +1,6 @@
 var INIT_OPT_LIST = [{'text': 'all categories', 'value':''}];
 
+
 // bootstrap the qtime
 var qtime = new Vue({
 	el: '#qtime-wrapper',
@@ -81,7 +82,103 @@ var qtime = new Vue({
 
 		canAddToMyList: function() {
 			return this.login && this.selectedTable!=="My stuff";
+		},
+
+		headerIntroduction: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "欢迎，Qtime是一个简洁的开源项目，它的作用是方便您管理任何感兴趣的东西。您只需将条目加入自己的清单中就可以方便的进行排序，过滤，查找等等操作。";
+			return "Welcome. Qtime is a simple open source web app that helps you manage things you are interested in. Once you add items to your list, you can easily sort, filter and search for them."
+		},
+		headerIntroChromeExtension: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "Qtime还提供一个谷歌浏览器插件让您可以保存平时偶遇的网站页面。- ";
+			return "Qtime also provides a convenient Chrome Extension for saving web pages you come across. - ";
+		},
+		chromeExtension: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "安装插件";
+			return "Install Chrome Extension";
+		},
+		headerIntroRegistration: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "现在，您可以浏览下方最近流行的条目，如果要管理您自己的条目，请先";
+			return "Now, check out trending items below, if you want to manage your own stuff, please ";
+		},
+		headerIntroLogin: function() {
+
+			if (Cookies.get('lang')==='cn') 
+				return "登录";
+			return "Log in";
+		},
+		headerRegister: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "注册";
+			return "Sign up";
+		},
+		newEntryPlaceHoderName: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "新条目名";
+			return "New Entry Name";
+		},
+		newEntryPlaceHoderTime: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "时长";
+			return "Time";
+		},
+		newEntryPlaceHoderLink: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "链接";
+			return "Link";
+		},
+		newEntryPlaceHoderNote: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "描述";
+			return "Note";
+		},
+		newEntryPlaceHoderCategory: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "类别";
+			return "Category";
+		},
+		setTimeRangeTitle: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "时间范围 (分钟)";
+			return "Set Time Range (min)";			
+		},
+		selectCategoryTitle: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "选择分类 (可多选)";
+			return "Filter by Category";			
+		},
+		
+		headerLogout: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "登出";
+			return "Log off";			
+		},
+
+		searchTitle: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "搜索";
+			return "Search";			
+		},
+
+		showDeletedTitle: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "显示删除条目";
+			return "Show Deleted";			
+		},
+		hideDeletedTitle: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "隐藏删除条目";
+			return "Hide Deleted";			
+		},
+		deletedTableHeaderTitle: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "以下为已删除的条目，再次删除将不能被恢复。";
+			return "Showing deleted entries below, you can't recover them if delete again here.";			
 		}
+
 
 
 
@@ -123,6 +220,15 @@ var qtime = new Vue({
 			// $("#leftWrapper").css("margin-top", "0px");
 			// $(window).scrollTop(false); // put false here so it won't trigger .scroll again
 		
+		},
+		trendingOrMyStuffName: function(option) {
+			if (Cookies.get('lang')==='cn') {
+				if (option==="My stuff")
+					return '我的清单';
+				else
+					return '流行榜单';
+			}
+			return option;
 		},
 		trendingOrMyStuffTitle: function(option) {
 			if (option==="My stuff")
@@ -266,7 +372,7 @@ var qtime = new Vue({
 
 		}
 	}
-})
+});
 
 
 qtime.$on('login success', function (username) {
@@ -299,11 +405,21 @@ qtime.$on('edit-cell', function (entry, key) {
 qtime.$on('recover entry', function (entry) {
 
 	console.log('recovering entry');
-
-	qRequest('Recovering entry...', 'PUT', 'api/recover-entry/'+entry.id, null, 
+	var m = 'Recovering entry...';
+	if (Cookies.get('lang')==='cn') 
+		m = '正在恢复条目...';
+	qRequest(m, 'PUT', 'api/recover-entry/'+entry.id, null, 
 		function (data) { //success
-			showAjaxMsg(entry['name']+' is recovered!');
+			var msg = entry['name'];
+			if (Cookies.get('lang')==='cn') 
+				msg += ' 恢复成功';
+			else
+				msg += ' is recovered';
+
+			showAjaxMsg(msg);
+
 			entry['deleted'] = false;
+
 		}
 	);
 
@@ -313,9 +429,18 @@ qtime.$on('recover entry', function (entry) {
 qtime.$on('remove entry', function (entry) {
 
 	console.log('deleting entry');
-	qRequest('Deleting entry...', 'DELETE', 'api/entry/'+entry.id, null, 
+	var m = 'Deleting entry...';
+	if (Cookies.get('lang')==='cn') 
+		m = '正在删除条目...';
+	qRequest(m, 'DELETE', 'api/entry/'+entry.id, null, 
 		function (data) { //success
-			showAjaxMsg(entry['name']+' is deleted!');
+			var msg = entry['name'];
+			if (Cookies.get('lang')==='cn') 
+				msg += ' 删除成功';
+			else
+				msg += ' is deleted';
+
+			showAjaxMsg(msg);
 
 			if (entry.deleted)
 				qtime.gridData.splice(qtime.gridData.indexOf(entry),1);
@@ -335,10 +460,21 @@ qtime.$on('update-cell', function () {
 	console.log('changing entry value from '+entry[key]+' to '+val);
 
 	var that = this;
-	qRequest('Updating entry...', 'PUT', 'api/entry/'+entry.id+'/'+key, val, 
+
+	var m = 'Updating entry...';
+	if (Cookies.get('lang')==='cn') 
+		m = '正在修改条目...';
+	qRequest(m, 'PUT', 'api/entry/'+entry.id+'/'+key, val, 
 		function (data) { //success
 			that.showModal = false;
-			showAjaxMsg(entry['name']+' is modified!');
+
+			var msg = entry['name'];
+			if (Cookies.get('lang')==='cn') 
+				msg += ' 修改成功';
+			else
+				msg += ' is modified';
+
+			showAjaxMsg(msg);
 			entry[key] = val;
 		}
 	);

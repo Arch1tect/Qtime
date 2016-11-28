@@ -22,6 +22,7 @@ gulp.task('default', function() {
     './login.js',
     './modal.js',
 
+    './footer.js',
     './qtime.js',
     './durationSlider.js',
 

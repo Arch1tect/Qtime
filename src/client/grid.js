@@ -117,6 +117,18 @@ Vue.component('qtime-grid', {
         "link": "Link",
         "note": "Note"
       }
+
+      lang = Cookies.get('lang');
+      if (lang === 'cn') {
+        
+        dict = {
+                "name": "名称",
+                "duration": "时长",
+                "category": "类别",
+                "link": "链接",
+                "note": "描述"
+              }
+      }
       return dict[key];
     }
 

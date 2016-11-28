@@ -9,7 +9,10 @@ function showAjaxMsg(msg, noTimeout) {
 }
 
 function showErrorMsg(data) {
-	showAjaxMsg("Error: " + data.responseJSON.error);
+	var msg = 'Unknown';
+	if (data && data.responseJSON)
+		msg = data.responseJSON.error;
+	showAjaxMsg("Error: " + msg);
 }
 
 function successWrapper(callback) {
@@ -17,7 +20,8 @@ function successWrapper(callback) {
 	return function(data, textStatus, jqXHR) {
 		$('#ajaxMsg').hide();	
 		$(".ajax-mask").hide();
-		callback(data, textStatus, jqXHR);
+		if (callback)
+			callback(data, textStatus, jqXHR);
 	}
 }
 
@@ -27,7 +31,8 @@ function errorWrapper(callback) {
 	return function(jqXHR, textStatus, errorThrown) {
 		showErrorMsg(jqXHR);
 		$(".ajax-mask").hide();
-		callback(jqXHR, textStatus, errorThrown);
+		if (callback)
+			callback(jqXHR, textStatus, errorThrown);
 	};
 }
 

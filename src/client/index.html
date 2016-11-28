@@ -175,15 +175,19 @@
       <div id="header-wrapper">
         <div class="header">
           <span id="qtimeTitle" onclick="location.reload()">Qtime</span>
-            <button onclick="chrome.webstore.install()" id="install-button">Install Chrome Extension</button>
+
+
+
+
+            <button v-cloak onclick="chrome.webstore.install()" id="install-button">{{chromeExtension}}</button>
           <div class="float-right">
 
             <span v-if="!login">
-              <button @click="loginPopup = 'Sign up'">Sign up</button> | 
-              <button @click="loginPopup = 'Log in'">Log in</button>
+              <button @click="loginPopup = 'Sign up'">{{headerRegister}}</button> | 
+              <button @click="loginPopup = 'Log in'">{{headerIntroLogin}}</button>
             </span>
             <span v-cloak v-if="login">
-              <span id="welcome-msg">Welcome, {{username}}! </span>
+              <span id="welcome-msg">Hi, {{username}}! </span>
 
               <span class="modal-option" v-for="option in tableOptions">
                 <input type="radio"
@@ -191,10 +195,10 @@
                   :id="option"
                   name="option"
                   v-model="selectedTable">
-                <label :for="option" :title="trendingOrMyStuffTitle(option)">{{ option }}</label>
+                <label :for="option" :title="trendingOrMyStuffTitle(option)">{{ trendingOrMyStuffName(option) }}</label>
               </span>
 
-              <button class="logout" @click="logout">Log out</button>
+              <button class="logout" @click="logout">{{headerLogout}}</button>
             </span>
           </div>
         </div>
@@ -219,20 +223,25 @@
         <div v-cloak v-if="showTip && !login" id="qtime-tip">
           <img class='header-img' src="qtime-header.png"/>
           <div class='header-introduction'>
-            Welcome. Qtime is a simple open source web app that helps you manage things you are interested in. Once you add items to your list, you can easily sort, filter and search for them. Qtime also provides a convenient <a href="#" onclick="chrome.webstore.install()">Chrome Extension</a> for saving web pages you come across. <br/><br/>Now, check out trending items below, or <a href="#" style="" @click="loginPopup = 'Log in'">log in</a> to manage your own stuff.
+            {{headerIntroduction}}<br/><br/>
+            {{headerIntroChromeExtension}}
+            <a href='#' @click='chrome.webstore.install()'>{{chromeExtension}}</a>
+            <br/><br/>{{headerIntroRegistration}}
+            <a href="#" style="" @click="loginPopup = 'Log in'">{{headerIntroLogin}}</a>
+
           </div>
 
 
         </div>
         <div id="leftWrapper">
-          <input id="search" name="query" placeholder="Filter by Keyword" v-model="searchQuery">
+          <input id="search" name="query" v-bind:placeholder="searchTitle" v-model="searchQuery">
           
-          <div id="durationSlider-description">Set Time Range (min)</div>
+          <div id="durationSlider-description">{{setTimeRangeTitle}}</div>
           <div id="durationSliderWrapper">
             <div id="durationSlider"></div>
           </div>
           <center>
-            <div id="select-category-description">Filter by Category</div>
+            <div id="select-category-description">{{selectCategoryTitle}}</div>
             <div class="selected-category-wrapper">
               <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
                 <option v-for="option in options" v-bind:value="option.value">
@@ -241,24 +250,24 @@
               </select>
             </div>
           </center>
-          <button class="show-deleted" v-if="canEdit && showDeleted" @click="showDeleted=false">Hide deleted</button>          
-          <button class="show-deleted" v-if="canEdit && !showDeleted" @click="showDeleted=true">Show deleted</button>
+          <button class="show-deleted" v-if="canEdit && showDeleted" @click="showDeleted=false">{{hideDeletedTitle}}</button>          
+          <button class="show-deleted" v-if="canEdit && !showDeleted" @click="showDeleted=true">{{showDeletedTitle}}</button>
 
 
 
         </div>
         <div id="rightWrapper">
-          <center class="deleted-tips" v-cloak  v-if="showDeleted">Showing deleted entries below, you can't recover them if delete again here. </center> 
+          <center class="deleted-tips" v-cloak  v-if="showDeleted">{{deletedTableHeaderTitle}} </center> 
           <div v-if="canEdit && !showDeleted" id="addEntryWrapper">
             <table id="addEntry">
               <tbody>
                 <tr>
-                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text" placeholder="New Item Name" />
+                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text"  v-bind:placeholder="newEntryPlaceHoderName" />
                   </td>
-                  <td><input v-model="newEntryDuration" type="text" placeholder="Time" /></td>
-                  <td><input v-model="newEntryCategory" type="text" placeholder="Category" /></td>
-                  <td><input v-model="newEntryLink" type="text" placeholder="Link" /></td>
-                  <td><input v-model="newEntryNote" type="text" placeholder="Note" /></td>
+                  <td><input v-model="newEntryDuration" type="text" v-bind:placeholder="newEntryPlaceHoderTime" /></td>
+                  <td><input v-model="newEntryCategory" type="text" v-bind:placeholder="newEntryPlaceHoderCategory" /></td>
+                  <td><input v-model="newEntryLink" type="text" v-bind:placeholder="newEntryPlaceHoderLink" /></td>
+                  <td><input v-model="newEntryNote" type="text" v-bind:placeholder="newEntryPlaceHoderNote" /></td>
 
                 </tr>
               </tbody>
@@ -290,8 +299,8 @@
     <footer>
       <div class="footer-inner">
         Qtime © 2016  
-        <a href="https://github.com/Arch1tect/Qtime/issues">Send feedback</a>
-        <a href="https://github.com/Arch1tect/Qtime/blob/master/README.md">About</a> 
+        <a href="https://github.com/Arch1tect/Qtime/issues">{{feedback}}</a>
+        <a href="https://github.com/Arch1tect/Qtime/blob/master/README.md">{{about}}</a> 
       </div>
     </footer>
 

@@ -51,8 +51,9 @@ class EmailExistedException(HTTPResponse):
 # static routing
 @app.route('/')
 def server_static_home():
-	cwd = os.getcwd()
-	return static_file('index.html', root='client/')
+	response = static_file('index.html', root='client/')
+	response.set_cookie('lang', 'cn')
+	return response
 
 @app.route('/<filename>')
 def server_static(filename):
@@ -190,7 +191,7 @@ def signup():
 		default_entry = {}
 		default_entry['id'] = 0
 		default_entry['name'] = 'Welcome!'
-		default_entry['category'] = 'qtime'
+		default_entry['category'] = 'Qtime'
 		default_entry['duration'] = 1
 		default_entry['link'] = ''
 		default_entry['deleted'] = False
