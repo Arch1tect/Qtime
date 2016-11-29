@@ -125,7 +125,7 @@
             entry in filteredData">
             <td v-for="key in columns" @dblclick="$root.$emit('edit-cell', entry, key)">
 
-              <a v-if="key=='link' && entry[key]" target="_blank" :href="entry[key]">&nearr;</a>
+              <a v-if="key=='link' && entry[key]" target="_blank" :href="prepareLink(entry[key])">&nearr;</a>
               <span v-else>
                 {{entry[key]}} 
               </span>

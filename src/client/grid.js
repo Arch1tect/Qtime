@@ -107,7 +107,14 @@ Vue.component('qtime-grid', {
       this.sortKey = key
       this.sortOrders[key] = this.sortOrders[key] * -1
     },
+    prepareLink: function (val) {
+      if (val.indexOf('http')===-1) {
+        return 'http://'+val;
+      }
 
+      return val;
+
+    },
     getColName: function (key) {
 
       var dict = {
