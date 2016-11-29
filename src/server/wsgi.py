@@ -14,6 +14,9 @@ app = Bottle()
 salt = "qtimesalt2016" # move to more secure place
 
 DB_PATH = "../db/"
+LANG = 'en'
+if 'QTIME_LANG' in os.environ and os.environ['QTIME_LANG'] == 'cn':
+	LANG = 'cn'
 
 public_qtime_data = {}
 
@@ -52,7 +55,7 @@ class EmailExistedException(HTTPResponse):
 @app.route('/')
 def server_static_home():
 	response = static_file('index.html', root='client/')
-	response.set_cookie('lang', 'cn')
+	response.set_cookie('lang', LANG)
 	return response
 
 @app.route('/<filename>')
@@ -211,11 +214,11 @@ def signup():
 def get_public_data():
 	# time.sleep(5)
 
-	if "array" in public_qtime_data:
-		return public_qtime_data
+	# if "array" in public_qtime_data:
+	# 	return public_qtime_data
 
 	arrayToReturn = []
-	with open(DB_PATH+"public.txt", "r") as data_file:
+	with open(DB_PATH+"public-"+LANG+".txt", "r") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
 			# if not 'deleted' in entry or not entry['deleted']:

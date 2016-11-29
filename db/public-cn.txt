@@ -11,7 +11,7 @@
     {
         "category": "\u52a8\u753b", 
         "name": "\u4f60\u7684\u540d\u5b57", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u65b0\u6d77\u8bda\u65b0\u4f5c\uff01", 
         "link": "https://movie.douban.com/subject/26683290/", 
         "duration": 106, 
@@ -20,7 +20,7 @@
     {
         "category": "\u7535\u5f71", 
         "name": "\u4f69\u5c0f\u59d0\u7684\u5947\u5e7b\u57ce\u5821", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "Tim Burton + Eva Green", 
         "link": "https://movie.douban.com/subject/7051830/", 
         "duration": 127, 
@@ -29,7 +29,7 @@
     {
         "category": "\u7535\u5f71", 
         "name": "\u5c4f\u4f4f\u547c\u5438", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u60ca\u609a\u523a\u6fc0", 
         "link": "https://movie.douban.com/subject/26704620/", 
         "duration": 88, 
@@ -38,7 +38,7 @@
     {
         "category": "\u7535\u5f71", 
         "name": "\u79d1\u6d1b\u5f17\u905310\u53f7", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u79d1\u5e7b\u60ac\u7591", 
         "link": "https://movie.douban.com/subject/2977957/", 
         "duration": 103, 
@@ -47,7 +47,7 @@
     {
         "category": "\u7535\u5f71", 
         "name": "\u91dc\u5c71\u884c", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "zombie apocalypse", 
         "link": "https://movie.douban.com/subject/25986180/", 
         "duration": 118, 
@@ -56,7 +56,7 @@
     {
         "category": "\u7535\u5f71", 
         "name": "\u964d\u4e34", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u79d1\u5e7b\u6587\u827a\u7247", 
         "link": "https://movie.douban.com/subject/21324900/", 
         "duration": 116, 
@@ -65,7 +65,7 @@
     {
         "category": "\u7535\u5f71", 
         "name": "\u5947\u5f02\u535a\u58eb", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u6f2b\u5a01", 
         "link": "https://movie.douban.com/subject/3025375/", 
         "duration": 115, 
@@ -74,7 +74,7 @@
     {
         "category": "\u7535\u89c6\u5267", 
         "name": "\u897f\u90e8\u4e16\u754c", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u79d1\u5e7b\uff0c\u4eba\u5de5\u667a\u80fd", 
         "link": "https://movie.douban.com/subject/2338055/", 
         "duration": 60, 
@@ -83,7 +83,7 @@
     {
         "category": "\u7535\u89c6\u5267", 
         "name": "\u9ed1\u955c \uff08\u7b2c\u4e09\u5b63\uff09", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u79d1\u5e7b\uff0c\u60ac\u7591", 
         "link": "https://movie.douban.com/subject/25966044/", 
         "duration": 60, 
@@ -92,7 +92,7 @@
     {
         "category": "\u8131\u53e3\u79c0", 
         "name": "\u9535\u9535\u4e09\u4eba\u884c", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u7aa6\u6587\u6d9b", 
         "link": "http://phtv.ifeng.com/program/qqsrx/", 
         "duration": 25, 
@@ -101,7 +101,7 @@
     {
         "category": "\u8131\u53e3\u79c0", 
         "name": "\u4e00\u5343\u96f6\u4e00\u591c", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u6881\u6587\u9053", 
         "link": "https://movie.douban.com/subject/26314530/", 
         "duration": 15, 
@@ -110,8 +110,8 @@
     {
         "category": "\u8131\u53e3\u79c0", 
         "name": "\u6653\u8bf4", 
-        "deleted": true, 
-        "note": "\u9ad8\u6653\u677e \u662f\u4e00\u4e2a\u97f3\u4e50\u4eba\uff0c\u66fe\u7ecf\u5199\u4e86\u540c\u684c\u7684\u4f60\uff0c\u548c\u8001\u72fc\u5408\u4f5c\u3002\u73b0\u5728\u662f\u4e2a\u5927\u80d6\u5b50", 
+        "deleted": false, 
+        "note": "\u9ad8\u6653\u677e", 
         "link": "https://movie.douban.com/subject/24859454/", 
         "duration": 20, 
         "id": 12
@@ -119,7 +119,7 @@
     {
         "category": "\u7535\u89c6\u5267", 
         "name": "\u6211\u7684\u6050\u6016\u59bb\u5b50", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u65e5\u5267\uff0c\u4e00\u5171\u4e5d\u96c6", 
         "link": "https://movie.douban.com/subject/26741568/", 
         "duration": 50, 
@@ -128,7 +128,7 @@
     {
         "category": "\u52a8\u753b", 
         "name": "\u9f50\u6728\u6960\u96c4\u7684\u707e\u96be", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u641e\u7b11", 
         "link": "http://bangumi.bilibili.com/anime/5070", 
         "duration": 5, 
@@ -137,7 +137,7 @@
     {
         "category": "\u52a8\u753b", 
         "name": "Fate/stay night", 
-        "deleted": true, 
+        "deleted": false, 
         "note": "\u5236\u4f5c\u7cbe\u826f", 
         "link": "http://www.imdb.com/title/tt3621796", 
         "duration": 25, 
@@ -145,38 +145,11 @@
     }, 
     {
         "category": "\u52a8\u753b", 
-        "name": "South Park", 
-        "deleted": true, 
+        "name": "\u5357\u65b9\u516c\u56ed", 
+        "deleted": false, 
         "note": "Hulu", 
         "link": "http://www.hulu.com/south-park", 
         "duration": "20", 
         "id": 16
-    }, 
-    {
-        "category": "movie", 
-        "name": "Hi, Mom!\nline 2\nline 3\nhaha\nlife is like a boat let's sail together", 
-        "deleted": false, 
-        "note": "Made in 1970", 
-        "link": "http://www.imdb.com/title/tt0065836", 
-        "duration": "", 
-        "id": 17
-    }, 
-    {
-        "category": "movie", 
-        "name": "White Sands, NM\nmore than just one line", 
-        "deleted": false, 
-        "note": "Made in 2010", 
-        "link": "http://www.imdb.com/title/tt1857949", 
-        "duration": "", 
-        "id": 18
-    }, 
-    {
-        "category": "movie", 
-        "name": "Oi! Warning", 
-        "deleted": false, 
-        "note": "Made in 1999\ntwo lines of notes\nmay even more", 
-        "link": "http://www.imdb.com/title/tt0183076", 
-        "duration": "", 
-        "id": 19
     }
 ]
