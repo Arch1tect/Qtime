@@ -86,13 +86,13 @@ var qtime = new Vue({
 
 		headerIntroduction: function() {
 			if (Cookies.get('lang')==='cn') 
-				return "欢迎，Qtime是一个简洁的开源项目，它的作用是方便您管理任何感兴趣的东西。您只需将条目加入自己的清单中就可以方便的进行排序，过滤，查找等等操作。";
-			return "Welcome. Qtime is a simple open source web app that helps you manage things you are interested in. Once you add items to your list, you can easily sort, filter and search for them."
+				return "欢迎，Qtime是一个简洁的开源项目，它的作用是让您能更快捷有效的管理与查找您感兴趣的东西。您只需将条目加入自己的清单中就可以方便的进行排序，过滤，查找等等操作。";
+			return "Welcome! Qtime is a simple open source web app that helps you manage things you are interested in. Once you add items to your list, you can easily sort, filter and search for them."
 		},
 		headerIntroChromeExtension: function() {
 			if (Cookies.get('lang')==='cn') 
-				return "Qtime还提供一个谷歌浏览器插件让您可以保存平时偶遇的网站页面。- ";
-			return "Qtime also provides a convenient Chrome Extension for saving web pages you come across. - ";
+				return "Qtime还提供一个谷歌浏览器插件让您可以保存平时偶遇的网站页面。";
+			return "Qtime also provides a convenient Chrome Extension for saving web pages you come across. ";
 		},
 		chromeExtension: function() {
 			if (Cookies.get('lang')==='cn') 
@@ -102,7 +102,7 @@ var qtime = new Vue({
 		headerIntroRegistration: function() {
 			if (Cookies.get('lang')==='cn') 
 				return "现在，您可以浏览下方最近流行的条目，如果要管理您自己的条目，请先";
-			return "Now, check out trending items below, if you want to manage your own stuff, please ";
+			return "Now, you can check out trending items below, if you want to manage your own stuff, please ";
 		},
 		headerIntroLogin: function() {
 
@@ -165,12 +165,12 @@ var qtime = new Vue({
 
 		showDeletedTitle: function() {
 			if (Cookies.get('lang')==='cn') 
-				return "显示删除条目";
+				return "显示已删除条目";
 			return "Show Deleted";			
 		},
 		hideDeletedTitle: function() {
 			if (Cookies.get('lang')==='cn') 
-				return "隐藏删除条目";
+				return "隐藏已删除条目";
 			return "Hide Deleted";			
 		},
 		deletedTableHeaderTitle: function() {

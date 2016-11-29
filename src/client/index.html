@@ -182,12 +182,12 @@
             <button v-cloak onclick="chrome.webstore.install()" id="install-button">{{chromeExtension}}</button>
           <div class="float-right">
 
-            <span v-if="!login">
-              <button @click="loginPopup = 'Sign up'">{{headerRegister}}</button> | 
-              <button @click="loginPopup = 'Log in'">{{headerIntroLogin}}</button>
+            <span v-cloak v-if="!login">
+              <button v-cloak @click="loginPopup = 'Sign up'">{{headerRegister}}</button> | 
+              <button v-cloak @click="loginPopup = 'Log in'">{{headerIntroLogin}}</button>
             </span>
             <span v-cloak v-if="login">
-              <span id="welcome-msg">Hi, {{username}}! </span>
+              <span v-cloak id="welcome-msg">Hi, {{username}}! </span>
 
               <span class="modal-option" v-for="option in tableOptions">
                 <input type="radio"
@@ -198,7 +198,7 @@
                 <label :for="option" :title="trendingOrMyStuffTitle(option)">{{ trendingOrMyStuffName(option) }}</label>
               </span>
 
-              <button class="logout" @click="logout">{{headerLogout}}</button>
+              <button v-cloak class="logout" @click="logout">{{headerLogout}}</button>
             </span>
           </div>
         </div>
@@ -222,11 +222,11 @@
         <div id="ajaxMsg"></div>
         <div v-cloak v-if="showTip && !login" id="qtime-tip">
           <img class='header-img' src="qtime-header.png"/>
-          <div class='header-introduction'>
+          <div v-cloak class='header-introduction'>
             {{headerIntroduction}}<br/><br/>
-            {{headerIntroChromeExtension}}
+            {{headerIntroChromeExtension}} - 
             <a href='#' @click='chrome.webstore.install()'>{{chromeExtension}}</a>
-            <br/><br/>{{headerIntroRegistration}}
+            <br/><br/>{{headerIntroRegistration}} - 
             <a href="#" style="" @click="loginPopup = 'Log in'">{{headerIntroLogin}}</a>
 
           </div>
@@ -236,13 +236,13 @@
         <div id="leftWrapper">
           <input id="search" name="query" v-bind:placeholder="searchTitle" v-model="searchQuery">
           
-          <div id="durationSlider-description">{{setTimeRangeTitle}}</div>
+          <div v-cloak id="durationSlider-description">{{setTimeRangeTitle}}</div>
           <div id="durationSliderWrapper">
             <div id="durationSlider"></div>
           </div>
           <center>
-            <div id="select-category-description">{{selectCategoryTitle}}</div>
-            <div class="selected-category-wrapper">
+            <div v-cloak id="select-category-description">{{selectCategoryTitle}}</div>
+            <div v-cloak class="selected-category-wrapper">
               <select id="select-category" v-cloak v-model="selectedCategory" multiple v-bind:size="options.length">
                 <option v-for="option in options" v-bind:value="option.value">
                   {{ option.text }}
@@ -250,8 +250,8 @@
               </select>
             </div>
           </center>
-          <button class="show-deleted" v-if="canEdit && showDeleted" @click="showDeleted=false">{{hideDeletedTitle}}</button>          
-          <button class="show-deleted" v-if="canEdit && !showDeleted" @click="showDeleted=true">{{showDeletedTitle}}</button>
+          <button v-cloak class="show-deleted" v-if="canEdit && showDeleted" @click="showDeleted=false">{{hideDeletedTitle}}</button>          
+          <button v-cloak class="show-deleted" v-if="canEdit && !showDeleted" @click="showDeleted=true">{{showDeletedTitle}}</button>
 
 
 
