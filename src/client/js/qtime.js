@@ -123,7 +123,7 @@ var qtime = new Vue({
 		headerLogout: function() {
 			if (Cookies.get('lang')==='cn') 
 				return "登出";
-			return "Log off";			
+			return "Log out";			
 		},
 
 		searchTitle: function() {
@@ -200,19 +200,32 @@ var qtime = new Vue({
 			return option;
 		},
 		trendingOrMyStuffTitle: function(option) {
-			if (option==="My stuff")
+			if (option==="My stuff") {
+				if (Cookies.get('lang')==='cn')
+					return "显示我的清单";
 				return "show my stuff";
-			else
-				return "show trending stuff"
+			} else{
+				if (Cookies.get('lang')==='cn') 
+					return "显示流行榜单";
+				return "show trending stuff";
+			}
 		},
 		getPublicData: function () {
 			// Go fetch the public trending data
-			qRequest('Getting trending data...', 'GET', 'api/public', null, this.loadPublicData);
+			var msg = 'Getting trending data...';
+			if (Cookies.get('lang')==='cn')
+				msg = '载入流行榜单...';
+
+			qRequest(msg, 'GET', 'api/public', null, this.loadPublicData);
 
 		},
 		getUserData: function () {
 			// Go fetch user's personal data
-			qRequest('Getting your data...', 'GET', 'api/data', null, this.loadUserData);
+			var msg = 'Getting your data...';
+			if (Cookies.get('lang')==='cn')
+				msg = '载入您的清单...';
+
+			qRequest(msg, 'GET', 'api/data', null, this.loadUserData);
 
 		},
 		loadPublicData: function (rawJSONData) {

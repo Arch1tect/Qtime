@@ -44,8 +44,8 @@
 }
 
 .modal-body textarea {
-  width: 280px;
-  max-width: 280px;
+    width: 300px;
+    max-width: 300px;
   padding: 10px;
   font-size: 15px;
   border-radius: 5px;

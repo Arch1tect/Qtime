@@ -16,7 +16,34 @@ Vue.component('login', {
 			loginOrSignupFailed: false,
 			serverresponse: ''
 		}
-	},  
+	},
+	computed: {
+		confirmBtn: function () {
+			var text = 'OK';
+			if (Cookies.get('lang')==='cn') 
+				text = '确定';
+			return text;
+		},
+		cancelBtn: function () {
+			var text = 'Cancel';
+			if (Cookies.get('lang')==='cn') 
+				text = '取消';
+			return text;
+		},
+		rememberMe: function () {
+			var text = 'Remember me';
+			if (Cookies.get('lang')==='cn') 
+				text = '记住我';
+			return text;			
+		},
+		forgotPassword: function () {
+			var text = 'Forgot password?';
+			if (Cookies.get('lang')==='cn') 
+				text = '忘记密码？';
+			return text;			
+		}
+
+	},
 	watch: {
 		selected: function () {this.password = '';}
 	},
@@ -41,6 +68,16 @@ Vue.component('login', {
 			var data = JSON.stringify({ "username": this.username, "password": this.password});
 			qRequest('Logging in...', 'POST', 'password-login', data, this.loginSuccess, this.loginFail);
 
+		},
+		renderLoginSignup: function(option) {
+			if (Cookies.get('lang')==='cn') {
+
+				if (option==='Log in')
+					return "登录";
+				else
+					return "注册";
+			}
+			return option;			
 		},
 		loginSuccess: function (data) {
 			this.loginOrSignupFailed = false;

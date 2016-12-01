@@ -14,7 +14,7 @@
                   :value="option"
                   name="option"
                   v-model="selected">
-                <label :for="option">{{ option }}</label>
+                <label :for="option">{{ renderLoginSignup(option) }}</label>
               </span>
             </slot>
           </div>
@@ -25,8 +25,8 @@
             <input type="password" name="password" placeholder="Password" v-model="password">
             <input v-if="selected=='Sign up'" type="password" placeholder="Confirm password" v-model="password2">
             <span class="login-tips" v-if="selected!='Sign up'">
-            <label id="remember-me"><input type="checkbox" v-model="remember"/> Remember me</label> 
-            <a id="forgot-password">Forgot password?</a>
+            <label id="remember-me"><input type="checkbox" v-model="remember"/> {{rememberMe}}</label> 
+            <a id="forgot-password">{{forgotPassword}}</a>
             </span>
           </div>
 
@@ -35,10 +35,10 @@
               <span class="login-response" v-bind:class="{error: loginOrSignupFailed}">{{serverresponse}}</span>
 
               <button class="modal-button" @click="submit">
-                OK
+                {{confirmBtn}}
               </button>                  
               <button class="modal-button" @click="$emit('close')">
-                Cancel
+                {{cancelBtn}}
               </button>
             </slot>
           </div>
