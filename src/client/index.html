@@ -257,31 +257,37 @@
 
         </div>
         <div id="rightWrapper">
-          <center class="deleted-tips" v-cloak  v-if="showDeleted">{{deletedTableHeaderTitle}} </center> 
+
           <div v-cloak v-if="canEdit && !showDeleted" id="addEntryWrapper">
-            <table id="addEntry">
-              <tbody>
-                <tr>
-                  <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text"  v-bind:placeholder="newEntryPlaceHoderName" />
-                  </td>
-                  <td><input v-model="newEntryDuration" type="text" v-bind:placeholder="newEntryPlaceHoderTime" /></td>
-                  <td><input v-model="newEntryCategory" type="text" v-bind:placeholder="newEntryPlaceHoderCategory" /></td>
-                  <td><input v-model="newEntryLink" type="text" v-bind:placeholder="newEntryPlaceHoderLink" /></td>
-                  <td><input v-model="newEntryNote" type="text" v-bind:placeholder="newEntryPlaceHoderNote" /></td>
+            <div id="addEntryVM">
+              <table id="addEntry">
+                <tbody>
+                  <tr>
+                    <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text"  v-bind:placeholder="newEntryPlaceHoderName" />
+                    </td>
+                    <td><input v-model="newEntryDuration" type="text" v-bind:placeholder="newEntryPlaceHoderTime" /></td>
+                    <td><input v-model="newEntryCategory" type="text" v-bind:placeholder="newEntryPlaceHoderCategory" /></td>
+                    <td><input v-model="newEntryLink" type="text" v-bind:placeholder="newEntryPlaceHoderLink" /></td>
+                    <td><input v-model="newEntryNote" type="text" v-bind:placeholder="newEntryPlaceHoderNote" /></td>
 
-                </tr>
-              </tbody>
-            </table>                
-            <button title="add new entry to your list" v-on:click="addEntryByInput" type="button" id="addEntryBtn">+</button>
+                  </tr>
+                </tbody>
+              </table>                
+              <button title="add new entry to your list" v-on:click="alert('hi')" type="button" id="addEntryBtn">+</button>
+
+              <div id="addEntryCandidate">
+
+                <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
+                  {{ candidate.Title }} <span class="rightFloat">{{ candidate.Type}}&nbsp;&nbsp;&nbsp;{{ candidate.Year }}</span>
+                </p>
+                <p v-if= "newEntryCandidates.length==0">Not found.</p>
+              </div>
+            </div>
           </div>
 
-          <div id="addEntryCandidate">
 
-            <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
-              {{ candidate.Title }} <span class="rightFloat">{{ candidate.Type}}&nbsp;&nbsp;&nbsp;{{ candidate.Year }}</span>
-            </p>
-            <p v-if= "newEntryCandidates.length==0">Not found.</p>
-          </div>
+          <center class="deleted-tips" v-cloak  v-if="showDeleted">{{deletedTableHeaderTitle}} </center> 
+          
           <qtime-grid
             :data="gridData"
             :columns="gridColumns"

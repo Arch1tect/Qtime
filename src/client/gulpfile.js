@@ -12,21 +12,19 @@ gulp.task('default', function() {
 
     // bundle for bundle.js 
     gulp.src([
-    './jquery-3.1.0.min.js',
-    './vue2.js',
-    './cookie.js',
-    './nouislider.min.js',
-    './utils.js',
+    './js/lib/*.js',
+    './js/utils.js',
 
-    './grid.js',
-    './login.js',
-    './modal.js',
+    './js/grid.js',
+    './js/addEntry.js',
+    './js/login.js',
+    './js/modal.js',
 
-    './footer.js',
-    './qtime.js',
-    './durationSlider.js',
+    './js/footer.js',
+    './js/qtime.js',
+    './js/durationSlider.js',
 
-    './app.js'
+    './js/app.js'
 
     ])
     .pipe(concat('bundle.js'))
@@ -37,7 +35,7 @@ gulp.task('default', function() {
 
     // bundle for style.css
     gulp.src([
-        './*.css'
+        './style/*.css'
         ])
         .pipe(concat('bundle.css'))
         .pipe(minifyCSS())
