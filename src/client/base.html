@@ -74,12 +74,18 @@
 
         </div>
         <div id="leftWrapper">
+
+        <!-- ================== search ================= -->
           <input id="search" name="query" v-bind:placeholder="searchTitle" v-model="searchQuery">
-          
+        
+        <!-- =============== set time range ============ -->
+
           <div v-cloak id="durationSlider-description">{{setTimeRangeTitle}}</div>
           <div id="durationSliderWrapper">
             <div id="durationSlider"></div>
           </div>
+
+        <!-- =============== select category ============ -->
           <center>
             <div v-cloak id="select-category-description">{{selectCategoryTitle}}</div>
             <div v-cloak class="selected-category-wrapper">
@@ -90,6 +96,8 @@
               </select>
             </div>
           </center>
+
+        <!-- ========= show/hide deleted entries ======== -->
           <button v-cloak class="show-deleted" v-if="canEdit && showDeleted" @click="showDeleted=false">{{hideDeletedTitle}}</button>          
           <button v-cloak class="show-deleted" v-if="canEdit && !showDeleted" @click="showDeleted=true">{{showDeletedTitle}}</button>
 
@@ -98,13 +106,16 @@
         </div>
         <div id="rightWrapper">
 
+        <!-- =============== add entry bar ============ -->
           <div v-cloak v-if="canEdit && !showDeleted" id="addEntryWrapper">
             <add-entry-bar></add-entry-bar>
           </div>
 
-
+        <!-- =============== grid table title ============ -->
           <center class="deleted-tips" v-cloak  v-if="showDeleted">{{deletedTableHeaderTitle}} </center> 
           
+
+        <!-- =============== grid table content ============ -->
           <qtime-grid
             :data="gridData"
             :columns="gridColumns"
@@ -118,7 +129,8 @@
       </div>
 
     </div>
-
+    
+    <!-- ======================= footer ====================== -->
     <footer>
       <div v-cloak class="footer-inner">
         Qtime © 2016  

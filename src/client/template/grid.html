@@ -27,10 +27,10 @@
         </td>
 
 
-        <button title="recover this entry" v-if="$root.showDeleted" @click="$root.$emit('recover entry', entry)" class="recover-entry manage-entry">+</button>
+        <button v-bind:title="recoverEntryBtnTitle" v-if="$root.showDeleted" @click="$root.$emit('recover entry', entry)" class="recover-entry manage-entry">+</button>
 
-        <button title="delete this entry" v-if="$root.canEdit" @click="$root.$emit('remove entry', entry)" class="manage-entry">x</button>          
-        <button title="add this entry to my list" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="manage-entry">+</button>
+        <button v-bind:title="removeEntryBtnTitle" v-if="$root.canEdit" @click="$root.$emit('remove entry', entry)" class="manage-entry">x</button>          
+        <button v-bind:title="addEntryBtnTitle" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="manage-entry">+</button>
       </tr>
     </tbody>
   </table>

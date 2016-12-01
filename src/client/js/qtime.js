@@ -268,10 +268,19 @@ var qtime = new Vue({
 			var userData = this.userData;
 			var that = this;
 			console.log('adding');
-			qRequest('Adding new entry...', 'POST', 'api/entry', JSON.stringify(newEntry), 
+			var requestMsg = 'Adding new entry...';
+			if (Cookies.get('lang')==='cn') 
+				requestMsg = '正在加入新条目...';
+
+			qRequest(requestMsg, 'POST', 'api/entry', JSON.stringify(newEntry), 
 				function (data) { //success
-					showAjaxMsg(newEntry['name']+' is added!');
-					console.log('Add entry success, id: '+ data.id);
+					var msg = '"'+newEntry['name']+'" ';
+					if (Cookies.get('lang')==='cn') 
+						msg += "加入成功";
+					else
+						msg += "is added";
+					showAjaxMsg(msg);
+					console.log('Add entry success, new entry id: '+ data.id);
 					newEntry.id = data.id;
 					userData.unshift(newEntry);
 					if (reloadUserDataFlag)
@@ -329,11 +338,11 @@ qtime.$on('recover entry', function (entry) {
 		m = '正在恢复条目...';
 	qRequest(m, 'PUT', 'api/recover-entry/'+entry.id, null, 
 		function (data) { //success
-			var msg = entry['name'];
+			var msg = '"'+entry['name']+'" ';
 			if (Cookies.get('lang')==='cn') 
-				msg += ' 恢复成功';
+				msg += '恢复成功';
 			else
-				msg += ' is recovered';
+				msg += 'is recovered';
 
 			showAjaxMsg(msg);
 
@@ -353,11 +362,11 @@ qtime.$on('remove entry', function (entry) {
 		m = '正在删除条目...';
 	qRequest(m, 'DELETE', 'api/entry/'+entry.id, null, 
 		function (data) { //success
-			var msg = entry['name'];
+			var msg = '"'+entry['name']+'" ';
 			if (Cookies.get('lang')==='cn') 
-				msg += ' 删除成功';
+				msg += '删除成功';
 			else
-				msg += ' is deleted';
+				msg += 'is deleted';
 
 			showAjaxMsg(msg);
 
@@ -387,11 +396,11 @@ qtime.$on('update-cell', function () {
 		function (data) { //success
 			that.showModal = false;
 
-			var msg = entry['name'];
+			var msg = '"'+entry['name']+'" ';
 			if (Cookies.get('lang')==='cn') 
-				msg += ' 修改成功';
+				msg += '修改成功';
 			else
-				msg += ' is modified';
+				msg += 'is modified';
 
 			showAjaxMsg(msg);
 			entry[key] = val;
