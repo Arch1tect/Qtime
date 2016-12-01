@@ -66,6 +66,17 @@ def server_static(filename):
 def server_static(filename):
 	return static_file(filename, root='client/build')
 
+@app.route('/style/<filename>')
+def server_static(filename):
+	return static_file(filename, root='client/style')
+
+@app.route('/js/<filename>')
+def server_static(filename):
+	return static_file(filename, root='client/js')
+
+@app.route('/js/lib/<filename>')
+def server_static(filename):
+	return static_file(filename, root='client/js/lib')
 
 @app.route('/restart.log')
 def server_static():

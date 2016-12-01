@@ -262,7 +262,25 @@ var qtime = new Vue({
 			Cookies.remove('token'); // should remove token from server!
 			location.reload();
 
+		},
+		addEntry: function (newEntry, reloadUserDataFlag) {
+			// don't reload user data if adding entry from other list
+			var userData = this.userData;
+			var that = this;
+			console.log('adding');
+			qRequest('Adding new entry...', 'POST', 'api/entry', JSON.stringify(newEntry), 
+				function (data) { //success
+					showAjaxMsg(newEntry['name']+' is added!');
+					console.log('Add entry success, id: '+ data.id);
+					newEntry.id = data.id;
+					userData.unshift(newEntry);
+					if (reloadUserDataFlag)
+						that.loadData(userData);
+				}
+			);
+
 		}
+
 
 	}
 });
@@ -280,6 +298,8 @@ qtime.$on('login success', function (username) {
 });
 
 
+
+
 qtime.$on('edit-cell', function (entry, key) {
 	if (!qtime.canEdit)
 		return;
@@ -292,6 +312,12 @@ qtime.$on('edit-cell', function (entry, key) {
 		$('textarea').focus();
 		$('textarea').select();
 	});
+
+});
+
+qtime.$on('add entry from input bar', function (entry) {
+
+	qtime.addEntry(entry, true);
 
 });
 

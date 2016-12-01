@@ -80,18 +80,18 @@ input:focus {
   border: none;
   table-layout: fixed;
   width: 200px;
+  height: 40px;
   float: left;
   margin-bottom: 30px;
   border-collapse: collapse;
 }
 
 #addEntry tr {
-  height: 35px;
+  border: 1px solid;
 }
 #addEntry td {
-  width: 100px;
-  height: 35px;
-  border: none;
+  width: 95px;
+  border: 1px dashed gray;
 }
 #addEntry td:nth-child(4) {
   width: 50px;
@@ -103,20 +103,18 @@ input:focus {
   width: 200px;
 }
 #addEntry td:last-child {
-  width: 225px;
+  width: 270px;
 }
 #entryGrid td {
   padding: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
 }
-
 #addEntry input {
-  height: 35px;
+  height: 100%;
   width: 100%;
-  border: 1px dashed gray;
+  border: none;
   text-align: center;
   font-size: larger;
 }
@@ -126,9 +124,12 @@ input:focus {
   width: 40px;
   cursor: pointer;
   font-size: 20px;
-  border: 1px solid gray;
-  margin-left: 5px;
+  border: none;
+  margin-left: 0px;
   border-radius: 0px;
+}
+#addEntryBtn:hover {
+  border: none;
 }
 button.manage-entry {
 
@@ -147,13 +148,6 @@ button.manage-entry {
 }
 .highlight button.manage-entry {
   visibility: visible;
-}
-button.manage-entry:hover {
-
-}
-
-table tr th:nth-child(2) {
-  /*width: 100%;*/
 }
 
 .contentTooltip{
@@ -175,7 +169,6 @@ table tr th:nth-child(2) {
     border-radius: 4px;
     box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
 }
-
 #addEntryCandidate {
     position: absolute;
     min-width: 200px;
@@ -218,7 +211,4 @@ table tr th:nth-child(2) {
   float: right;
   background-color: white;
 }
-/*tr:nth-child(even) {
-  background: #f1f1f1;
-}*/
 

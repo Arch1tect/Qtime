@@ -1,17 +1,22 @@
-var addEntry = new Vue({
-	el: '#addEntryVM',
-	data: {
+Vue.component('add-entry-bar', {
+	template: '#add-entry-template',
+  	props: {
+    	header: String,
+    	cellObj: Object
+  	},
+  	data: function () {
 
+    	return {
+			newEntryName: '',
+			newEntryDuration: '',
+			newEntryCategory: '',
+			newEntryLink: '',
+			newEntryNote: '',
 
-		newEntryName: '',
-		newEntryDuration: '',
-		newEntryCategory: '',
-		newEntryLink: '',
-		newEntryNote: '',
+			newEntryCandidates: [], // parse from imdb
+    	}
+  	},
 
-		newEntryCandidates: [], // parse from imdb
-
-	},
 	computed: {
 
 		newEntryPlaceHoderName: function() {
@@ -38,6 +43,11 @@ var addEntry = new Vue({
 			if (Cookies.get('lang')==='cn') 
 				return "类别";
 			return "Category";
+		},
+		addEntryBtnTitle: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "将新条目加入你的清单";
+			return "add new entry to your list";
 		}
 
 	},
@@ -97,32 +107,14 @@ var addEntry = new Vue({
 				deleted: false
 			};
 
-
-			this.addEntry(newEntry, true);
-
+			qtime.$emit('add entry from input bar', newEntry);
 		  
 			this.newEntryName = '';
 			this.newEntryDuration = '';
 			this.newEntryLink = '';
 			this.newEntryCategory = '';
 			this.newEntryNote = '';
-		},
-		addEntry: function (newEntry, reloadUserDataFlag) {
-			// don't reload user data if adding entry from other list
-			var userData = this.userData;
-			var that = this;
-			console.log('adding');
-			qRequest('Adding new entry...', 'POST', 'api/entry', JSON.stringify(newEntry), 
-				function (data) { //success
-					showAjaxMsg(newEntry['name']+' is added!');
-					console.log('Add entry success, id: '+ data.id);
-					newEntry.id = data.id;
-					userData.unshift(newEntry);
-					if (reloadUserDataFlag)
-						that.loadData(userData);
-				}
-			);
-
 		}
+
 	}
 });

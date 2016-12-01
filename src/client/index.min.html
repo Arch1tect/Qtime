@@ -1,3 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="google-site-verification" content="MUJ1d6HBHYNII_Gzc9shEx4S3o9SdsyGZN6iHX_nJ0M" />
+    <meta charset="utf-8">
+    <title>Qtime</title>
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="build/bundle.css">
+    <link rel="chrome-webstore-item"
+    href="https://chrome.google.com/webstore/detail/bldcellajihanglphncgjmceklbibjkk">
+
+
+
+  </head>
+  <body>
 
 
     <!-- template for the login/signup component -->
@@ -84,34 +101,6 @@
       </transition>
     </script>
 
-    <!-- template for add-entry-bar component -->
-    <script type="text/x-template" id="add-entry-template">
-      <div>
-        <table id="addEntry">
-          <tbody>
-            <tr>
-              <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text"  v-bind:placeholder="newEntryPlaceHoderName" />
-              </td>
-              <td><input v-model="newEntryDuration" type="text" v-bind:placeholder="newEntryPlaceHoderTime" /></td>
-              <td><input v-model="newEntryCategory" type="text" v-bind:placeholder="newEntryPlaceHoderCategory" /></td>
-              <td><input v-model="newEntryLink" type="text" v-bind:placeholder="newEntryPlaceHoderLink" /></td>
-              <td><input v-model="newEntryNote" type="text" v-bind:placeholder="newEntryPlaceHoderNote" /></td>
-
-            </tr>
-          </tbody>
-        </table>                
-        <button v-bind:title="addEntryBtnTitle" v-on:click="addEntryByInput" type="button" id="addEntryBtn">+</button>
-
-        <div id="addEntryCandidate">
-
-          <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
-            {{ candidate.Title }} <span class="rightFloat">{{ candidate.Type}}&nbsp;&nbsp;&nbsp;{{ candidate.Year }}</span>
-          </p>
-          <p v-if= "newEntryCandidates.length==0">Not found.</p>
-        </div>
-      </div>
-    </script>
-
     <!-- template for grid-->
     <script type="text/x-template" id="grid-template">
       <table id="entryGrid">
@@ -153,29 +142,6 @@
       </table>
 
     </script>
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta name="google-site-verification" content="MUJ1d6HBHYNII_Gzc9shEx4S3o9SdsyGZN6iHX_nJ0M" />
-    <meta charset="utf-8">
-    <title>Qtime</title>
-
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="chrome-webstore-item"
-    href="https://chrome.google.com/webstore/detail/bldcellajihanglphncgjmceklbibjkk">
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/grid.css">
-    <link rel="stylesheet" href="style/login.css">
-    <link rel="stylesheet" href="style/modal.css">
-    <link rel="stylesheet" href="style/select-category.css">
-    <link rel="stylesheet" href="style/nouislider.min.css">
-
-
-
-  </head>
-  <body>
 
 
 
@@ -290,7 +256,30 @@
         <div id="rightWrapper">
 
           <div v-cloak v-if="canEdit && !showDeleted" id="addEntryWrapper">
-            <add-entry-bar></add-entry-bar>
+            <div id="addEntryVM">
+              <table id="addEntry">
+                <tbody>
+                  <tr>
+                    <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text"  v-bind:placeholder="newEntryPlaceHoderName" />
+                    </td>
+                    <td><input v-model="newEntryDuration" type="text" v-bind:placeholder="newEntryPlaceHoderTime" /></td>
+                    <td><input v-model="newEntryCategory" type="text" v-bind:placeholder="newEntryPlaceHoderCategory" /></td>
+                    <td><input v-model="newEntryLink" type="text" v-bind:placeholder="newEntryPlaceHoderLink" /></td>
+                    <td><input v-model="newEntryNote" type="text" v-bind:placeholder="newEntryPlaceHoderNote" /></td>
+
+                  </tr>
+                </tbody>
+              </table>                
+              <button title="add new entry to your list" v-on:click="alert('hi')" type="button" id="addEntryBtn">+</button>
+
+              <div id="addEntryCandidate">
+
+                <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
+                  {{ candidate.Title }} <span class="rightFloat">{{ candidate.Type}}&nbsp;&nbsp;&nbsp;{{ candidate.Year }}</span>
+                </p>
+                <p v-if= "newEntryCandidates.length==0">Not found.</p>
+              </div>
+            </div>
           </div>
 
 
@@ -319,21 +308,7 @@
     </footer>
 
 
-
-    <script src="js/lib/jquery-3.1.0.min.js"></script>
-    <script src="js/lib/vue2.js"></script>
-    <script src="js/lib/cookie.js"></script>
-    <script src="js/lib/nouislider.min.js"></script>
-
-    <script src="js/utils.js"></script>
-    <script src="js/grid.js"></script>
-    <script src="js/addEntry.js"></script>
-    <script src="js/login.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/qtime.js"></script>
-    <script src="js/durationSlider.js"></script>
-    <script src="js/app.js"></script>
+    <script src="build/bundle.js"></script>
 
 
     <script>
