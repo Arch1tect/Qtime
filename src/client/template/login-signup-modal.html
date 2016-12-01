@@ -1,0 +1,49 @@
+<!-- template for the login/signup component -->
+<script type="text/x-template" id="login-template">
+  <transition name="modal">
+    <div class="login modal-mask" @click="$emit('close')">
+      <div class="modal-wrapper">
+        <div class="modal-container" @click.stop>
+
+          <div class="modal-header">
+            <slot name="header">
+
+              <span class="modal-option" v-for="option in options">
+                <input type="radio"
+                  :id="option"
+                  :value="option"
+                  name="option"
+                  v-model="selected">
+                <label :for="option">{{ option }}</label>
+              </span>
+            </slot>
+          </div>
+
+          <div v-on:keyup.enter="submit"  class="modal-body">
+            <input type="text" name="username" placeholder="Username" v-model="username">
+            <input v-if="selected=='Sign up'" name="email" type="text" placeholder="Email" v-model="email">
+            <input type="password" name="password" placeholder="Password" v-model="password">
+            <input v-if="selected=='Sign up'" type="password" placeholder="Confirm password" v-model="password2">
+            <span class="login-tips" v-if="selected!='Sign up'">
+            <label id="remember-me"><input type="checkbox" v-model="remember"/> Remember me</label> 
+            <a id="forgot-password">Forgot password?</a>
+            </span>
+          </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              <span class="login-response" v-bind:class="{error: loginOrSignupFailed}">{{serverresponse}}</span>
+
+              <button class="modal-button" @click="submit">
+                OK
+              </button>                  
+              <button class="modal-button" @click="$emit('close')">
+                Cancel
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>

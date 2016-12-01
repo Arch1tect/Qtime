@@ -10,27 +10,36 @@ var minifyCSS = require('gulp-minify-css');
 // JS concat, strip debugging and minify
 gulp.task('default', function() {
 
+    // place vue templates into index.html
+    gulp.src([
+        './template/*.html',
+        './base.html'
+        ])
+        .pipe(concat('index.html'))
+        .pipe(gulp.dest('./'));
+
+
     // bundle for bundle.js 
     gulp.src([
-    './js/lib/*.js',
-    './js/utils.js',
+        './js/lib/*.js',
+        './js/utils.js',
 
-    './js/grid.js',
-    './js/addEntry.js',
-    './js/login.js',
-    './js/modal.js',
+        './js/grid.js',
+        './js/addEntry.js',
+        './js/login.js',
+        './js/modal.js',
 
-    './js/footer.js',
-    './js/qtime.js',
-    './js/durationSlider.js',
+        './js/footer.js',
+        './js/qtime.js',
+        './js/durationSlider.js',
 
-    './js/app.js'
+        './js/app.js'
 
-    ])
-    .pipe(concat('bundle.js'))
-    // .pipe(stripDebug())
-    .pipe(uglify())
-    .pipe(gulp.dest('./build/'));
+        ])
+        .pipe(concat('bundle.js'))
+        // .pipe(stripDebug())
+        .pipe(uglify())
+        .pipe(gulp.dest('./build/'));
 
 
     // bundle for style.css

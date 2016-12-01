@@ -1,0 +1,33 @@
+<!-- template for the modal component -->
+<script type="text/x-template" id="modal-template">
+  <transition name="modal">
+    <div class="modal-mask" @click="$emit('close')">
+      <div class="modal-wrapper">
+        <div class="modal-container" @click.stop>
+
+          <div class="modal-header">
+            <slot name="header">
+              {{header}}
+            </slot>
+          </div>
+
+          <div class="modal-body">
+            <textarea rows="5" name="body" v-model="cellObj.val"></textarea>
+            
+          </div>
+
+          <div class="modal-footer">
+            <slot name="footer">
+              <button class="modal-button" @click="$root.$emit('update-cell')">
+                Save
+              </button>                  
+              <button class="modal-button" @click="$emit('close')">
+                Cancel
+              </button>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>

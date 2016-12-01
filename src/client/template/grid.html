@@ -1,0 +1,37 @@
+<!-- template for grid-->
+<script type="text/x-template" id="grid-template">
+  <table id="entryGrid">
+    <thead>
+      <tr>
+        <th v-for="key in columns"
+          @click="sortBy(key)"
+          :class="{active: sortKey == key}">
+          {{ getColName(key) | capitalize }}
+          <span class="arrow"
+            :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="
+        entry in filteredData">
+        <td v-for="key in columns" @dblclick="$root.$emit('edit-cell', entry, key)">
+
+          <a v-if="key=='link' && entry[key]" target="_blank" :href="prepareLink(entry[key])">&nearr;</a>
+          <span v-else>
+            {{entry[key]}} 
+          </span>
+          <div class="contentTooltip">{{entry[key]}}</div>
+
+        </td>
+
+
+        <button title="recover this entry" v-if="$root.showDeleted" @click="$root.$emit('recover entry', entry)" class="recover-entry manage-entry">+</button>
+
+        <button title="delete this entry" v-if="$root.canEdit" @click="$root.$emit('remove entry', entry)" class="manage-entry">x</button>          
+        <button title="add this entry to my list" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="manage-entry">+</button>
+      </tr>
+    </tbody>
+  </table>
+</script>

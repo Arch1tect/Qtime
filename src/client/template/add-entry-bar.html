@@ -1,0 +1,27 @@
+<!-- template for add-entry-bar component -->
+<script type="text/x-template" id="add-entry-template">
+  <div>
+    <table id="addEntry">
+      <tbody>
+        <tr>
+          <td><input v-model="newEntryName" v-on:blur="closeCandidateDropdown" v-on:keyup="newEntryNameChanged" type="text"  v-bind:placeholder="newEntryPlaceHoderName" />
+          </td>
+          <td><input v-model="newEntryDuration" type="text" v-bind:placeholder="newEntryPlaceHoderTime" /></td>
+          <td><input v-model="newEntryCategory" type="text" v-bind:placeholder="newEntryPlaceHoderCategory" /></td>
+          <td><input v-model="newEntryLink" type="text" v-bind:placeholder="newEntryPlaceHoderLink" /></td>
+          <td><input v-model="newEntryNote" type="text" v-bind:placeholder="newEntryPlaceHoderNote" /></td>
+
+        </tr>
+      </tbody>
+    </table>                
+    <button v-bind:title="addEntryBtnTitle" v-on:click="addEntryByInput" type="button" id="addEntryBtn">+</button>
+
+    <div id="addEntryCandidate">
+
+      <p v-if= "newEntryCandidates.length" v-cloak v-for="candidate in newEntryCandidates" v-on:click="pickCandidate(candidate)">
+        {{ candidate.Title }} <span class="rightFloat">{{ candidate.Type}}&nbsp;&nbsp;&nbsp;{{ candidate.Year }}</span>
+      </p>
+      <p v-if= "newEntryCandidates.length==0">Not found.</p>
+    </div>
+  </div>
+</script>
