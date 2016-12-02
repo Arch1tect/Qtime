@@ -33,7 +33,9 @@
   box-shadow: 0px 5px 15px;
 }
 
-
+td {
+  font-weight: 300;
+}
 
 #entryGrid th:first-child {
   width: 200px;
