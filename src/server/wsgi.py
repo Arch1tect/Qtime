@@ -80,7 +80,8 @@ class EmailExistedException(HTTPResponse):
 @app.route('/')
 def server_static_home():
 	response = static_file('index.html', root='client/')
-	response.set_cookie('lang', LANG)
+	if not request.get_cookie('lang'):
+		response.set_cookie('lang', LANG)
 	return response
 
 @app.route('/<filename>')
