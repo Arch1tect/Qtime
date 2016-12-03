@@ -267,9 +267,11 @@ def get_public_data():
 
 	# if "array" in public_qtime_data:
 	# 	return public_qtime_data
-
+	lang = LANG
+	if request.get_cookie('lang'):
+		lang = request.get_cookie('lang')
 	arrayToReturn = []
-	with open(DB_PATH+"public-"+LANG+".txt", "r") as data_file:
+	with open(DB_PATH+"public-"+lang+".txt", "r") as data_file:
 		entry_array = json.load(data_file)
 		for entry in entry_array:
 			# if not 'deleted' in entry or not entry['deleted']:
