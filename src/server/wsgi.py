@@ -179,7 +179,6 @@ def password_login():
 
 	return {"success": True}
 
-
 @app.get('/token-login')
 @validate_request
 def token_login():
@@ -192,6 +191,7 @@ def token_login():
 	# then user always has to login again if they use more than one device or browser.
 
 	return {"success": True}
+
 
 def is_ascii(s):
     return all(ord(c) < 128 for c in s)
@@ -248,6 +248,17 @@ def signup():
 
 	return {"success": True}
 
+
+@app.get('/api/status')
+@validate_request
+def get_status():
+	'''
+	This is for chrome extension to check if user is logged in
+	and what language they use
+	'''
+	username = request.get_cookie('username')
+	lang = request.get_cookie('lang')
+	return {'username': username, 'lang': lang}
 
 @app.get('/api/public')
 def get_public_data():
