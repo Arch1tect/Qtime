@@ -160,7 +160,7 @@ button.manage-entry {
     word-wrap: break-word;
     border-radius: 5px;
     line-height: 140%;
-    white-space: pre;
+    white-space: pre-wrap;
     text-align: left;
     width: 100%;
     max-width: 245px;
