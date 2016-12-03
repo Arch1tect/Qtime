@@ -259,14 +259,6 @@ var qtime = new Vue({
 		},
 		loadData: function (jsonData) {
 
-
-			// for (var i=0; i<jsonData.length; i++) {
-			// 	var entry = jsonData[i];
-			// 	if (!('deleted' in entry)) {
-			// 		entry.deleted = false;
-			// 	}
-			// }
-			// console.log(jsonData);
 			qtime.populateOption(jsonData);
 			qtime.gridData = jsonData;
 		},
@@ -322,11 +314,11 @@ qtime.$on('login success', function (username) {
 
 
 
-qtime.$on('edit-cell', function (entry, key) {
+qtime.$on('edit-cell', function (entry, key, name) { //name is translated
 	if (!qtime.canEdit)
 		return;
 	this.editEntry = entry;
-	this.editCellName = key;
+	this.editCellName = name;
 	this.editCellValObj = {val:entry[key]}; // hacky way, wonder what's better way
 	this.showModal = true;
 

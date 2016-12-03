@@ -16,7 +16,7 @@
     <tbody>
       <tr v-for="
         entry in filteredData">
-        <td v-for="key in columns" @dblclick="$root.$emit('edit-cell', entry, key)">
+        <td v-for="key in columns" @dblclick="$root.$emit('edit-cell', entry, key, getColName(key))">
 
           <a v-if="key=='link' && entry[key]" target="_blank" :href="prepareLink(entry[key])">&nearr;</a>
           <span v-else>

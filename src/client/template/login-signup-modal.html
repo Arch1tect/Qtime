@@ -20,10 +20,10 @@
           </div>
 
           <div v-on:keyup.enter="submit"  class="modal-body">
-            <input type="text" name="username" placeholder="Username" v-model="username">
-            <input v-if="selected=='Sign up'" name="email" type="text" placeholder="Email" v-model="email">
-            <input type="password" name="password" placeholder="Password" v-model="password">
-            <input v-if="selected=='Sign up'" type="password" placeholder="Confirm password" v-model="password2">
+            <input type="text" name="username" :placeholder="usernamePlaceHolder" v-model="username">
+            <input v-if="selected=='Sign up'" name="email" type="text" :placeholder="emailPlaceHolder" v-model="email">
+            <input type="password" name="password" :placeholder="passwordPlaceHolder" v-model="password">
+            <input v-if="selected=='Sign up'" type="password" :placeholder="confirmPasswordPlaceHolder" v-model="password2">
             <span class="login-tips" v-if="selected!='Sign up'">
             <label id="remember-me"><input type="checkbox" v-model="remember"/> {{rememberMe}}</label> 
             <a id="forgot-password">{{forgotPassword}}</a>

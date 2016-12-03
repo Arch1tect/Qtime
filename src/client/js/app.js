@@ -37,7 +37,11 @@ $(document).ready(function(){
 
 	if (username && token) {
 
-		qRequest('Logging in...', 'GET', 'token-login', null, 
+		var msg = 'Logging in...';
+		if (Cookies.get('lang')==='cn')
+			msg = '登录中';
+
+		qRequest(msg, 'GET', 'token-login', null, 
 			function() {qtime.$emit('login success')},
 			function() {
 				qtime.getPublicData(); 		

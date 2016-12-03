@@ -19,10 +19,10 @@
           <div class="modal-footer">
             <slot name="footer">
               <button class="modal-button" @click="$root.$emit('update-cell')">
-                Save
+                {{confirmBtn}}
               </button>                  
               <button class="modal-button" @click="$emit('close')">
-                Cancel
+                {{cancelBtn}}
               </button>
             </slot>
           </div>
