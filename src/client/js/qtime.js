@@ -23,6 +23,7 @@ var qtime = new Vue({
 
 
 		editCellName: '',
+		editCellKey: '',
 		editCellValObj: {},
 		editEntry: '',
 
@@ -319,6 +320,7 @@ qtime.$on('edit-cell', function (entry, key, name) { //name is translated
 		return;
 	this.editEntry = entry;
 	this.editCellName = name;
+	this.editCellKey = key;
 	this.editCellValObj = {val:entry[key]}; // hacky way, wonder what's better way
 	this.showModal = true;
 
@@ -326,6 +328,36 @@ qtime.$on('edit-cell', function (entry, key, name) { //name is translated
 		$('textarea').focus();
 		$('textarea').select();
 	});
+
+});
+
+qtime.$on('update-cell', function () {
+
+	var entry = this.editEntry;
+	var key = this.editCellKey;
+	var val = this.editCellValObj.val; // hacky way, wonder what's better way
+
+	console.log('changing entry value from '+entry[key]+' to '+val);
+
+	var that = this;
+
+	var m = 'Updating entry...';
+	if (Cookies.get('lang')==='cn') 
+		m = '正在修改条目...';
+	qRequest(m, 'PUT', 'api/entry/'+entry.id+'/'+key, val, 
+		function (data) { //success
+			that.showModal = false;
+
+			var msg = '"'+entry['name']+'" ';
+			if (Cookies.get('lang')==='cn') 
+				msg += '修改成功';
+			else
+				msg += 'is modified';
+
+			showAjaxMsg(msg);
+			entry[key] = val;
+		}
+	);
 
 });
 
@@ -384,37 +416,6 @@ qtime.$on('remove entry', function (entry) {
 
 });
 
-qtime.$on('update-cell', function () {
 
-	var entry = this.editEntry;
-	var key = this.editCellName;
-	var val = this.editCellValObj.val; // hacky way, wonder what's better way
-
-	console.log('changing entry value from '+entry[key]+' to '+val);
-
-	var that = this;
-
-	var m = 'Updating entry...';
-	if (Cookies.get('lang')==='cn') 
-		m = '正在修改条目...';
-	qRequest(m, 'PUT', 'api/entry/'+entry.id+'/'+key, val, 
-		function (data) { //success
-			that.showModal = false;
-
-			var msg = '"'+entry['name']+'" ';
-			if (Cookies.get('lang')==='cn') 
-				msg += '修改成功';
-			else
-				msg += 'is modified';
-
-			showAjaxMsg(msg);
-			entry[key] = val;
-		}
-	);
-
-	
-
-
-});
 
 
