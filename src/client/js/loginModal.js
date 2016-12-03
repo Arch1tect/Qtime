@@ -97,7 +97,10 @@ Vue.component('login', {
 		login: function () {
 
 			var data = JSON.stringify({ "username": this.username, "password": this.password});
-			qRequest('Logging in...', 'POST', 'password-login', data, this.loginSuccess, this.loginFail);
+			var msg = 'Logging in...';
+			if (Cookies.get('lang')==='cn') 
+				msg = '登录中...';
+			qRequest(msg, 'POST', 'password-login', data, this.loginSuccess, this.loginFail);
 
 		},
 		renderLoginSignup: function(option) {

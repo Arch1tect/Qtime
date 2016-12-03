@@ -10,9 +10,16 @@ function showAjaxMsg(msg, noTimeout) {
 
 function showErrorMsg(data) {
 	var msg = 'Unknown';
+	var error = 'Error';
+
+	if (Cookies.get('lang')==='cn') {
+		msg = '不详';
+		error = '错误';
+	}
 	if (data && data.responseJSON)
 		msg = data.responseJSON.error;
-	showAjaxMsg("Error: " + msg);
+
+	showAjaxMsg(error + ": " + msg);
 }
 
 function successWrapper(callback) {

@@ -1,4 +1,5 @@
 # run from /src folder, i.e. python server/wsgi.py
+# -*- coding: utf-8 -*-
 import sys
 import threading
 from bottle import Bottle, get, post, put, delete, route, request, response, HTTPResponse, run, template, static_file
@@ -11,7 +12,7 @@ import os
 import time
 
 app = Bottle()
-salt = "qtimesalt2016" # move to more secure place
+salt = "qtimesalt2016" # move to more secure place, can't change it
 
 DB_PATH = "../db/"
 LANG = 'en'
@@ -22,34 +23,58 @@ public_qtime_data = {}
 
 # exceptions during request validation or login
 class EmptyUsernameException(HTTPResponse):
-	def __init__(self):
-		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"no username in cookie."}))
+	def __init__(self, lang):
+		msg = "Username is not in cookie."
+		if lang == 'cn':
+			msg = "Cookie中没有用户名"
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error": msg}))
 
 class EmptyTokenException(HTTPResponse):
-	def __init__(self):
-		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"no token in cookie."}))
+	def __init__(self, lang):
+		msg = "Token is not in cookie."
+		if lang == 'cn':
+			msg = "Cookie中没有密匙"
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error": msg}))
 
 class InvalidLoginException(HTTPResponse):
-	def __init__(self):
-		HTTPResponse.__init__(self, status=401, body=json.dumps({"error":"Invalid login."}))
+	def __init__(self, lang):
+		msg = "Login failed."
+		if lang == 'cn':
+			msg = "登录失败"
+		HTTPResponse.__init__(self, status=401, body=json.dumps({"error": msg}))
 
 class AccountNotFoundException(HTTPResponse):
-	def __init__(self):
-		HTTPResponse.__init__(self, status=401, body=json.dumps({"error":"Account not found."}))
+	def __init__(self, lang):
+		msg = "Account not found."
+		if lang == 'cn':
+			msg = "用户名不存在"
+		HTTPResponse.__init__(self, status=401, body=json.dumps({"error": msg}))
 
 # exceptions during signup
 class UsernameExistedException(HTTPResponse):
-	def __init__(self):
-		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Username is taken."}))
+	def __init__(self, lang):
+		msg = "Username is taken."
+		if lang == 'cn':
+			msg = "该用户名已注册"
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error": msg}))
 class UsernameEmptyException(HTTPResponse):
-	def __init__(self):
-		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Username is empty."}))
+	def __init__(self, lang):
+		msg = "username is empty."
+		if lang == 'cn':
+			msg = "用户名不可空"
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error": msg}))
 class UsernameInvalidException(HTTPResponse):
-	def __init__(self):
-		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Username is invalid."}))
+	def __init__(self, lang):
+		msg = "Username is invalid."
+		if lang == 'cn':
+			msg = "用户名无效"
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error": msg}))
 class EmailExistedException(HTTPResponse):
-	def __init__(self):
-		HTTPResponse.__init__(self, status=400, body=json.dumps({"error":"Email is registered."}))
+	def __init__(self, lang):
+		msg = "Email is registered."
+		if lang == 'cn':
+			msg = "邮箱已注册"
+		HTTPResponse.__init__(self, status=400, body=json.dumps({"error": msg}))
 
 # static routing
 @app.route('/')
@@ -86,7 +111,7 @@ def server_static():
 
 
 # used by both password and token log in
-def validate(username, password_or_token):
+def validate(username, password_or_token, lang='en'):
 	validated = False
 	found_account = False
 	password_or_token = hashlib.sha512(salt+password_or_token).hexdigest()
@@ -100,7 +125,7 @@ def validate(username, password_or_token):
 	if not found_account:
 		print "Account not found" # do not expose info that the username exist or not
 	if not validated:
-		raise InvalidLoginException
+		raise InvalidLoginException(lang)
 
 # Only for token, not used for password log in
 def validate_request(fn):
@@ -108,13 +133,14 @@ def validate_request(fn):
 	def wrapper(*args, **kwargs):
 		username = request.get_cookie('username')
 		token = request.get_cookie('token')
+		lang = request.get_cookie('lang')
 
 		if not username:
-			raise EmptyUsernameException
+			raise EmptyUsernameException(lang)
 		if not token:
-			raise EmptyTokenException
+			raise EmptyTokenException(lang)
 
-		validate(username, token)
+		validate(username, token, lang)
 		# time.sleep(2)
 		return fn(*args, **kwargs)
 	return wrapper
@@ -143,8 +169,9 @@ def password_login():
 	request_body = request.json
 	username = request_body['username']
 	password = request_body['password']
+	lang = request.get_cookie('lang')
 
-	validate(username, password)
+	validate(username, password, lang)
 
 	token = update_token(username)
 	response.set_cookie('token', token)
@@ -172,21 +199,22 @@ def is_ascii(s):
 @app.post('/signup')
 def signup():
 
+	lang = request.get_cookie('lang')
 	request_body = request.json
 	request_body['password'] = hashlib.sha512(salt+request_body['password']).hexdigest()
 	if request_body['username'] == '':
-		raise UsernameEmptyException
+		raise UsernameEmptyException(lang)
 	if not is_ascii(request_body['username']):
-		raise UsernameInvalidException
+		raise UsernameInvalidException(lang)
 
 	# try to add new account into account file, check for duplicates
 	with open(DB_PATH+"account.txt", "r+") as account_file:
 		account_array = json.load(account_file)
 		for account in account_array:
 			if account['username'] == request_body['username']:
-				raise UsernameExistedException
+				raise UsernameExistedException(lang)
 			if request_body['email'] != '' and account['email'] == request_body['email']:
-				raise EmailExistedException
+				raise EmailExistedException(lang)
 
 		# Didn't encounter problem, now create new account
 
