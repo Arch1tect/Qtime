@@ -26,7 +26,7 @@ gulp.task('default', function() {
 
         './js/grid.js',
         './js/addEntry.js',
-        './js/login.js',
+        './js/loginModal.js',
         './js/modal.js',
 
         './js/footer.js',

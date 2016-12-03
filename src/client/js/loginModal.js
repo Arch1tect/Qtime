@@ -44,14 +44,21 @@ Vue.component('login', {
 		},
 		usernamePlaceHolder: function () {
 			var text = 'Username';
-			if (Cookies.get('lang')==='cn') 
-				text = '用户名（可含字母、数字与下划线）';
+			if (Cookies.get('lang')==='cn') {
+				text = '用户名';
+				if (this.selected=='Sign up')
+					text += '（可含字母、数字与下划线）';
+
+			}
 			return text;			
 		},
 		passwordPlaceHolder: function () {
 			var text = 'Password';
-			if (Cookies.get('lang')==='cn') 
-				text = '密码（可含字母、数字与下划线）';
+			if (Cookies.get('lang')==='cn') {
+				text = '密码';
+				if (this.selected=='Sign up')
+					text += '（可含字母、数字与下划线）';
+			}
 			return text;			
 		},
 		confirmPasswordPlaceHolder: function () {
