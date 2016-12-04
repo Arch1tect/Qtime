@@ -45,6 +45,14 @@
         entry in filteredData">
         <td v-for="key in columns" @dblclick="$root.$emit('edit-cell', entry, key, getColName(key))">
 
+          <span class="entry-left-btn" v-if="key=='name' ">
+
+            <button v-bind:title="recoverEntryBtnTitle" v-if="$root.showDeleted" @click="$root.$emit('recover entry', entry)" class="recover-entry">&#8634;</button>
+
+            <button v-bind:title="starEntryBtnTitle" v-if="$root.canStar && !entry.star" @click="$root.$emit('star entry', entry)" class="star-entry">&#9734;</button>
+
+            <button v-bind:title="unstarEntryBtnTitle" v-if="$root.canStar && entry.star" @click="$root.$emit('unstar entry', entry)" class="star-entry unstarBtn" >&#9733;</button>
+          </span>
           <a v-if="key=='link' && entry[key]" target="_blank" :href="prepareLink(entry[key])">&nearr;</a>
           <span v-else>
             {{entry[key]}} 
@@ -52,21 +60,11 @@
           <div class="contentTooltip">{{entry[key]}}</div>
 
         </td>
+        <span class='entry-right-btn'>
+          <button v-bind:title="removeEntryBtnTitle" v-if="$root.canEdit" @click="$root.$emit('remove entry', entry)" class="delete-entry-btn">x</button>
 
-        <div class='entry-btn'>
-          <button v-bind:title="recoverEntryBtnTitle" v-if="$root.showDeleted" @click="$root.$emit('recover entry', entry)" class="recover-entry manage-entry">&#8634;</button>
-
-
-          <button v-bind:title="starEntryBtnTitle" v-if="$root.canStar && !entry.star" @click="$root.$emit('star entry', entry)" v-bind:class="{unstarBtn : entry.star}" class="manage-entry">&#9734;</button>
-
-          <button v-bind:title="unstarEntryBtnTitle" v-if="$root.canStar && entry.star" @click="$root.$emit('unstar entry', entry)" v-bind:class="{unstarBtn : entry.star}" class="manage-entry unstarBtn" >&#9733;</button>
-
-
-          <button v-bind:title="removeEntryBtnTitle" v-if="$root.canEdit" @click="$root.$emit('remove entry', entry)" class="manage-entry">x</button>
-
-          <button v-bind:title="addEntryBtnTitle" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="manage-entry">+</button>
-
-        </div>
+          <button v-bind:title="addEntryBtnTitle" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="add-entry-btn">+</button>
+        </span>
       </tr>
     </tbody>
   </table>
@@ -233,7 +231,6 @@
         <!-- ================== search ================= -->
           <input id="search" name="query" v-bind:placeholder="searchTitle" v-model="searchQuery">
         
-
 
         <!-- =============== set time range ============ -->
 

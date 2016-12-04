@@ -52,7 +52,8 @@ td {
 #entryGrid td:first-child {
   /*font-size: 20px;*/
   white-space: normal;
-  line-height: 150%;
+  /*line-height: 150%;*/
+  overflow: visible;
 
 }
 #entryGrid td:last-child {
@@ -191,36 +192,51 @@ input:focus {
   border-top: 4px solid #fff;
 }
 
-/*.recover-entry {
-  float: right;
-  background-color: white;
-}
-*/
 
-.entry-btn {
-  height: 100%;
-  display: inline-block;
-  width: 85px;
-}
-.manage-entry {
-  border-left: 1px solid black;
-  font-size: large;
-  float: left;
+.entry-right-btn button{
+  /*border-left: 1px solid black;*/
+/*  font-size: large;
+  float: left;*/
   border-radius: 0px;
   visibility: hidden;
-  height: 100%;
+/*  height: 100%;
   width: 40px;
   padding: 0;
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 10px;*/
+  width: 40px;
+  height: 40px;
   -webkit-transition: all 0s;
   -moz-transition: all 0s;
   transition: all 0s;
 }
-.highlight .manage-entry {
+
+.entry-left-btn button{
+  float: left;
+  font-size: 20px;
+  line-height: 10px;
+  margin-left: -40px;
+  width: 35px;
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  transition: all 0s;
+}
+
+.entry-left-btn button:hover {
+  background: none;
+  color: black;
+}
+
+.star-entry {
+  /*visibility: hidden;*/
+}
+
+/*.unstarBtn {
+  visibility: visible !important;
+}*/
+
+.highlight button {
   visibility: visible;
 }
-.unstarBtn {
-  visibility: visible !important;
-}
+
 
