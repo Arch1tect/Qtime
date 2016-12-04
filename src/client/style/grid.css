@@ -205,14 +205,12 @@ input:focus {
 }
 
 .entry-left-btn button{
-  float: left;
-  font-size: 20px;
-  line-height: 10px;
-  margin-left: -40px;
-  width: 35px;
-  -webkit-transition: all 0s;
-  -moz-transition: all 0s;
-  transition: all 0s;
+    float: left;
+    font-size: 20px;
+    line-height: 15px;
+    -webkit-transition: all 0s;
+    -moz-transition: all 0s;
+    transition: all 0s;
 }
 
 .entry-left-btn button:hover {
