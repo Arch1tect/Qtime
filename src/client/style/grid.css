@@ -194,18 +194,11 @@ input:focus {
 
 
 .entry-right-btn button{
-  /*border-left: 1px solid black;*/
-/*  font-size: large;
-  float: left;*/
   border-radius: 0px;
   visibility: hidden;
-/*  height: 100%;
   width: 40px;
-  padding: 0;
-  padding-left: 10px;
-  padding-right: 10px;*/
-  width: 40px;
-  height: 40px;
+    height: 100%;
+    padding: 0px;
   -webkit-transition: all 0s;
   -moz-transition: all 0s;
   transition: all 0s;
