@@ -220,11 +220,12 @@ input:focus {
 
 .star-entry {
   /*visibility: hidden;*/
+  color:lightgray;
 }
 
-/*.unstarBtn {
-  visibility: visible !important;
-}*/
+.unstarBtn {
+  color:black;
+}
 
 .highlight button {
   visibility: visible;
