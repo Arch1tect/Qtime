@@ -207,7 +207,10 @@ input:focus {
 .entry-left-btn button{
     float: left;
     font-size: 20px;
+    margin-left: 0px;
+    padding-left: 0px;
     line-height: 15px;
+    margin-right: 10px;
     -webkit-transition: all 0s;
     -moz-transition: all 0s;
     transition: all 0s;
