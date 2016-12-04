@@ -88,7 +88,7 @@
           </div>
 
         <!-- ===== checkbox for only showing starred entries ==== -->
-        <center id='showStarredCheckbox' v-if="canEdit">
+        <center v-cloak id='showStarredCheckbox' v-if="canEdit">
           <input  type="checkbox" id="toggleStarCheckbox" v-model="onlyShowStarredChecked">
           <label for="toggleStarCheckbox">{{ onlyShowStarredTitle }}</label>
         </center>
