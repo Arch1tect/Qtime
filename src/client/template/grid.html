@@ -26,11 +26,20 @@
 
         </td>
 
+        <div class='entry-btn'>
+          <button v-bind:title="recoverEntryBtnTitle" v-if="$root.showDeleted" @click="$root.$emit('recover entry', entry)" class="recover-entry manage-entry">&#8634;</button>
 
-        <button v-bind:title="recoverEntryBtnTitle" v-if="$root.showDeleted" @click="$root.$emit('recover entry', entry)" class="recover-entry manage-entry">+</button>
 
-        <button v-bind:title="removeEntryBtnTitle" v-if="$root.canEdit" @click="$root.$emit('remove entry', entry)" class="manage-entry">x</button>          
-        <button v-bind:title="addEntryBtnTitle" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="manage-entry">+</button>
+          <button v-bind:title="starEntryBtnTitle" v-if="$root.canStar && !entry.star" @click="$root.$emit('star entry', entry)" v-bind:class="{unstarBtn : entry.star}" class="manage-entry">&#9734;</button>
+
+          <button v-bind:title="unstarEntryBtnTitle" v-if="$root.canStar && entry.star" @click="$root.$emit('unstar entry', entry)" v-bind:class="{unstarBtn : entry.star}" class="manage-entry unstarBtn" >&#9733;</button>
+
+
+          <button v-bind:title="removeEntryBtnTitle" v-if="$root.canEdit" @click="$root.$emit('remove entry', entry)" class="manage-entry">x</button>
+
+          <button v-bind:title="addEntryBtnTitle" v-if="$root.canAddToMyList" @click="$root.addEntry(entry, false)" class="manage-entry">+</button>
+
+        </div>
       </tr>
     </tbody>
   </table>

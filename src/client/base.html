@@ -78,12 +78,20 @@
         <!-- ================== search ================= -->
           <input id="search" name="query" v-bind:placeholder="searchTitle" v-model="searchQuery">
         
+
+
         <!-- =============== set time range ============ -->
 
           <div v-cloak id="durationSlider-description">{{setTimeRangeTitle}}</div>
           <div id="durationSliderWrapper">
             <div id="durationSlider"></div>
           </div>
+
+        <!-- ===== checkbox for only showing starred entries ==== -->
+        <center id='showStarredCheckbox' v-if="canEdit">
+          <input  type="checkbox" id="toggleStarCheckbox" v-model="onlyShowStarredChecked">
+          <label for="toggleStarCheckbox">{{ onlyShowStarredTitle }}</label>
+        </center>
 
         <!-- =============== select category ============ -->
           <center>
@@ -96,6 +104,8 @@
               </select>
             </div>
           </center>
+
+
 
         <!-- ========= show/hide deleted entries ======== -->
           <button v-cloak class="show-deleted" v-if="canEdit && showDeleted" @click="showDeleted=false">{{hideDeletedTitle}}</button>          
@@ -123,7 +133,9 @@
             :selected-category="selectedCategory"
             :duration-min="durationMin"
             :duration-max="durationMax"
-            :show-deleted="showDeleted">
+            :show-deleted="showDeleted"
+            :only-show-starred="onlyShowStarred"
+            :force-refresh = "forceGridRefresh">
           </qtime-grid>
         </div>
       </div>

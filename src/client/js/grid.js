@@ -8,7 +8,9 @@ Vue.component('qtime-grid', {
 		selectedCategory: Array,
 		durationMin: Number,
 		durationMax: Number,
-		showDeleted: Boolean
+		showDeleted: Boolean,
+		onlyShowStarred: Boolean,
+		forceRefresh: Number
 
 	},
 	data: function () {
@@ -23,21 +25,33 @@ Vue.component('qtime-grid', {
 	},
 	computed: {
 		addEntryBtnTitle: function () {
-			var msg = "add this entry to my list";
+			var msg = "add to my list";
 			if (Cookies.get('lang')==='cn') 
-			msg = '将该条目加入我的清单';
+				msg = '加入我的清单';
+			return msg;
+		},
+		unstarEntryBtnTitle: function () {
+			var msg = "unstar it";
+			if (Cookies.get('lang')==='cn') 
+				msg = '去星';
+			return msg;
+		},
+		starEntryBtnTitle: function () {
+			var msg = "star it";
+			if (Cookies.get('lang')==='cn') 
+				msg = '加星';
 			return msg;
 		},
 		recoverEntryBtnTitle: function () {
 			var msg = "recover this entry";
 			if (Cookies.get('lang')==='cn') 
-			msg = '恢复该条目';
+				msg = '恢复该条目';
 			return msg;
 		},
 		removeEntryBtnTitle: function () {
 			var msg = "remove this entry";
 			if (Cookies.get('lang')==='cn') 
-			msg = '删除该条目';
+				msg = '删除该条目';
 			return msg;
 		},
 		filteredData: function () {
@@ -48,7 +62,7 @@ Vue.component('qtime-grid', {
 			var durationMin = this.durationMin;
 			var durationMax = this.durationMax;
 			var selectedCategory = this.selectedCategory;
-
+			var refreshHelper = this.forceRefresh;
 
 			this.$nextTick(function () {
 
@@ -56,6 +70,14 @@ Vue.component('qtime-grid', {
 
 			});
 
+			// only show starred
+			if (this.onlyShowStarred) {
+				data = data.filter(function (entry) {
+					return entry.star ;
+				});
+			} 
+
+			// only show deleted
 			if (this.showDeleted) {
 				data = data.filter(function (entry) {
 					return entry.deleted ;

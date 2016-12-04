@@ -133,23 +133,6 @@ input:focus {
 #addEntryBtn:hover {
   border: none;
 }
-button.manage-entry {
-
-  font-size: large;
-  border-radius: 0px;
-  visibility: hidden;
-  height: 100%;
-  width: 40px;
-  padding: 0;
-  padding-left: 10px;
-  padding-right: 10px;
-  -webkit-transition: all 0s;
-  -moz-transition: all 0s;
-  transition: all 0s;
-}
-.highlight button.manage-entry {
-  visibility: visible;
-}
 
 .contentTooltip{
     position: absolute;
@@ -208,8 +191,36 @@ button.manage-entry {
   border-top: 4px solid #fff;
 }
 
-.recover-entry {
+/*.recover-entry {
   float: right;
   background-color: white;
+}
+*/
+
+.entry-btn {
+  height: 100%;
+  display: inline-block;
+  width: 85px;
+}
+.manage-entry {
+  border-left: 1px solid black;
+  font-size: large;
+  float: left;
+  border-radius: 0px;
+  visibility: hidden;
+  height: 100%;
+  width: 40px;
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  -webkit-transition: all 0s;
+  -moz-transition: all 0s;
+  transition: all 0s;
+}
+.highlight .manage-entry {
+  visibility: visible;
+}
+.unstarBtn {
+  visibility: visible !important;
 }
 

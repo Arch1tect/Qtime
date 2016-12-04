@@ -380,13 +380,39 @@ def recover_entry(id):
 		for entry in entry_array:
 			if str(entry['id']) == id:
 				entry['deleted'] = False
-				print entry
 				break
 		data_file.seek(0)
 		json.dump(entry_array, data_file, indent=4)
 		data_file.truncate()
 
 	return {"success":True}
+
+def toggle_entry_star(add_star):
+	username = request.get_cookie('username')
+	with open(DB_PATH+username+'.txt', "r+") as data_file:
+		entry_array = json.load(data_file)
+		for entry in entry_array:
+			if str(entry['id']) == id:
+				entry['star'] = add_star
+
+				break
+		data_file.seek(0)
+		json.dump(entry_array, data_file, indent=4)
+		data_file.truncate()
+
+	return {"success":True}
+
+@app.put('/api/star-entry/<id>')
+@validate_request
+def star_entry(id):
+	return toggle_entry_star(True)
+
+
+@app.put('/api/unstar-entry/<id>')
+@validate_request
+def star_entry(id):
+	return toggle_entry_star(False)
+
 
 if __name__ == '__main__':
 

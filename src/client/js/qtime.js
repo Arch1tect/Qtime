@@ -31,10 +31,12 @@ var qtime = new Vue({
 		searchQuery: '',
 		gridColumns: ['name', 'duration', 'category', 'link', 'note'],
 		gridData: [],
+		forceGridRefresh: 1,
 
 		durationMin: 0,
 		durationMax: 0,
 
+		onlyShowStarredChecked: false,
 
 		options: JSON.parse(JSON.stringify(INIT_OPT_LIST)),
 		selectedCategory: []
@@ -77,6 +79,14 @@ var qtime = new Vue({
 
 		canAddToMyList: function() {
 			return this.login && this.selectedTable!=="My stuff";
+		},
+
+		canStar: function() {
+			return this.canEdit && !this.showDeleted;
+		},
+
+		onlyShowStarred: function() {
+			return this.onlyShowStarredChecked && this.canEdit;
 		},
 
 		headerIntroduction: function() {
@@ -142,6 +152,11 @@ var qtime = new Vue({
 			if (Cookies.get('lang')==='cn') 
 				return "隐藏已删除条目";
 			return "Hide Deleted";			
+		},
+		onlyShowStarredTitle: function() {
+			if (Cookies.get('lang')==='cn') 
+				return "只显示加星条目";
+			return "Only Show Starred";
 		},
 		deletedTableHeaderTitle: function() {
 			if (Cookies.get('lang')==='cn') 
@@ -236,6 +251,9 @@ var qtime = new Vue({
 		loadUserData: function (rawJSONData) {
 			this.userData = rawJSONData['array'].reverse();
 			this.loadData(this.userData);
+		},
+		rerenderGrid: function () {
+			this.forceGridRefresh++;
 		},
 		populateOption: function(jsonData) {
 			// populate the grid and also category options
@@ -388,6 +406,53 @@ qtime.$on('recover entry', function (entry) {
 		}
 	);
 
+});
+
+qtime.$on('star entry', function (entry) {
+
+	console.log('adding star');
+	var m = 'Adding star...';
+	if (Cookies.get('lang')==='cn') 
+		m = '正在加星...';
+	qRequest(m, 'PUT', 'api/star-entry/'+entry.id, null, 
+		function (data) { //success
+			var msg = '"'+entry['name']+'" ';
+			if (Cookies.get('lang')==='cn') 
+				msg += '加星成功';
+			else
+				msg += 'is starred';
+
+			showAjaxMsg(msg);
+
+			entry['star'] = true;
+			qtime.rerenderGrid(); //had to force rerender
+
+		}
+	);
+
+});
+
+qtime.$on('unstar entry', function (entry) {
+
+	console.log('removing star');
+	var m = 'Removing star...';
+	if (Cookies.get('lang')==='cn') 
+		m = '正在去星...';
+	qRequest(m, 'PUT', 'api/unstar-entry/'+entry.id, null, 
+		function (data) { //success
+			var msg = '"'+entry['name']+'" ';
+			if (Cookies.get('lang')==='cn') 
+				msg += '去星成功';
+			else
+				msg += 'is unstarred';
+
+			showAjaxMsg(msg);
+
+			entry['star'] = false;
+			qtime.rerenderGrid(); //had to force rerender
+
+		}
+	);
 
 });
 

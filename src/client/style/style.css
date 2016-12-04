@@ -156,8 +156,13 @@ button.logout  {
 button.show-deleted {
     width: 100%;
     border: 1px solid;
-    margin-top: 50px;
+    margin-top: 70px;
 }
+#showStarredCheckbox {
+  margin-top: 50px;
+  font-size: 16px;
+}
+
 #rightWrapper {
   float: right;
   max-width: 720px;
