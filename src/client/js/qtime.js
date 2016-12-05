@@ -1,4 +1,4 @@
-var INIT_OPT_LIST = [{'text': 'all categories', 'value':''}];
+var INIT_OPT_LIST = [{'text': 'all', 'value':''}];
 
 
 // bootstrap the qtime
@@ -258,6 +258,7 @@ var qtime = new Vue({
 		populateOption: function(jsonData) {
 			// populate the grid and also category options
 			var optionsSet = {};
+			qtime.selectedCategory=[];
 			qtime.options = JSON.parse(JSON.stringify(INIT_OPT_LIST));
 			// load categories into options
 			for (var i=0; i<jsonData.length; i++) {
