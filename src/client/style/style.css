@@ -109,6 +109,10 @@ button.logout  {
   margin: 20px;
   cursor: pointer;
 }
+.qtime-q {
+    font-family: Copperpl;
+    font-size: 35px !important;
+}
 #durationSliderWrapper {
   width: 165px;
   padding: 15px;
