@@ -197,8 +197,9 @@ input:focus {
   border-radius: 0px;
   visibility: hidden;
   width: 40px;
-    height: 100%;
-    padding: 0px;
+  height: 100%;
+  min-height: 50px;
+  padding: 0px;
   -webkit-transition: all 0s;
   -moz-transition: all 0s;
   transition: all 0s;
