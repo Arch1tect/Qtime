@@ -226,14 +226,26 @@ var qtime = new Vue({
 				return "show trending stuff";
 			}
 		},
-		getPublicData: function () {
+		getPublicDataOld: function () {
 			// Go fetch the public trending data
-			var msg = 'Getting trending data...';
+			var msg = 'Getting trending urls...';
 			if (Cookies.get('lang')==='cn')
 				msg = '载入流行榜单...';
 
 			qRequest(msg, 'GET', 'api/public', null, this.loadPublicData);
 
+		},
+		getPublicData: function () {
+			// Go fetch the public trending data
+			var msg = 'Getting popular urls...';
+			if (Cookies.get('lang')==='cn')
+				msg = '载入热门链接...';
+
+			qRequest(msg, 'GET', 'api/trending_urls', null, this.loadTrendingURLs);
+
+		},
+		loadTrendingURLs: function (data) {
+			console.log(data);
 		},
 		getUserData: function () {
 			// Go fetch user's personal data
