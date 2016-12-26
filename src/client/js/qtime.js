@@ -226,7 +226,7 @@ var qtime = new Vue({
 				return "show trending stuff";
 			}
 		},
-		getPublicDataOld: function () {
+		getPublicDataFromFile: function () {
 			// Go fetch the public trending data
 			var msg = 'Getting trending urls...';
 			if (Cookies.get('lang')==='cn')
@@ -244,8 +244,13 @@ var qtime = new Vue({
 			qRequest(msg, 'GET', 'api/trending_urls', null, this.loadTrendingURLs);
 
 		},
-		loadTrendingURLs: function (data) {
-			console.log(data);
+		loadTrendingURLs: function (rawJSONData) {
+			this.publicData = rawJSONData['array'];
+			this.loadData(this.publicData);
+		},
+		loadPublicData: function (rawJSONData) {
+			this.publicData = rawJSONData['array'].reverse();
+			this.loadData(this.publicData);
 		},
 		getUserData: function () {
 			// Go fetch user's personal data
@@ -255,10 +260,6 @@ var qtime = new Vue({
 
 			qRequest(msg, 'GET', 'api/data', null, this.loadUserData);
 
-		},
-		loadPublicData: function (rawJSONData) {
-			this.publicData = rawJSONData['array'].reverse();
-			this.loadData(this.publicData);
 		},
 		loadUserData: function (rawJSONData) {
 			this.userData = rawJSONData['array'].reverse();

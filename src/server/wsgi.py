@@ -20,7 +20,7 @@ if 'QTIME_LANG' in os.environ and os.environ['QTIME_LANG'] == 'cn':
 	LANG = 'cn'
 
 public_qtime_data = {}
-popular_urls = []
+popular_pages = []
 # exceptions during request validation or login
 class EmptyUsernameException(HTTPResponse):
 	def __init__(self, lang):
@@ -262,19 +262,23 @@ def get_status():
 	return {'username': username, 'lang': lang}
 
 
-@app.get('/api/stats')
+@app.post('/api/stats')
 def url_visit_stats():
 	'''
 	This is for chrome extension to report which web page is 
 	being visited
 	'''
-	referrer = request.headers.get('Referer')
-	if referrer in popular_urls:
-		popular_urls.remove(referrer)
-	popular_urls.insert(0, referrer)
+	# referrer = request.headers.get('Referer')
+	referrer = request.forms.get("url")
+	title = request.forms.get("title")
 
-	if len(popular_urls) > 10:
-		popular_urls.pop()
+	popular_pages[:] = [d for d in popular_pages if d.get('link') != referrer]
+
+	new_page = {'link':referrer, 'name':title} 
+	popular_pages.insert(0, new_page)
+
+	if len(popular_pages) > 10:
+		popular_pages.pop()
 
 	print 'referer ', referrer
 	# if popular_urls.qsize() < 10:
@@ -284,7 +288,7 @@ def url_visit_stats():
 
 @app.get('/api/trending_urls')
 def get_trending_urls():
-	return {'urls': popular_urls}
+	return {'array': popular_pages}
 
 @app.get('/api/public')
 def get_public_data():
