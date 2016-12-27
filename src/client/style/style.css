@@ -136,15 +136,52 @@ button.logout  {
 }
 #qtime-tip {
     font-size: large;
+    margin:auto;
     margin-bottom: 50px;
-    height: 345px;
+    min-height: 350px;
+    max-width: 900px;
     line-height: 25px;
     border: 1px solid whitesmoke;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     box-shadow: 0 5px 15px;
     background: #fff;
-    padding: 35px;
+    padding: 25px;
 }
+
+.header-introduction {
+  text-align: justify;
+}
+
+.header-img {
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 20px
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+
+  .header-img {
+    width: 100%;
+  }
+
+}
+
+@media 
+only screen
+and (max-width : 722px) {
+
+  .header-img {
+    width: 100%;
+  }
+
+}
+
+#qtime-trending a {
+  text-decoration: none;
+}
+
 #search {
   display: inline;
   border: 1px solid;
@@ -194,14 +231,6 @@ button.show-deleted {
     border: 1px solid;
 }
 
-.header-introduction {
-  text-align: justify;
-}
-
-.header-img {
-  float: right;
-  margin-left: 30px;
-}
 input:focus,
 select:focus,
 td:focus,

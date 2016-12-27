@@ -44,6 +44,23 @@
         </div>
       </div>
       <div id="blank-space"></div>
+
+      <div v-cloak v-if="showTip && !login" id="qtime-tip">
+        <img class='header-img' src="qtime-header.png"/>
+        <div v-cloak class='header-introduction'>
+          {{headerIntroduction}}<br/><br/>
+          {{headerIntroChromeExtension}} - 
+          <a href='#' @click='chrome.webstore.install()'>{{chromeExtension}}</a>
+          <br/><br/>{{headerIntroRegistration}} - 
+          <a href="#" style="" @click="loginPopup = 'Log in'">{{headerIntroLogin}}</a>
+        </div>
+      </div>
+
+      <center v-if="!canEdit" id="qtime-trending">
+        <p v-for="
+        entry in gridData"> <a target="_blank" :href="entry['link']">{{entry['name']}}</a></p>
+      </center>
+
       <div id="qtime">
 
         <login
@@ -60,20 +77,8 @@
 
 
         <div id="ajaxMsg"></div>
-        <div v-cloak v-if="showTip && !login" id="qtime-tip">
-          <img class='header-img' src="qtime-header.png"/>
-          <div v-cloak class='header-introduction'>
-            {{headerIntroduction}}<br/><br/>
-            {{headerIntroChromeExtension}} - 
-            <a href='#' @click='chrome.webstore.install()'>{{chromeExtension}}</a>
-            <br/><br/>{{headerIntroRegistration}} - 
-            <a href="#" style="" @click="loginPopup = 'Log in'">{{headerIntroLogin}}</a>
 
-          </div>
-
-
-        </div>
-        <div id="leftWrapper">
+        <div v-show="canEdit" id="leftWrapper">
 
         <!-- ================== search ================= -->
           <input id="search" name="query" v-bind:placeholder="searchTitle" v-model="searchQuery">
@@ -113,7 +118,7 @@
 
 
         </div>
-        <div id="rightWrapper">
+        <div v-show="canEdit" id="rightWrapper">
 
         <!-- =============== add entry bar ============ -->
           <div v-cloak v-if="canEdit && !showDeleted" id="addEntryWrapper">
