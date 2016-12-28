@@ -277,7 +277,7 @@ def url_visit_stats():
 	new_page = {'link':referrer, 'name':title} 
 	popular_pages.insert(0, new_page)
 
-	if len(popular_pages) > 20:
+	if len(popular_pages) > 15:
 		popular_pages.pop()
 
 	print 'referer ', referrer
