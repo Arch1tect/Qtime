@@ -58,7 +58,7 @@
 
       <center v-if="!canEdit" id="qtime-trending">
         <p v-for="
-        entry in gridData"> <a target="_blank" :href="entry['link']">{{entry['name']}}</a></p>
+        entry in gridData"> <a v-cloak  target="_blank" :href="entry['link']">{{entry['name']}}</a></p>
       </center>
 
       <div id="qtime">
