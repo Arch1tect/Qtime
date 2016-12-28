@@ -165,7 +165,9 @@ and (max-device-width : 480px) {
   .header-img {
     width: 100%;
   }
-
+  #qtime-trending a {
+    font-size: 2rem;
+  }
 }
 
 @media 
