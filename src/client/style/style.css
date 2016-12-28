@@ -180,6 +180,7 @@ and (max-width : 722px) {
 
 #qtime-trending a {
   text-decoration: none;
+  font-size: large;
 }
 
 #search {
