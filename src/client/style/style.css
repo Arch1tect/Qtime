@@ -158,17 +158,6 @@ button.logout  {
   margin-bottom: 20px
 }
 
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 320px) 
-and (max-device-width : 480px) {
-
-  .header-img {
-    width: 100%;
-  }
-  #qtime-trending a {
-    font-size: 2rem;
-  }
-}
 
 @media 
 only screen
@@ -183,6 +172,17 @@ and (max-width : 722px) {
 #qtime-trending a {
   text-decoration: none;
   font-size: large;
+}
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+
+  .header-img {
+    width: 100%;
+  }
+  #qtime-trending a {
+    font-size: 2rem;
+  }
 }
 
 #search {
