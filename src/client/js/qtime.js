@@ -106,7 +106,7 @@ var qtime = new Vue({
 		},
 		headerIntroRegistration: function() {
 			if (Cookies.get('lang')==='cn') 
-				return "现在，您可以浏览下方最近流行的条目，如果要管理您自己的条目，请先";
+				return "现在，您可以浏览下方的热门链接，如果要管理您自己的条目，请先";
 			return "Now, you can check out trending items below, if you want to manage your own stuff, please ";
 		},
 		headerIntroLogin: function() {
@@ -211,7 +211,7 @@ var qtime = new Vue({
 				if (option==="My stuff")
 					return '我的清单';
 				else
-					return '流行榜单';
+					return '热门链接';
 			}
 			return option;
 		},
@@ -222,7 +222,7 @@ var qtime = new Vue({
 				return "show my stuff";
 			} else{
 				if (Cookies.get('lang')==='cn') 
-					return "显示流行榜单";
+					return "显示热门链接";
 				return "show trending stuff";
 			}
 		},
